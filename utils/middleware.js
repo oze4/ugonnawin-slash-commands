@@ -7,19 +7,28 @@ const qs     = require('querystring');
 const middleware = {
     route: {
         status: {
-            fourzerofour(req, res, next) {
+            fourzerofour (req, res, next) {
                 res.status(404).send("Hmmm.. can't find that..")
             },
         }
     },
 
     request: {
-        verifySlackRequest(req, res, next) {
+        verifySlackRequest (req, res, next) {
             if (_validateSlackRequest(config.slack.signingSecret, config.slack.versionNumber, req, res)) {
                 next()
             } else {
                 res.status(400).send("Slack signature does not match hash!");
             }
+        },
+    },
+
+    logger: {
+        headers (req, res, next) {
+            console.log("*********************** req.headers ******************************");
+            console.log(req.headers);
+            console.log("********************* end req.headers ****************************\r\n\r\n");
+            next();
         }
     }
 }

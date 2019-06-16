@@ -4,6 +4,7 @@
  * 
  * HTTP methods have been separted into their own files for organizational purposes
  */
+'use strict'
 const express  = require('express');
 const router   = express.Router();
 

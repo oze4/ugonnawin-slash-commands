@@ -11,7 +11,10 @@ const router  = express.Router();
 
 
 router.get('/sanity', (req, res) => {
-    res.send('Sanity Check');
+    res.status(404).send("Hmm.. can't find that..");
+    // UNCOMMENT IF YOU WANT TO ACTUALLY CHECK IF ROUTES ARE WORKING
+    // * this was used to verify routes were up *
+    // res.send('Sanity Check');
 })
 
 
