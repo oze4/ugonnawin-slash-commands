@@ -5,8 +5,8 @@
       - "traefik"
     restart: "always"
     labels:
-      - "traefik.port=80"
-      - "traefik.frontend.rule=Host:ugonnawin.ostrike.com"
+      - "traefik.port=redacted"
+      - "traefik.frontend.rule=Host:ugonnawin.redacted.com"
     environment:
       - PORT=redacted                                                                 
       - APP_ID=redacted
