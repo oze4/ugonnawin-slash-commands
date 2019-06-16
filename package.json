@@ -1,0 +1,28 @@
+{
+  "name": "ugonnawin-slash-commands",
+  "version": "1.0.0",
+  "description": "Custom Slack Slash Commands",
+  "main": "./server/server.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "echo 'tests completed successfully'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oze4/ugonnawin-slash-commands.git"
+  },
+  "keywords": [
+    "slack"
+  ],
+  "author": "Nick Kranz Matt Oestreich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oze4/ugonnawin-slash-commands/issues"
+  },
+  "homepage": "https://github.com/oze4/ugonnawin-slash-commands#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "nodemon": "^1.19.1"
+  }
+}
