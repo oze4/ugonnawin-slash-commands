@@ -32,6 +32,7 @@ const middleware = {
                 if (lessThanFiveMinutes(timeStamp)) {
                     let bodyString = qs.stringify(req.body, { format: 'RFC1738' });  // If RFC1738 is not used it will fail
                     let reqSignature = `${config.slack.versionNumber}:${timeStamp}:${bodyString}`;
+                    console.log(config.slack.signingSecret)
                     let sig = `${config.slack.versionNumber}=${crypto.createHmac('sha256', config.slack.signingSecret).update(reqSignature, 'utf8').digest('hex')}`
                     if (crypto.timingSafeEqual(Buffer.from(sig, 'utf8'), Buffer.from(slackSignature, 'utf8'))) {
                         next();
