@@ -25,7 +25,7 @@ const middleware = {
         verifySlackRequest(req, res, next) {
             let slackSignature = req.headers['x-slack-signature'];
             if (!slackSignature) {
-                return res.status(400).send();
+                return res.status(200).send('no slack signature');
             } else {
                 let timeStamp = req.headers['x-slack-request-timestamp'];
                 if (lessThanFiveMinutes(timeStamp)) {
@@ -35,12 +35,12 @@ const middleware = {
                     if (crypto.timingSafeEqual(Buffer.from(sig, 'utf8'), Buffer.from(slackSignature, 'utf8'))) {
                         next();
                     } else {
-                        return res.status(400).send('Verification failed');
+                        return res.status(200).send('Verification failed');
                     }
                 } else {
                     // If the request is older than 5 minutes, it is possible it may be a replay attack
                     // so we drop it.
-                    return res.status(400).send();
+                    return res.status(200).send('older than five min');
                 }
             }
         }
