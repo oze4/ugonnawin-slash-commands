@@ -5,6 +5,7 @@ const qs     = require('querystring');
 
 
 function lessThanFiveMinutes(reqTimestamp) {
+    console.log(typeof(reqTimestamp))
     let now = new Date(),
         then = new Date(reqTimestamp),
         FIVE_MIN = 5 * 60 * 1000;
