@@ -8,7 +8,7 @@ function lessThanFiveMinutes(reqTimestamp) {
     let now = new Date(),
         then = new Date(reqTimestamp),
         FIVE_MIN = 5 * 60 * 1000;
-    return (now - then) < FIVE_MIN ? true : false;
+    return (then - now) < FIVE_MIN ? true : false;
 }
 
 
@@ -23,10 +23,9 @@ const middleware = {
 
     request: {
         verifySlackRequest(req, res, next) {
-            console.log(req.headers);
             let slackSignature = req.headers['x-slack-signature'];
             if (!slackSignature) {
-                return res.status(200).send('no slack signature');
+                return res.status(400).send();
             } else {
                 let timeStamp = req.headers['x-slack-request-timestamp'];
                 if (lessThanFiveMinutes(timeStamp)) {
@@ -36,12 +35,12 @@ const middleware = {
                     if (crypto.timingSafeEqual(Buffer.from(sig, 'utf8'), Buffer.from(slackSignature, 'utf8'))) {
                         next();
                     } else {
-                        return res.status(200).send('Verification failed');
+                        return res.status(400).send('Verification failed');
                     }
                 } else {
                     // If the request is older than 5 minutes, it is possible it may be a replay attack
                     // so we drop it.
-                    return res.status(200).send('older than five min');
+                    return res.status(400).send();
                 }
             }
         }
