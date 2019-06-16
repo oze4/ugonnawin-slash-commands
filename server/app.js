@@ -9,6 +9,10 @@ const LinkController = require('../controllers/link');
 
 
 
+// set up body parsing and url parsing tools
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // Set the port for our application
 app.set('port', config.app.port);
 
