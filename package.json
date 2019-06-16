@@ -5,6 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "nodemon",
+    "start:docker": "node ./server/server.js",
     "test": "echo 'tests completed successfully'"
   },
   "repository": {
