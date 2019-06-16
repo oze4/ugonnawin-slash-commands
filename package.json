@@ -4,8 +4,8 @@
   "description": "Custom Slack Slash Commands",
   "main": "./server/server.js",
   "scripts": {
-    "start": "nodemon",
-    "start:docker": "node ./server/server.js",
+    "start:nodemon": "nodemon",
+    "start": "node ./server/server.js",
     "test": "echo 'tests completed successfully'"
   },
   "repository": {
