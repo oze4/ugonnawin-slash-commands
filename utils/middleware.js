@@ -5,10 +5,10 @@ const qs     = require('querystring');
 
 
 function lessThanFiveMinutes(reqTimestamp) {
-    console.log(typeof(reqTimestamp))
     let now = new Date(),
-        then = new Date(reqTimestamp),
+        then = new Date(Number(reqTimestamp)),
         FIVE_MIN = 5 * 60 * 1000;
+    console.log(typeof(then))
     return (then - now) < FIVE_MIN ? true : false;
 }
 
