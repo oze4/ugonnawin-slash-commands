@@ -4,6 +4,6 @@
 
 ## Commands:
 
- - #/link
+ - # /link [url]
    - Creates neat hyperlinks instead of the bulky 'preview links' that Slack creates by default..
    - /link google.com
