@@ -1,5 +1,7 @@
 /**
- * Routes for POST /links/__
+ * 
+ * Routes for POST /link/__
+ * 
  */
 
 const express = require('express');
@@ -10,7 +12,6 @@ router.post('/new', (req, res) => {
     console.log(req);
     res.status(200).send('10-4');
 });
-
 
 
 module.exports = router;

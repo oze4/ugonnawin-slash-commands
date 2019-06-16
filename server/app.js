@@ -1,11 +1,11 @@
-const express         = require('express');
-const app             = express();
-const config          = require('../config/config.js');
-const helmet          = require('helmet');
-const middleware      = require('../utils/middleware.js');
+const express        = require('express');
+const app            = express();
+const config         = require('../utils/config.js');
+const helmet         = require('helmet');
+const middleware     = require('../utils/middleware.js');
 
 // Set up controllers for routes
-const LinksController = require('../controllers/links');
+const LinkController = require('../controllers/links');
 
 
 
@@ -16,7 +16,7 @@ app.set('port', config.app.port);
 app.use(helmet());
 
 // Set up routes for our app
-app.use('/link', LinksController);
+app.use('/link', LinkController);
 
 
 

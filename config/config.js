@@ -1,3 +1,11 @@
+/**
+ * This file is not in '.gitignore' because the repo is private..
+ * We do not copy this folder into the Docker container - you have to supply environmental variables on the contianer.
+ * We supply those environmental varibles in the Jenkins pipeline/build.
+ * 
+ * The "main" import file is in %project_root_dir%/utils/config.js..
+ */
+
 const config = {
     app: {
         port: 80,
