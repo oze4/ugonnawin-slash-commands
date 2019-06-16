@@ -1,18 +1,13 @@
+'use strict'
+
 let config;
-
-
 try {
-    
     config = require('../config/config.js')
-    
 } catch {
-    
     config = {
-
         app: {
             port: process.env.PORT,
         },
-
         slack: {
             versionNumber: "v0",
             appId: process.env.APP_ID,
@@ -21,10 +16,7 @@ try {
             signingSecret: process.env.SIGNING_SECRET,
             verificationToken: process.env.VERIFICATION_TOKEN
         },
-
     }
-    
 }
-
 
 module.exports = config;

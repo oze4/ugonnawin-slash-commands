@@ -1,3 +1,5 @@
+// Express app configuration
+'use strict'
 const express        = require('express');
 const app            = express();
 const config         = require('../utils/config.js');
