@@ -23,6 +23,7 @@ const middleware = {
 
     request: {
         verifySlackRequest(req, res, next) {
+            console.log(req.headers);
             let slackSignature = req.headers['x-slack-signature'];
             if (!slackSignature) {
                 return res.status(200).send('no slack signature');
