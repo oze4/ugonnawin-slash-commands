@@ -36,7 +36,7 @@ const middleware = {
                     let hashed = crypto.createHmac('sha256', config.slack.signingSecret).update(reqSignature, 'utf8').digest('hex');
                     console.log("signingSecret: " + config.slack.signingSecret);
                     console.log("qs.stringify: " + bodyString);
-                    console.log("JSON.stringify: " + bs);
+                    console.log("JSON.stringify: " + req.body());
                     console.log("hashedSignature: " + hashed);
                     let sig = `${config.slack.versionNumber}=${hashed}`;
                     if (crypto.timingSafeEqual(Buffer.from(sig, 'utf8'), Buffer.from(slackSignature, 'utf8'))) {
