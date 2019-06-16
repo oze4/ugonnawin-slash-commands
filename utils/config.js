@@ -12,8 +12,9 @@ try {
         app: {
             port: process.env.PORT,
         },
-        
+
         slack: {
+            versionNumber: "v0",
             appId: process.env.APP_ID,
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,

@@ -11,6 +11,7 @@ const config = {
         port: 80,
     },
     slack: {
+        versionNumber: "v0",
         appId: 'AKLKGSRS9',
         clientId: '537456956134.666662909893',
         clientSecret: '56db7c3d49acd6db61320fede9b928ff',
