@@ -5,7 +5,7 @@ const helmet         = require('helmet');
 const middleware     = require('../utils/middleware.js');
 
 // Set up controllers for routes
-const LinkController = require('../controllers/links');
+const LinkController = require('../controllers/link');
 
 
 
