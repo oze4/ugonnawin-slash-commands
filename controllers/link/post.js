@@ -26,20 +26,20 @@ router.post('/new', (req, res) => {
         if (req.body.token != config.slack.verificationToken) {
             res.status(403).send("Access denied");
         } else {
-            let jsonMessage = `
+            let jsonMessage = {
                 "text": "Click button to open URL",
                 "attachments": [
                     {
-                        "fallback": "${String(req.body.text)}",
+                        "fallback": String(req.body.text),
                         "actions": [
                             {
                                 "type": "button",
-                                "url": "${req.body.text}"
+                                "url": req.body.text
                             }
                         ]
                     }
                 ]
-            `;
+            };
             var message = {
                 "text": "This is your first interactive message",
                 "attachments": [
