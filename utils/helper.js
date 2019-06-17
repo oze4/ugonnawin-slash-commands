@@ -19,7 +19,7 @@ const helper = {
                             {
                                 "text": ""+ buttonText +"",
                                 "type": "button",
-								"url": ""+ url +""
+				"url": ""+ url +""
                             }
                         ]
                     }
@@ -56,7 +56,7 @@ const helper = {
             request(postOptions, (error, res, body) => {
                 if (error){
                     // handle errors as you see fit
-                    res.status(400).send("Something went wrong! " + error);
+                    res.status(404).send("Something went wrong! " + error);
                 }
             })
         },
