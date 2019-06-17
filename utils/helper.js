@@ -19,7 +19,7 @@ const helper = {
                             {
                                 "text": ""+ buttonText +"",
                                 "type": "button",
-				"url": ""+ url +""
+                                "url": ""+ url +""
                             }
                         ]
                     }
