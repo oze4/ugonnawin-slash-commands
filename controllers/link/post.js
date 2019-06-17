@@ -43,6 +43,7 @@ router.post('/new', (req, res) => {
             let isValidUrl = req.body.text.startsWith("http://") || req.body.text.startsWith("https://");
             let url = isValidUrl ? req.body.text : `http://${req.body.text}`;
             let jsonMessage = {
+                "response_type": "in_channel",
                 "text": "Click button to open URL",
                 "attachments": [
                     {
