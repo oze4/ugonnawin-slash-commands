@@ -19,7 +19,8 @@ router.use(middleware.request.verifySlackRequest);
 router.post('/new', (req, res) => {
     const looselyDefinedUrlRegex = RegExp('[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+');
     if (looselyDefinedUrlRegex.test(req.body.text)) {
-        res.status(200).send(messageAsJson(req.body.text, req.body.channel_id))
+        let responseMessage = messageAsJson(req.body.text, req.body.channel_id)
+        res.status(200).send(JSON.parse(responseMessage));
     } else {
         res.status(200).send(middleware.request.getInvalidUrlResponse());
     }
