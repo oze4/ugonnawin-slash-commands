@@ -27,7 +27,6 @@ router.post('/new', (req, res) => {
             res.status(403).send("Access denied");
         } else {
             let jsonMessage = `
-            {
                 "text": "Click button to open URL",
                 "attachments": [
                     {
@@ -40,7 +39,6 @@ router.post('/new', (req, res) => {
                         ]
                     }
                 ]
-            }
             `;
             var message = {
                 "text": "This is your first interactive message",
