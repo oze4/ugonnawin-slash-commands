@@ -5,7 +5,6 @@
 'use strict'
 const express  = require('express');
 const router   = express.Router();
-
 // Set up HTTP method specific routes for /links/___
 const linkGET  = require('./get.js');
 const linkPOST = require('./post.js');
