@@ -17,6 +17,9 @@ router.use(middleware.request.verifySlackRequest);
 // ROUTE: /link/new
 //================================
 router.post('/new', (req, res) => {
+    // Replace 2 or more spaces with single space:
+    //     str.replace(/\s\s+/g, ' ')
+
     if (helper.validation.isLooselyDefinedUrl(req.body.text)) {
         // Since we are sending our own POST (have to because we want interactive message)
         //     we need to end the current request. This is best practices.. Notice how we
