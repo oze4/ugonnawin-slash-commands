@@ -26,6 +26,22 @@ router.post('/new', (req, res) => {
         if (req.body.token != config.slack.verificationToken) {
             res.status(403).send("Access denied");
         } else {
+            let jsonMessage = `
+            {
+                "text": "Click button to open URL",
+                "attachments": [
+                    {
+                        "fallback": "${String(req.body.text)}",
+                        "actions": [
+                            {
+                                "type": "button",
+                                "url": "${req.body.text}"
+                            }
+                        ]
+                    }
+                ]
+            }
+            `;
             var message = {
                 "text": "This is your first interactive message",
                 "attachments": [
@@ -59,7 +75,7 @@ router.post('/new', (req, res) => {
                     }
                 ]
             }
-            resHelper.slack.slash.response.sendMessageToSlackResponseURL(responseUrl, message);
+            resHelper.slack.slash.response.sendMessageToSlackResponseURL(responseUrl, jsonMessage);
         }
         /*
         res.setHeader('content-type', 'application/json');
