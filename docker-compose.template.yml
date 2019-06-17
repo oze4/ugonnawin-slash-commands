@@ -1,6 +1,12 @@
+services:
+  
+  # ...
+  # other services here....
+  # ...
+
   ugonnawin-slash-commands:
-    image: oze4/ugonnawin-slash-commands:latest
-    container_name: ugonnawin-slash-commands
+    image: redacted/ugonnawin-slash-commands:latest
+    container_name: redacted
     depends_on:
       - "traefik"
     restart: "always"
@@ -14,3 +20,4 @@
       - CLIENT_SECRET=redacted
       - SIGNING_SECRET=redacted
       - VERIFICATION_TOKEN=redacted
+      - INCOMING_WEB_HOOK_URL=redacted

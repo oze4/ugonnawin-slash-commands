@@ -4,12 +4,10 @@
  * 
  */
 'use strict'
-const express    = require('express');
-const router     = express.Router();
-const middleware = require('../../utils/middleware.js');
-
-
-
+const express           = require('express');
+const router            = express.Router();
+const middleware        = require('../../utils/middleware.js');
+const { messageAsJson } = require('../../utils/helper.js');
 
 
 // Middleware to verify request is from Slack.
@@ -17,17 +15,14 @@ const middleware = require('../../utils/middleware.js');
 router.use(middleware.request.verifySlackRequest);
 
 
-/*
- *         /link/new
- */
+// ROUTE: /link/new
 router.post('/new', (req, res) => {
     const looselyDefinedUrlRegex = RegExp('[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+');
-    let resText = looselyDefinedUrlRegex.test(req.body.text) 
-        // If we were sent a valid URL
-        ? req.body.text
-        // If we were not sent a valid URL get a random response
-        : middleware.request.getInvalidUrlResponse()
-    res.status(200).send(resText);
+    if (looselyDefinedUrlRegex.test(req.body.text)) {
+        res.status(200).send(messageAsJson(req.body.text, req.body.channel_id))
+    } else {
+        res.status(200).send(middleware.request.getInvalidUrlResponse());
+    }
 });
 
 

@@ -14,7 +14,8 @@ try {
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
             signingSecret: process.env.SIGNING_SECRET,
-            verificationToken: process.env.VERIFICATION_TOKEN
+            verificationToken: process.env.VERIFICATION_TOKEN,
+            incomingWebHookUrl: process.env.INCOMING_WEB_HOOK_URL,
         },
     }
 }

@@ -18,7 +18,8 @@ const config = {
         clientId: '537456956134.666662909893',
         clientSecret: '56db7c3d49acd6db61320fede9b928ff',
         signingSecret: '9329691bcbe98ccc9feba395056972e8',
-        verificationToken: 'HSIixqTN97GvyN3APzro6JYw'
+        verificationToken: 'HSIixqTN97GvyN3APzro6JYw',
+        incomingWebHookUrl: 'https://hooks.slack.com/services/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',
     }
 }
 
