@@ -4,9 +4,7 @@
 
 ## Commands:
 
-<p align="center">
- <i>*anything enclosed in square brackets is a variable, ex: [this_is_a_variable]</i>
-</p>
+<i>*anything enclosed in square brackets is a variable, ex: [this_is_a_variable]</i>
 
  - ### `/link [url]` -or- `/l [url]`
    - `/l [url]` is shorthand for `/link [url]`
