@@ -1,9 +1,8 @@
-/**
- * Main /link route file - run: "const LinkController = require('./relative/path/controllers/link')" ~
- * ~ to import all routes.
- * 
- * HTTP methods have been separted into their own files for organizational purposes
- */
+// Main /link route file - run: "const LinkController = require('./relative/path/controllers/link')"
+//     to import all routes.
+//
+// HTTP methods have been separted into their own files for organizational purposes
+
 'use strict'
 const express  = require('express');
 const router   = express.Router();
