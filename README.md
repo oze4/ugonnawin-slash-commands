@@ -1,6 +1,6 @@
-# ugonnawin-slash-commands
-
- - Main URL: https://ugonnawin.ostrike.com
+<h1 align="center">ugonnawin-slash-commands</h1>
+<h4 align="center">Creates neat links, as buttons, instead of the default, bulky, Slack unfurled links</h4>
+<p align="center"><sup>https://ugonnawin.ostrike.com</sup></p>
 
 ## Commands:
 
@@ -10,5 +10,5 @@
 
  - ### `/link [url]` -or- `/l [url]`
    - `/l [url]` is shorthand for `/link [url]`
-   - Creates neat links, as buttons, instead of the default, bulky, Slack unfurled links
    - Example: `/link google.com`
+   - Example: `/l google.com`
