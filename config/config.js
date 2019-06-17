@@ -1,13 +1,9 @@
-/**
- * This file is not in '.gitignore' because the repo is private..
- * 
- * We do not copy this folder into the Docker container - you have to supply environmental variables on the contianer.
- * 
- * We supply those environmental varibles in the docker-compose.yml file (on ost-sf-dckr-00).
- * 
- * The "main" import file is in %project_root_dir%/utils/config.js..
- */
+// This file is not in '.gitignore' because the repo is private.. We do not copy this folder 
+//     into the Docker container - you have to supply environmental variables on the contianer.
+//     We supply those environmental varibles in the docker-compose.yml file (on ost-sf-dckr-00).
+//     The "main" import file is in %project_root_dir%/utils/config.js..
 
+'use strict'
 const config = {
     app: {
         port: 80,
@@ -22,5 +18,6 @@ const config = {
         incomingWebHookUrl: 'https://hooks.slack.com/services/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',
     }
 }
+
 
 module.exports = config;

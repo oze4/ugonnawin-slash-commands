@@ -1,5 +1,5 @@
-// Main Express server
-// This is where the listener is..
+// Main Express server - this is where the actual listener lives.
+
 'use strict'
 const app  = require('./app.js');
 const port = app.get('port');

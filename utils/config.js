@@ -1,6 +1,11 @@
-'use strict'
+// Main config file - this reads the "filled" config file if it can.
+//     If the "filled" config is not reachable (aka in a Docker container)
+//     then we read the environmental variables (aka supplied in the Docker
+//     commands used to start the container).
 
+'use strict'
 let config;
+
 try {
     config = require('../config/config.js')
 } catch {
@@ -19,5 +24,6 @@ try {
         },
     }
 }
+
 
 module.exports = config;

@@ -1,7 +1,6 @@
 // Main /link route file - run: "const LinkController = require('./relative/path/controllers/link')"
-//     to import all routes.
-//
-// HTTP methods have been separted into their own files for organizational purposes
+//     to import all '/link' routes. HTTP methods have been separated into their own files 
+//     for organizational purposes.
 
 'use strict'
 const express  = require('express');
