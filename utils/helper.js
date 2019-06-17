@@ -9,7 +9,6 @@ const helper = {
         newUrlToButtonMessage (request) {
             let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
             let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
-            let buttonText = url.length > 50 ? `${url.substring(0, 50)}...` : url;
             let jsonMessage = {
                 "response_type": "in_channel",
                 "attachments": [
@@ -17,7 +16,7 @@ const helper = {
                         "fallback": ""+ request.body.text +"",
                         "actions": [
                             {
-                                "text": ""+ buttonText +"",
+                                "text": ""+ url +"",
                                 "type": "button",
                                 "url": ""+ url +""
                             }
