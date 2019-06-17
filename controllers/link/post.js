@@ -42,7 +42,7 @@ router.post('/new', (req, res) => {
             //TODO: turn this into a helper method
             let isValidUrl = req.body.text.startsWith("http://") || req.body.text.startsWith("https://");
             let url = isValidUrl ? req.body.text : `http://${req.body.text}`;
-            let buttonText = url.length > 15 ? `${url.substring(0, 15)}...` : url;
+            let buttonText = url.length > 35 ? `${url.substring(0, 35)}...` : url;
             let jsonMessage = {
                 "response_type": "in_channel",
                 "text": "Click button to open URL",
