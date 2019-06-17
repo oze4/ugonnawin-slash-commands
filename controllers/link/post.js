@@ -30,12 +30,12 @@ router.post('/new', (req, res) => {
                 "text": "Click button to open URL",
                 "attachments": [
                     {
-                        "fallback": "fallback",
+                        "fallback": ""+ req.body.text +"",
                         "actions": [
                             {
                                 "text": "Open URL",
                                 "type": "button",
-								"url": "https://google.com"
+								"url": ""+ req.body.text +""
                             }
                         ]
                     }
