@@ -10,5 +10,5 @@
 
  - ### `/link [url]` -or- `/l [url]`
    - `/l [url]` is shorthand for `/link [url]`
-   - Creates neat hyperlinks instead of the bulky 'preview links' that Slack creates by default..
+   - Creates neat links, as buttons, instead of the default, bulky, Slack unfurled links
    - Example: `/link google.com`
