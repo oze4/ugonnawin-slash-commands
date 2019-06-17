@@ -46,7 +46,7 @@ router.post('/new', (req, res) => {
 router.post('/interactive', (req, res) => {
     //TODO: complete this if we want interactive buttons
     //      https://api.slack.com/tutorials/intro-to-message-buttons
-    res.status(400).send("Hmm.. can't find that..");
+    res.status(404).send("Hmm.. can't find that..");
 });
 
 
