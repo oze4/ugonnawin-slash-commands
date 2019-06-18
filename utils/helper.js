@@ -66,16 +66,16 @@ const helper = {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             };
             let displayName;
-            request(getOptions, (error, res, body) => {
+            return request(getOptions, (error, res, body) => {
                 if (error) {
                     res.status(404).send("Something went wrong! " + error);
                 } else {
                     let jsonBody = JSON.parse(body);
                     displayName = jsonBody.user.profile.display_name;
                     console.log(displayName);
+                    return displayName
                 }
             });
-            return displayName;
         }
     },
 
