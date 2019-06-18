@@ -66,7 +66,7 @@ const helper = {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             };
             let displayName;
-            return request(getOptions, (error, res, body) => {
+            request(getOptions, (error, res, body) => {
                 if (error) {
                     res.status(404).send("Something went wrong! " + error);
                 } else {
