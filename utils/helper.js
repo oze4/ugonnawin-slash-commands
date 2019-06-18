@@ -71,8 +71,8 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                console.log(res.toJSON());
                 console.log(res.toJSON().body.profile)
+                console.log("\r\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r\n")
                 if (error) {
                     console.log(error);
                     res.status(404).send("Something went wrong! " + error);
