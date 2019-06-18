@@ -30,13 +30,10 @@ router.post('/new', (req, res) => {
         if (req.body.token != config.slack.verificationToken) {
             res.status(403).send("Access denied");
         } else {
-            let userDisplayName;
             helper.http.getSlackUserDisplayNameFromId(req.body.user_id, (displayName, error) => {
                 if (error) {
                     res.status(400).send("Something went wrong! " + error);
                 } else {
-                    console.log(displayName);
-                    // FOR NOW JUST USE USERNAME
                     let jsonMessage = helper.responses.newUrlToButtonMessage(req, `New link from *${displayName}*`);
                     // Send POST response with buttons (aka interactive message - but this message
                     //     is not 'interactive' as defined by Slack).
