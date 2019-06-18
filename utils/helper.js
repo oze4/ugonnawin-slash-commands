@@ -71,7 +71,7 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                console.log(res.body);
+                console.log(res.body.profile);
                 if (error) {
                     console.log(error);
                     res.status(404).send("Something went wrong! " + error);
