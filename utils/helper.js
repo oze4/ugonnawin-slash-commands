@@ -70,11 +70,12 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                let bbody = JSON.parse(body);
-                console.log(bbody.user.profile);
                 if (error) {
                     console.log(error);
                     res.status(404).send("Something went wrong! " + error);
+                } else {
+                    let bbody = JSON.parse(body);
+                    return bbody.user.profile.display_name;
                 }
             })
         }
