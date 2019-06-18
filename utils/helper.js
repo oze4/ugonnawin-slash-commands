@@ -71,9 +71,7 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                let bodyMethod = res.body();
-                console.log(bodyMethod);
-                console.log();
+                console.log(res.toJSON());
                 console.log(res.toJSON().body.profile)
                 if (error) {
                     console.log(error);
