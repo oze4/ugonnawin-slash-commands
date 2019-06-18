@@ -57,10 +57,9 @@ const helper = {
                 }
             })
         },
-        getSlackUserDisplayNameFromId (user_id, callback) {
-            let url = "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id;
+        getSlackUserDisplayNameFromId (user_id, callback) {\
             request({
-                uri: url,
+                uri: "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id,
                 method: 'GET',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }, (error, res, body) => {
