@@ -1,15 +1,14 @@
 // Express app configuration
 
 'use strict'
-const express        = require('express');
-const app            = express();
-const config         = require('../utils/config.js');
-const helmet         = require('helmet');
-const middleware     = require('../utils/middleware.js');
+const express    = require('express');
+const app        = express();
+const config     = require('../utils/config.js');
+const helmet     = require('helmet');
+const middleware = require('../utils/middleware.js');
 
 // Set up controllers for routes
 const LinkController = require('../controllers/link');
-
 
 
 // set up body parsing and url parsing tools
