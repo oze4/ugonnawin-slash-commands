@@ -70,9 +70,8 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                console.log(JSON.parse(res.toJSON().body));
-                console.log("\r\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r\n")
-                console.log(body);
+                let bbody = JSON.parse(body);
+                console.log(bbody.user.profile);
                 if (error) {
                     console.log(error);
                     res.status(404).send("Something went wrong! " + error);
