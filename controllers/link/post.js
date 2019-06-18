@@ -32,9 +32,12 @@ router.post('/new', (req, res) => {
             res.status(403).send("Access denied");
         } else {
             //TODO: NEED TO FIX THIS ////////////////////////////////////////////////////////////////
-            let userDisplayName = helper.http.getSlackUserDisplayNameFromId(req.body.user_id);
-            /////////////////////////////////////////////////////////////////////////////////////////
-            console.log(userDisplayName)
+            let userDisplayName;
+            helper.http.getSlackUserDisplayNameFromId(req.body.user_id, (displayName) => {
+                userDisplayName = displayName;
+                console.log(displayName);
+            });
+            console.log(userDisplayName);
             // FOR NOW JUST USE USERNAME
             let jsonMessage = helper.responses.newUrlToButtonMessage(req, `New link from *${userDisplayName}*`);
             // Send POST response with buttons (aka interactive message - but this message

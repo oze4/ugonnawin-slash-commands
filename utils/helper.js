@@ -58,7 +58,7 @@ const helper = {
                 }
             })
         },
-        getSlackUserDisplayNameFromId (user_id) {
+        getSlackUserDisplayNameFromId (user_id, callback) {
             let url = "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id;
             let getOptions = {
                 uri: url,
@@ -72,8 +72,8 @@ const helper = {
                 } else {
                     let jsonBody = JSON.parse(body);
                     displayName = jsonBody.user.profile.display_name;
-                    console.log(displayName);
-                    return displayName
+                    console.log(displayName); 
+                    callback(displayName);
                 }
             });
         }
