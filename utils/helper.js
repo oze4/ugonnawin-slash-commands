@@ -62,7 +62,6 @@ const helper = {
         },
         getSlackUserDisplayNameFromId (user_id) {
             let url = "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id;
-            console.log(url);
             let getOptions = {
                 uri: url,
                 method: 'GET',
@@ -71,7 +70,7 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                console.log(res.toJSON().body.profile)
+                console.log(JSON.parse(res.toJSON().body).profile);
                 console.log("\r\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r\n")
                 if (error) {
                     console.log(error);
