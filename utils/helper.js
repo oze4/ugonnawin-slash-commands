@@ -70,7 +70,7 @@ const helper = {
                 }
             };
             request(getOptions, (error, res, body) => {
-                console.log(JSON.parse(res.toJSON().body).profile);
+                console.log(JSON.parse(res.toJSON().body));
                 console.log("\r\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r\n")
                 if (error) {
                     console.log(error);
