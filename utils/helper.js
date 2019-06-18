@@ -65,14 +65,17 @@ const helper = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             };
+            let displayName;
             request(getOptions, (error, res, body) => {
                 if (error) {
                     res.status(404).send("Something went wrong! " + error);
                 } else {
                     let jsonBody = JSON.parse(body);
-                    return jsonBody.user.profile.display_name;
+                    displayName = jsonBody.user.profile.display_name;
+                    console.log(displayName);
                 }
-            })
+            });
+            return displayName;
         }
     },
 
