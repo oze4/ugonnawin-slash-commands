@@ -1,16 +1,18 @@
 // HELPER FUNCTIONS
 
 'use strict'
-const request = require('request')
+const request = require('request');
+const config  = require('./config.js');
 
 
 const helper = {
     responses: {
-        newUrlToButtonMessage (request) {
+        newUrlToButtonMessage (request, text) {
             let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
             let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
             let jsonMessage = {
                 "response_type": "in_channel",
+                "text": ""+ text +"",
                 "attachments": [
                     {
                         "fallback": ""+ request.body.text +"",
@@ -42,9 +44,9 @@ const helper = {
         },
     },
 
-    transporter: {
+    http: {
         sendMessageToSlackResponseURL (responseURL, JSONmessage) {
-            var postOptions = {
+            let postOptions = {
                 uri: responseURL,
                 method: 'POST',
                 headers: {
@@ -54,11 +56,25 @@ const helper = {
             }
             request(postOptions, (error, res, body) => {
                 if (error){
-                    // handle errors as you see fit
                     res.status(404).send("Something went wrong! " + error);
                 }
             })
         },
+        getSlackUserDisplayNameFromId (user_id) {
+            let getOptions = {
+                uri: `https://slack.com/api/users.info?token=${config.slack.oAuthAccessToken}&user=${user_id}`,
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded'
+                }
+            };
+            request(getOptions, (error, res, body) => {
+                if (error) {
+                    console.log(error);
+                    res.status(404).send("Something went wrong! " + error);
+                }
+            })
+        }
     },
 
     validation: {
