@@ -1,3 +1,12 @@
+// Logger module index
+
+'use strict'
 const consoleLogger = require('./console.logger.js');
 
-exports.consoleLogger;
+
+const logger = {
+    consoleLogger,
+}
+
+
+module.exports = logger;

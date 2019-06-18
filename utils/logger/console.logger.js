@@ -1,5 +1,8 @@
 // FOR LOGGING THINGS TO THE CONSOLE
 
+'use strict'
+
+
 const consoleLogger = {
     headersAndbody (req, res, next) {
         console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*");

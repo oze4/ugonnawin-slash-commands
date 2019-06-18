@@ -2,7 +2,14 @@
 
 'use strict'
 
-const httpGet  = require('./get.js');
-const httpPost = require('./post.js');
+const get  = require('./get.js');
+const post = require('./post.js');
 
 
+const http = {
+    get,
+    post,
+}
+
+
+module.exports = http;

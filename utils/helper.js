@@ -1,10 +1,21 @@
 // HELPER FUNCTIONS
 
 'use strict'
-const request = require('request');
-const config  = require('./config.js');
+const validation  = require('./validation');
+const slack       = require('./slack');
+const http        = require('./http');
 
 
+const helper = {
+    validation,
+    slack,
+    http,
+}
+
+
+module.exports = helper;
+
+/*
 const helper = {
     responses: {
         newUrlToButtonMessage (request, text) {
@@ -84,3 +95,4 @@ const helper = {
 
 
 module.exports = helper;
+*/

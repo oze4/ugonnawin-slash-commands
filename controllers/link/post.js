@@ -4,7 +4,7 @@
 const express     = require('express');
 const router      = express.Router();
 const middleware  = require('../../utils/middleware.js');
-const helper      = require('../../utils/helper.js');
+const helper      = require('../../utils/helper.js')
 const config      = require('../../utils/config.js');
 
 
@@ -30,20 +30,20 @@ router.post('/new', (req, res) => {
         if (req.body.token != config.slack.verificationToken) {
             res.status(403).send("Access denied");
         } else {
-            helper.http.getSlackUserDisplayNameFromId(req.body.user_id, (displayName, error) => {
+            helper.http.get.getSlackUserDisplayNameFromId(req.body.user_id, (displayName, error) => {
                 if (error) {
                     res.status(400).send("Something went wrong! " + error);
                 } else {
-                    let jsonMessage = helper.responses.newUrlToButtonMessage(req, `New link from *${displayName}*`);
+                    let jsonMessage = helper.slack.messages.newUrlToButtonMessage(req, `New link from *${displayName}*`);
                     // Send POST response with buttons (aka interactive message - but this message
                     //     is not 'interactive' as defined by Slack).
-                    helper.http.sendMessageToSlackResponseURL(req.body.response_url, jsonMessage);
+                    helper.http.post.sendMessageToSlackResponseURL(req.body.response_url, jsonMessage);
                 }
             });
         }
     } else {
         // If we are not provided a valid URL, get an invalid response and return it
-        res.status(200).send(helper.responses.getInvalidUrlResponse());
+        res.status(200).send(helper.slack.messages.getInvalidUrlResponse());
     }
 });
 
