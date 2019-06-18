@@ -52,9 +52,32 @@ router.post('/new', (req, res) => {
 // ROUTE: /link/interactive 
 //================================
 router.post('/interactive', (req, res) => {
-    //TODO: complete this if we want interactive buttons
-    //      https://api.slack.com/tutorials/intro-to-message-buttons
-    res.status(404).send("Hmm.. can't find that..");
+    console.log("________________________________________________________");
+    console.log("Interactive Button Clicked");
+    console.log("________________________________________________________");
+    // if (req.body.callback)
+    if (helper.validation.isLooselyDefinedUrl(req.body.text)) {
+        // Since we are sending our own POST (have to because we want interactive message)
+        //     we need to end the current request. This is best practices.. Notice how we
+        //     are not sending a response, we are just ending it - this will prevent slack
+        //     from erroring out, and will wait for our response until timeout is reached.
+        res.status(200).end();
+        // Verify tokens match before we respond.
+        if (req.body.token != config.slack.verificationToken) {
+            res.status(403).send("Access denied");
+        } else {
+            helper.http.getSlackUserDisplayNameFromId(req.body.user_id, (displayName, error) => {
+                if (error) {
+                    res.status(400).send("Something went wrong! " + error);
+                } else {
+                    let jsonMessage = helper.responses.newUrlToButtonMessage(req, `New link from *${displayName}*`);
+                    // Send POST response with buttons (aka interactive message - but this message
+                    //     is not 'interactive' as defined by Slack).
+                    helper.http.sendMessageToSlackResponseURL(req.body.response_url, jsonMessage);
+                }
+            });
+        }
+    }
 });
 
 
