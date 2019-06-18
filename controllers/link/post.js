@@ -36,7 +36,7 @@ router.post('/new', (req, res) => {
             /////////////////////////////////////////////////////////////////////////////////////////
             console.log(userDisplayName)
             // FOR NOW JUST USE USERNAME
-            let jsonMessage = helper.responses.newUrlToButtonMessage(req, `New link from: ${userDisplayName}`);
+            let jsonMessage = helper.responses.newUrlToButtonMessage(req, `New link from *${userDisplayName}*`);
             // Send POST response with buttons (aka interactive message - but this message
             //     is not 'interactive' as defined by Slack).
             helper.http.sendMessageToSlackResponseURL(responseUrl, jsonMessage);
