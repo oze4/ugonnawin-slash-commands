@@ -72,6 +72,7 @@ const helper = {
             request(getOptions, (error, res, body) => {
                 console.log(JSON.parse(res.toJSON().body));
                 console.log("\r\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r\n")
+                console.log(body);
                 if (error) {
                     console.log(error);
                     res.status(404).send("Something went wrong! " + error);
