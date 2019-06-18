@@ -20,6 +20,7 @@ try {
             clientSecret: process.env.CLIENT_SECRET,
             signingSecret: process.env.SIGNING_SECRET,
             verificationToken: process.env.VERIFICATION_TOKEN,
+            oAuthAccessToken: process.env.OAUTH_ACCESS_TOKEN,
             incomingWebHookUrl: process.env.INCOMING_WEB_HOOK_URL,
         },
     }
