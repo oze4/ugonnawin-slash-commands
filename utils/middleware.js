@@ -36,7 +36,7 @@ const middleware = {
             console.log(req.headers);
             console.log("--------------------- end req.headers ----------------------------");
             console.log("------------------------- req.body -------------------------------");
-            console.log(JSON.parse(req.body));
+            console.log(req.body);
             console.log("------------------------ end req.body ----------------------------");
             console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*");
             console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*\r\n\r\n");
