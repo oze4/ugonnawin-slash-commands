@@ -62,10 +62,10 @@ const helper = {
         },
         getSlackUserDisplayNameFromId (user_id) {
             let getOptions = {
-                uri: `https://slack.com/api/users.info?token=${config.slack.oAuthAccessToken}&user=${user_id}`,
+                uri: "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id,
                 method: 'GET',
                 headers: {
-                    'Content-type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
             };
             request(getOptions, (error, res, body) => {
