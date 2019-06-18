@@ -33,6 +33,9 @@ const middleware = {
             console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*");
             console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*");
             console.log();
+            console.log("USER:");
+            console.log(req.session)
+            console.log("ENDUSER");
             console.log("----------------------- req.headers ------------------------------");
             console.log(req.headers);
             console.log("--------------------- end req.headers ----------------------------");
