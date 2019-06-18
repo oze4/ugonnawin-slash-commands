@@ -65,14 +65,11 @@ const helper = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             };
-            let displayName;
             request(getOptions, (error, res, body) => {
                 if (error) {
                     callback(null, error);
                 } else {
-                    let jsonBody = JSON.parse(body);
-                    displayName = jsonBody.user.profile.display_name;
-                    callback(displayName, null);
+                    callback(JSON.parse(body).user.profile.display_name, null);
                 }
             });
         }
