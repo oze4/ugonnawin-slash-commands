@@ -22,8 +22,8 @@ app.set('port', config.app.port);
 // Harden our apps headers
 app.use(helmet());
 
-// Log all request headers to console (better than nothing I guess)
-app.use(middleware.logger.headers);
+// Log all request headers and body to console (better than nothing I guess)
+app.use(middleware.logger.headersAndbody);
 
 // Set up routes for our app
 app.use('/link', LinkController);
