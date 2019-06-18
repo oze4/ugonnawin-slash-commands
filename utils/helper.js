@@ -46,13 +46,12 @@ const helper = {
 
     http: {
         sendMessageToSlackResponseURL (responseURL, JSONmessage) {
-            let postOptions = {
+            request({
                 uri: responseURL,
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
                 json: JSONmessage
-            }
-            request(postOptions, (error, res, body) => {
+            }, (error, res, body) => {
                 if (error){
                     res.status(404).send("Something went wrong! " + error);
                 }
@@ -60,12 +59,11 @@ const helper = {
         },
         getSlackUserDisplayNameFromId (user_id, callback) {
             let url = "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id;
-            let getOptions = {
+            request({
                 uri: url,
                 method: 'GET',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            };
-            request(getOptions, (error, res, body) => {
+            }, (error, res, body) => {
                 if (error) {
                     callback(null, error);
                 } else {
