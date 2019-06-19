@@ -15,8 +15,10 @@ const config      = require('../../utils/config.js');
 // ===========================
 // Route: POST /events
 // ===========================
+// NOTE: THIS HAS TO BE HERE!!! DO NOT REMOVE THIS ROUTE!!
+// SLACK WILL SEND A CHALLENGE TO THIS ENDPOINT AND WE HAVE TO 
+// RESPOND WITH THE CHALLENGE VALUE.
 router.post('/', (req, res, next) => {
-    console.log("CHALLENGE: " + req.body.challenge);
     res.status(200).send(req.body.challenge);
 })
 
