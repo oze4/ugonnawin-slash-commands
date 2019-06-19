@@ -46,8 +46,14 @@ router.use(middleware.request.verifySlackRequest);
 router.post('/', (req, res) => {
     let ip = req.headers['x-real-ip'];
     let responseUrl = req.body.response_url;
-    let weather = weatherApi.getWeatherByIp(ip);
-    res.status(200).send(weather);
+    weatherApi.getWeatherByIp(ip, (weather, error) => {
+        if (error) {
+            res.status(200).send(error);
+        }
+        if (weather) {
+            res.status(200).send(weather);
+        }
+    });    
 });
 
 
