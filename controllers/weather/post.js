@@ -46,12 +46,15 @@ router.use(middleware.request.verifySlackRequest);
 //================================
 router.post('/', (req, res) => {
     let ip = req.headers['x-real-ip'];
+    console.log("IP: " + ip)
     let responseUrl = req.body.response_url;
     ipApi.getCoordinates(ip, (ipData, err) => {
         if (err) {
+            console.log(err);
             res.status(200).send(err);
         }
         if (ipData) {
+            console.log(ipData);
             res.status(200).send(ipData);
         }
     })
