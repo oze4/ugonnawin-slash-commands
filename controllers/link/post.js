@@ -23,7 +23,7 @@ router.post('/text', (req, res) => {
             if (error) {
                 res.status(400).send("Something went wrong! " + error);
             } else if (userName) {
-                let jsonMessage = slack.messageBuilder.textToLink(req, "New link from *" + userName + "*")
+                let jsonMessage = slack.messageBuilder.textToLink(req, "New link from *" + userName + "*");
                 slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
             } else {
                 res.status(200).send("Something went wrong :cry: Try again later");

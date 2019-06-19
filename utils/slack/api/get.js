@@ -5,8 +5,8 @@ const request      = require('request');
 const config       = require('../../config.js');
 const baseSlackUrl = "https://slack.com/api/";
 
-const httpGet = {
-    userInfo: (user_id, callback) => {
+class SlackGet {
+    static userInfo(user_id, callback) {
         request({
             uri: baseSlackUrl + "users.info?token=" + config.slack.oAuthAccessToken + "&user=" + user_id,
             method: 'GET',
@@ -18,9 +18,9 @@ const httpGet = {
                 callback(body, null);
             }
         });
-    },
+    }
 
-    get userName (user_id, callback) {
+    static userName (user_id, callback) {
         this.userInfo(user_id, (data, err) => {
             if (err) {
                 callback(null, err);
@@ -40,4 +40,4 @@ const httpGet = {
 }
 
 
-module.exports = httpGet;
+module.exports = SlackGet;
