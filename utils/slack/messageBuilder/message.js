@@ -26,14 +26,14 @@ const slackMessages = {
         return jsonMessage;
     },
 
-    textToLink (request, text) {
+    textToLink (request) {
         let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
         let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
         let message = [{
             type: "section",
             text: {
                 type: "mrkdwn",
-                text: "<"+ text +" | "+ text +">"
+                text: "<"+ request.body.text +" | "+ request.body.text +">"
             }
         }];
         return JSON.stringify(message);        
