@@ -40,7 +40,7 @@ const slackMessages = {
         let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
         let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
         let message = {
-            text: request.body.text,
+            channel: request.body.channel_id,
             blocks: [
                 {
                     type: "section",
@@ -51,7 +51,7 @@ const slackMessages = {
                 }
             ]
         };
-        return JSON.stringify(message);        
+        return JSON.parse(JSON.stringify(message));        
     },
 
     invalidUrlResponse () {
