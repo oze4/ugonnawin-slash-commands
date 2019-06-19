@@ -25,17 +25,32 @@ const slackMessages = {
         };
         return jsonMessage;
     },
-
-    textToLink (request) {
+/*
+{
+    "response_type": "in_channel",
+    "text": "It's 80 degrees right now.",
+    "attachments": [
+        {
+            "text":"Partly cloudy today and tomorrow"
+        }
+    ]
+}
+*/
+    textToLink (request, mainMessage) {
         let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
         let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
-        let message = [{
-            type: "section",
-            text: {
-                type: "mrkdwn",
-                text: "<"+ request.body.text +" | "+ request.body.text +">"
-            }
-        }];
+        let message = {
+            text: request.body.text,
+            blocks: [
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: mainMessage + " <"+ url +" | "+ url +">"
+                    }
+                }
+            ]
+        };
         return JSON.stringify(message);        
     },
 

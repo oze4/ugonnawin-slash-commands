@@ -39,7 +39,8 @@ router.post('/new', (req, res) => {
                                     ? user.profile.display_name : user.name !== ''
                                         ? user.name : user.real_name !== ''
                                             ? user.real_name : "-unable to locate user-";
-                    let jsonMessage = slack.messageBuilder.textToLink(req)
+                    let jsonMessage = slack.messageBuilder.textToLink(req, "New link from '" + linkFrom + "'")
+                    console.log(jsonMessage);
                     //let jsonMessage = slack.messageBuilder.linkAsButton(req, `New link from *${linkFrom}*`);
                     // Send POST response with buttons (aka interactive message - but this message
                     //     is not 'interactive' as defined by Slack).
