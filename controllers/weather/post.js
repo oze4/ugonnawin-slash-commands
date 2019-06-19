@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
     ipApi.getCoordinates(ip, (ipData, err) => {
         if (err) {
             console.log(err);
-            res.status(200).send(err);
+            res.status(404).send(err);
         }
         if (ipData) {
             console.log(ipData);

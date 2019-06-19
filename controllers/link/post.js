@@ -34,6 +34,7 @@ router.post('/new', (req, res) => {
                 if (error) {
                     res.status(400).send("Something went wrong! " + error);
                 } else {
+                    console.log(JSON.parse(userInfo));
                     let user = JSON.parse(userInfo).user;
                     let linkFrom = user.profile.display_name !== '' 
                                     ? user.profile.display_name : user.name !== ''
