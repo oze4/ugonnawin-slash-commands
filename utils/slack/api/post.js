@@ -5,12 +5,12 @@ const request = require('request');
 
 
 const httpPost = {
-    sendMessageToSlackResponseURL: (responseURL, JSONmessage) => {
+    jsonMessage: (url, json, contentType = 'application/json') => {
         request({
-            uri: responseURL,
+            uri: url,
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            json: JSONmessage
+            headers: { 'Content-type': contentType },
+            json: json
         }, (error, res, body) => {
             if (error){
                 res.status(404).send("Something went wrong! " + error);

@@ -1,14 +1,14 @@
 //
 
 'use strict'
-const request = require('request');
-const config  = require('../../utils/config.js');
-
+const request      = require('request');
+const config       = require('../../utils/config.js');
+const baseSlackUrl = "https://slack.com/api/";
 
 const httpGet = {
-    getSlackUserInfo: (user_id, callback) => {
+    userInfo: (user_id, callback) => {
         request({
-            uri: "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id,
+            uri: baseSlackUrl + "users.info?token=" + config.slack.oAuthAccessToken + "&user=" + user_id,
             method: 'GET',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }, (error, res, body) => {

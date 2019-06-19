@@ -9,7 +9,7 @@ const config      = require('../../utils/config.js');
 
 
 // Middleware to verify request is from Slack.  
-//router.use(middleware.request.verifySlackRequest);
+router.use(middleware.request.verifySlackRequest);
 
 
 // ===========================
@@ -19,6 +19,7 @@ const config      = require('../../utils/config.js');
 // SLACK WILL SEND A CHALLENGE TO THIS ENDPOINT AND WE HAVE TO 
 // RESPOND WITH THE CHALLENGE VALUE.
 router.post('/', (req, res, next) => {
+    //TODO: https://api.slack.com/docs/message-link-unfurling
     res.status(200).send(req.body.challenge);
 })
 

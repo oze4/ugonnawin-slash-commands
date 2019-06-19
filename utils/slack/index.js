@@ -1,11 +1,13 @@
 // Slack module entry point
 
 'use strict'
-const messages = require('./messages.js');
+const messageBuilder = require('./messageBuilder');
+const api            = require('./api');
 
 
 const slack = {
-    messages,
+    messageBuilder,
+    api
 }
 
 

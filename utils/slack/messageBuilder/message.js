@@ -4,12 +4,12 @@
 
 
 const slackMessages = {
-    newUrlToButtonMessage (request, text) {
+    linkAsButton (request, mainText) {
         let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
         let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
         let jsonMessage = {
             "response_type": "in_channel",
-            "text": ""+ text +"",
+            "text": ""+ mainText +"",
             "attachments": [
                 {
                     "fallback": ""+ request.body.text +"",
@@ -26,7 +26,7 @@ const slackMessages = {
         return jsonMessage;
     },
 
-    getInvalidUrlResponse () {
+    invalidUrlResponse () {
         const invalidResponses = [
             "Hmmm.. that doesn't seem to be a valid URL..",
             "Gimme a URL!",

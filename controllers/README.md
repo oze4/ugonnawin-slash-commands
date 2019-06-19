@@ -1,1 +1,0 @@
-### All routes go in the 'controllers' folder
