@@ -16,7 +16,7 @@ const config      = require('../../utils/config.js');
 // Route: POST /events
 // ===========================
 router.post('/events', (req, res, next) => {
-    console.log(req);
+    console.log("CHALLENGE: " + req.body.challenge);
     res.status(200).send(req.body.challenge);
 })
 
