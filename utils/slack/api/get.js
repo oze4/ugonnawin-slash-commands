@@ -2,7 +2,7 @@
 
 'use strict'
 const request      = require('request');
-const config       = require('../../../config/config.js');
+const config       = require('../../config.js');
 const baseSlackUrl = "https://slack.com/api/";
 
 const httpGet = {
