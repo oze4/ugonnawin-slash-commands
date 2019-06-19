@@ -4,41 +4,8 @@
 
 
 const slackMessages = {
-    linkAsButton (request, mainText) {
-        let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
-        let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
-        let jsonMessage = {
-            "response_type": "in_channel",
-            "text": ""+ mainText +"",
-            "attachments": [
-                {
-                    "fallback": ""+ request.body.text +"",
-                    "actions": [
-                        {
-                            "text": ""+ url +"",
-                            "type": "button",
-                            "url": ""+ url +""
-                        }
-                    ]
-                }
-            ]
-        };
-        return jsonMessage;
-    },
-/*
-{
-    "response_type": "in_channel",
-    "text": "It's 80 degrees right now.",
-    "attachments": [
-        {
-            "text":"Partly cloudy today and tomorrow"
-        }
-    ]
-}
-*/
-    textToLink (request, mainMessage) {
-        let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
-        let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
+    linkWithButton (request, mainText) {
+        let bodyText = request.body.text;
         let message = {
             channel: request.body.channel_id,
             blocks: [
@@ -46,7 +13,53 @@ const slackMessages = {
                     type: "section",
                     text: {
                         type: "mrkdwn",
-                        text: mainMessage + " <"+ url +" | "+ url +">"
+                        text: mainText
+                    }
+                },
+                {
+                    type: "divider"
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: bodyText.trim()
+                    },
+                    accessory: {
+                        type: "button",
+                        text: {
+                            type: "plain_text",
+                            text: ":link:",
+                            emoji: true
+                        },
+                        url: bodyText.trim()
+                    }
+                }
+            ]
+        };
+        return JSON.parse(JSON.stringify(message));  
+    },
+
+    textToLink (request, mainMessage) {
+        let bodyText = request.body.text;
+        let message = {
+            channel: request.body.channel_id,
+            blocks: [
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: mainMessage 
+                    }
+                },
+                {
+                    type: "divider"
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: "<"+ bodyText.trim() +" | "+ bodyText.trim() +">"
                     }
                 }
             ]
