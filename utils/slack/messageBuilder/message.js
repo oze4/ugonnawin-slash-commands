@@ -6,8 +6,9 @@
 const slackMessages = {
     linkWithButton (request, mainText) {
         let stageBodyText = request.body.text;
-        let preBodyText = stageBodyText.trim();
-        let finalBody = preBodyText.startsWith("http") ? preBodyText : "http://" + preBodyText;
+        let preBodyText   = stageBodyText.trim();
+        let preFinalBody  = preBodyText.startsWith("http") ? preBodyText : "http://" + preBodyText;
+        let finalBody     = preFinalBody.substring(0, 75) // Can only be 75 chars long
         let message = {
             channel: request.body.channel_id,
             response_type: "in_channel",
@@ -15,7 +16,7 @@ const slackMessages = {
                 {
                     type: "section",
                     text: {
-                        type: "mrkdwn",
+                        type: "plain_text",
                         text: mainText
                     },
                     accessory: {
