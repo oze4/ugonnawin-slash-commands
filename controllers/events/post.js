@@ -18,6 +18,9 @@ const middleware  = require('../../utils/middleware.js');
 // RESPOND WITH THE CHALLENGE VALUE.
 router.post('/', (req, res, next) => {
     //TODO: https://api.slack.com/docs/message-link-unfurling
+    console.log("NEW LINK_SHARED EVENT");
+    console.log(req.body)
+    console.log(req.headers);
     res.status(200).send(req.body.challenge);
 })
 
