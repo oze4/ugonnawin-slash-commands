@@ -21,7 +21,7 @@ router.post('/text', (req, res) => {
         res.status(200).end(); // Have to send 200 within 3000ms
         slack.api.get.userName(req.body.user_id, (userName, error) => {
             if (error) {
-                res.status(400).send("Something went wrong! " + error);
+                res.status(404).send("Something went wrong! " + error);
             } else if (userName) {
                 let jsonMessage = slack.messageBuilder.textToLink(req, "New link from *" + userName + "*");
                 slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
@@ -44,9 +44,9 @@ router.post('/button', (req, res) => {
         res.status(200).end(); // Have to send 200 within 3000ms
         slack.api.get.userName(req.body.user_id, (userName, error) => {
             if (error) {
-                res.status(400).send("Something went wrong! " + error);
+                res.status(404).send("Something went wrong! " + error);
             } else if (userName) {
-                let jsonMessage = slack.messageBuilder.linkWithButton(req, "New link from *" + userName + "*")
+                let jsonMessage = slack.messageBuilder.linkWithButton(req, "New link from " + userName);
                 slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
             } else {
                 res.status(200).send("Something went wrong :cry: Try again later");
