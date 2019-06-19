@@ -5,7 +5,9 @@
 
 const slackMessages = {
     linkWithButton (request, mainText) {
-        let bodyText = request.body.text;
+        let stageBodyText = request.body.text;
+        let preBodyText = stageBodyText.trim();
+        let finalBody = preBodyText.startsWith("http") ? preBodyText : "http://" + preBodyText;
         let message = {
             channel: request.body.channel_id,
             response_type: "in_channel",
@@ -15,25 +17,15 @@ const slackMessages = {
                     text: {
                         type: "mrkdwn",
                         text: mainText
-                    }
-                },
-                {
-                    type: "divider"
-                },
-                {
-                    type: "section",
-                    text: {
-                        type: "mrkdwn",
-                        text: bodyText.trim()
                     },
                     accessory: {
                         type: "button",
                         text: {
                             type: "plain_text",
-                            text: ":link:",
+                            text: finalBody,
                             emoji: true
                         },
-                        url: bodyText.trim()
+                        url: finalBody
                     }
                 }
             ]
