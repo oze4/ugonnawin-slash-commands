@@ -13,6 +13,11 @@ try {
         app: {
             port: process.env.PORT,
         },
+        weatherApi: {
+            apiKey: "015266c5e2msh5d17dc1f2f35a5dp18b690jsn9aad244e32fd",
+            host: "wea2ip.p.rapidapi.com",
+            url: "https://" + config.weatherApi.host + "/json"
+        },        
         slack: {
             versionNumber: "v0",
             appId: process.env.APP_ID,

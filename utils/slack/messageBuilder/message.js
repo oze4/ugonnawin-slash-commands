@@ -26,6 +26,19 @@ const slackMessages = {
         return jsonMessage;
     },
 
+    textToLink (request, text) {
+        let isValidUrl = request.body.text.startsWith("http://") || request.body.text.startsWith("https://");
+        let url = isValidUrl ? request.body.text : `http://${request.body.text}`;
+        let message = [{
+            type: "section",
+            text: {
+                type: "mrkdwn",
+                text: "<"+ text +" | "+ text +">"
+            }
+        }];
+        return JSON.stringify(message);        
+    },
+
     invalidUrlResponse () {
         const invalidResponses = [
             "Hmmm.. that doesn't seem to be a valid URL..",
