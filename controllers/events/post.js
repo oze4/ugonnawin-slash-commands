@@ -4,8 +4,6 @@
 const express     = require('express');
 const router      = express.Router();
 const middleware  = require('../../utils/middleware.js');
-const helper      = require('../../utils/helper.js')
-const config      = require('../../utils/config.js');
 
 
 // Middleware to verify request is from Slack.  
