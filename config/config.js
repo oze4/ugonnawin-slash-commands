@@ -13,7 +13,7 @@ const config = {
         baseUrl: "https://api.openweathermap.org/data/2.5/"
     }, 
     ipapi: {
-        url: "https://ipapi.co"
+        baseUrl: "https://ipapi.co"
     },
     slack: {
         versionNumber: "v0",
