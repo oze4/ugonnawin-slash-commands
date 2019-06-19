@@ -20,7 +20,7 @@ const httpGet = {
         });
     },
 
-    userName: (user_id, callback) => {
+    get userName (user_id, callback) {
         this.userInfo(user_id, (data, err) => {
             if (err) {
                 callback(null, err);
