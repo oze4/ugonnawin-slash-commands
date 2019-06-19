@@ -8,8 +8,7 @@ const helper      = require('../../utils/helper.js')
 const config      = require('../../utils/config.js');
 
 
-// Middleware to verify request is from Slack.  
-// Currently, only set up when POSTing to '/link' routes.
+// Middleware to verify request is from Slack.
 router.use(middleware.request.verifySlackRequest);
 
 
