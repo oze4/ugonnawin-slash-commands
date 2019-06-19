@@ -6,7 +6,7 @@ const config  = require('../../utils/config.js');
 
 
 const httpGet = {
-    getSlackUserDisplayNameFromId: (user_id, callback) => {
+    getSlackUserInfo: (user_id, callback) => {
         request({
             uri: "https://slack.com/api/users.info?token="+config.slack.oAuthAccessToken+"&user="+user_id,
             method: 'GET',
@@ -15,7 +15,7 @@ const httpGet = {
             if (error) {
                 callback(null, error);
             } else {
-                callback(JSON.parse(body).user.profile.display_name, null);
+                callback(body, null);
             }
         });
     }
