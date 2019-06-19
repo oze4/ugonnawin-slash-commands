@@ -12,7 +12,7 @@ const config = {
         apiKey: "9d6e842241161dffa8f9963157efeded",
         baseUrl: "https://api.openweathermap.org/data/2.5/"
     }, 
-    ipapi: {
+    ipApi: {
         baseUrl: "https://ipapi.co"
     },
     slack: {
