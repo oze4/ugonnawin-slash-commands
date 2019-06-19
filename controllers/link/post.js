@@ -17,35 +17,18 @@ router.use(middleware.request.verifySlackRequest);
 // ROUTE: /link/text
 //================================
 router.post('/text', (req, res) => {
-    // Replace 2 or more spaces with single space:
-    //     str.replace(/\s\s+/g, ' ')
-
     if (validation.isLooselyDefinedUrl(req.body.text)) {
-        // Since we are sending our own POST (have to because we want interactive message)
-        //     we need to end the current request. This is best practices.. Notice how we
-        //     are not sending a response, we are just ending it - this will prevent slack
-        //     from erroring out, and will wait for our response until timeout is reached.
-        res.status(200).end();
-        // Verify tokens match before we respond.
-        if (req.body.token != config.slack.verificationToken) {
-            res.status(403).send("Access denied");
-        } else {
-            slack.api.get.userInfo(req.body.user_id, (userInfo, error) => {
-                if (error) {
-                    res.status(400).send("Something went wrong! " + error);
-                } else {
-                    let user = JSON.parse(userInfo).user;
-                    let linkFrom = user.profile.display_name !== '' 
-                                    ? user.profile.display_name : user.name !== ''
-                                        ? user.name : user.real_name !== ''
-                                            ? user.real_name : "-unable to locate user-";
-                    let jsonMessage = slack.messageBuilder.textToLink(req, "New link from *" + linkFrom + "*")
-                    // Send POST response with buttons (aka interactive message - but this message
-                    //     is not 'interactive' as defined by Slack).
-                    slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
-                }
-            });
-        }
+        res.status(200).end(); // Have to send 200 within 3000ms
+        slack.api.get.userName(req.body.user_id, (userName, error) => {
+            if (error) {
+                res.status(400).send("Something went wrong! " + error);
+            } else if (userName) {
+                let jsonMessage = slack.messageBuilder.textToLink(req, "New link from *" + userName + "*")
+                slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
+            } else {
+                res.status(200).send("Something went wrong :cry: Try again later");
+            }
+        });
     } else {
         // If we are not provided a valid URL, get an invalid response and return it
         res.status(200).send(slack.messageBuilder.invalidUrlResponse());
@@ -58,31 +41,17 @@ router.post('/text', (req, res) => {
 //================================
 router.post('/button', (req, res) => {
     if (validation.isLooselyDefinedUrl(req.body.text)) {
-        // Since we are sending our own POST (have to because we want interactive message)
-        //     we need to end the current request. This is best practices.. Notice how we
-        //     are not sending a response, we are just ending it - this will prevent slack
-        //     from erroring out, and will wait for our response until timeout is reached.
-        res.status(200).end();
-        // Verify tokens match before we respond.
-        if (req.body.token != config.slack.verificationToken) {
-            res.status(403).send("Access denied");
-        } else {
-            slack.api.get.userInfo(req.body.user_id, (userInfo, error) => {
-                if (error) {
-                    res.status(400).send("Something went wrong! " + error);
-                } else {
-                    let user = JSON.parse(userInfo).user;
-                    let linkFrom = user.profile.display_name !== '' 
-                                    ? user.profile.display_name : user.name !== ''
-                                        ? user.name : user.real_name !== ''
-                                            ? user.real_name : "-unable to locate user-";
-                    let jsonMessage = slack.messageBuilder.linkWithButton(req, "New link from *" + linkFrom + "*")
-                    // Send POST response with buttons (aka interactive message - but this message
-                    //     is not 'interactive' as defined by Slack).
-                    slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
-                }
-            });
-        }
+        res.status(200).end(); // Have to send 200 within 3000ms
+        slack.api.get.userName(req.body.user_id, (userName, error) => {
+            if (error) {
+                res.status(400).send("Something went wrong! " + error);
+            } else if (userName) {
+                let jsonMessage = slack.messageBuilder.linkWithButton(req, "New link from *" + userName + "*")
+                slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
+            } else {
+                res.status(200).send("Something went wrong :cry: Try again later");
+            }
+        });
     } else {
         // If we are not provided a valid URL, get an invalid response and return it
         res.status(200).send(slack.messageBuilder.invalidUrlResponse());

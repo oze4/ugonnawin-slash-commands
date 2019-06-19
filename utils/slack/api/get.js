@@ -18,6 +18,24 @@ const httpGet = {
                 callback(body, null);
             }
         });
+    },
+
+    userName: (user_id, callback) => {
+        this.userInfo(user_id, (data, err) => {
+            if (err) {
+                callback(null, err);
+            } else {
+                if (data) {
+                    let user = JSON.parse(data).user;
+                    let userName = user.profile.display_name !== '' 
+                                    ? user.profile.display_name : user.name !== ''
+                                        ? user.name : user.real_name !== ''
+                                            ? user.real_name : "-unable to locate user-";
+                    callback(userName, null);
+                }
+            }
+            
+        });
     }
 }
 

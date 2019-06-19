@@ -21,7 +21,11 @@ const middleware = {
     request: {
         verifySlackRequest (req, res, next) {
             if (_validateSlackRequest(config.slack.signingSecret, config.slack.versionNumber, req, res)) {
-                next();
+                if (req.body.token === config.slack.verificationToken) {
+                    next();
+                } else {
+                    res.status(403).send("Slack verification token mismatch!");
+                }
             } else {
                 res.status(403).send("Slack signature does not match hash!");
             }
