@@ -33,9 +33,12 @@ router.post('/new', (req, res) => {
                 if (error) {
                     res.status(400).send("Something went wrong! " + error);
                 } else {
-                    let userProfile = JSON.parse(userInfo).user.profile;
-                    console.log(userProfile)
-                    let jsonMessage = helper.slack.messages.newUrlToButtonMessage(req, `New link from *${userProfile.user_name}*`);
+                    let user = JSON.parse(userInfo).user;
+                    let linkFrom = user.profile.display_name !== '' 
+                                    ? user.profile.display_name : user.name !== ''
+                                        ? user.name : user.real_name !== ''
+                                            ? user.real_name : "-unable to locate user-";
+                    let jsonMessage = helper.slack.messages.newUrlToButtonMessage(req, `New link from *${linkFrom}*`);
                     // Send POST response with buttons (aka interactive message - but this message
                     //     is not 'interactive' as defined by Slack).
                     helper.http.post.sendMessageToSlackResponseURL(req.body.response_url, jsonMessage);
