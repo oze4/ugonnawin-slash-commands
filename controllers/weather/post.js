@@ -5,7 +5,6 @@ const express     = require('express');
 const router      = express.Router();
 const middleware  = require('../../utils/middleware.js');
 const weatherApi  = require('../../utils/weatherapi');
-const ipApi       = require('../../utils/ipapi');
 const slack       = require('../../utils/slack');
 const validation  = require('../../utils/validation');
 const config      = require('../../utils/config.js');
@@ -82,16 +81,6 @@ router.post('/', (req, res) => {
     let ip = req.headers['x-real-ip'];
     console.log("IP: " + ip)
     let responseUrl = req.body.response_url;
-    ipApi.getCoordinates(ip, (ipData, err) => {
-        if (err) {
-            console.log(err);
-            res.status(404).send(err);
-        }
-        if (ipData) {
-            console.log(ipData);
-            res.status(200).send(ipData);
-        }
-    })
 });
 
 
