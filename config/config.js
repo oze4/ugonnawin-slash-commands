@@ -9,9 +9,11 @@ const config = {
         port: 80,
     },
     weatherApi: {
-        apiKey: "015266c5e2msh5d17dc1f2f35a5dp18b690jsn9aad244e32fd",
-        host: "wea2ip.p.rapidapi.com",
-        url: "https://" + config.weatherApi.host + "/json"
+        apiKey: "9d6e842241161dffa8f9963157efeded",
+        baseUrl: "https://api.openweathermap.org/data/2.5/"
+    }, 
+    ipapi: {
+        url: "https://ipapi.co"
     },
     slack: {
         versionNumber: "v0",

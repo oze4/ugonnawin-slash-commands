@@ -5,6 +5,7 @@ const express     = require('express');
 const router      = express.Router();
 const middleware  = require('../../utils/middleware.js');
 const weatherApi  = require('../../utils/weatherapi');
+const ipApi       = require('../../utils/ipapi');
 const slack       = require('../../utils/slack');
 const validation  = require('../../utils/validation');
 const config      = require('../../utils/config.js');
@@ -46,14 +47,14 @@ router.use(middleware.request.verifySlackRequest);
 router.post('/', (req, res) => {
     let ip = req.headers['x-real-ip'];
     let responseUrl = req.body.response_url;
-    weatherApi.getWeatherByIp(ip, (weather, error) => {
-        if (error) {
-            res.status(200).send(error);
+    ipApi.getCoordinates(ip, (ipData, err) => {
+        if (err) {
+            res.status(200).send(err);
         }
-        if (weather) {
-            res.status(200).send(weather);
+        if (ipData) {
+            res.status(200).send(ipData);
         }
-    });    
+    })
 });
 
 
