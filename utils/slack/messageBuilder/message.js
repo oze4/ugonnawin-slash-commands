@@ -8,6 +8,7 @@ const slackMessages = {
         let bodyText = request.body.text;
         let message = {
             channel: request.body.channel_id,
+            response_type: "in_channel",
             blocks: [
                 {
                     type: "section",
@@ -44,6 +45,7 @@ const slackMessages = {
         let bodyText = request.body.text;
         let message = {
             channel: request.body.channel_id,
+            response_type: "in_channel",
             blocks: [
                 {
                     type: "section",
