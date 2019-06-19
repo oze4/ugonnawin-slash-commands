@@ -7,7 +7,7 @@ const middleware  = require('../../utils/middleware.js');
 
 
 // Middleware to verify request is from Slack.  
-router.use(middleware.request.verifySlackRequest);
+// router.use(middleware.request.verifySlackRequest);
 
 
 // ===========================
