@@ -1,4 +1,4 @@
-// https://rapidapi.com/onesoft/api/weather-by-ip
+// https://openweathermap.org/api
 //     API to get weather based upon IP address
 
 'use strict'
@@ -8,17 +8,12 @@ const config  = require('../../utils/config.js');
 
 
 class WeatherAPI {
-    urlSuffix = "weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22";
-    static getWeatherByLatLon (lat, lon, callback) {
-        let getOptions = {
-            uri: config.weatherApi.url + "?ip=" + ipAddress,
-            method: 'GET',
-            headers: { 
-                "X-RapidAPI-Host": config.weatherApi.host,
-                "X-RapidAPI-Key": config.weatherApi.apiKey
-            }
-        };
-        request(getOptions, (error, res, body) => {
+    urlSuffix = "/weather?q=houston&appid=9d6e842241161dffa8f9963157efeded";
+    static getWeatherByCityName (city, callback) {
+        request({
+            uri: config.weatherApi.url + "/weather?q=" + city + "&appid=" + config.weatherApi.apiKey,
+            method: 'GET'
+        }, (error, res, body) => {
             if (error) {
                 callback(null, error);
             } else {

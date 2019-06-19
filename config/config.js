@@ -12,9 +12,6 @@ const config = {
         apiKey: "9d6e842241161dffa8f9963157efeded",
         baseUrl: "https://api.openweathermap.org/data/2.5/"
     }, 
-    ipApi: {
-        baseUrl: "http://ip-api.com/json"
-    },
     slack: {
         versionNumber: "v0",
         appId: 'AKLKGSRS9',

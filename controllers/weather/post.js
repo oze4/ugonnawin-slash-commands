@@ -14,29 +14,63 @@ const config      = require('../../utils/config.js');
 // Middleware to verify request is from Slack.
 router.use(middleware.request.verifySlackRequest);
 
-/* Sample weather response:
-{
-    "weather":{
-        "condition":"Clear"
-        "description":"Sky is Clear"
-    }
-    "main":{
-        "temp":23.843
-        "temp_min":23.843
-        "temp_max":23.843
-        "pressure":1018.12
-        "sea_level":1029.03
-        "humidity":73
-    }
-    "wind":{
-        "speed":2.07
-        "degree":348
-    }
-    "location":{
-        "country":"United States"
-        "city":"Ashburn"
-        "ip":"54.86.225.32"
-    }
+
+
+/** SLACK EMOJI NAMES
+partly_sunny_rain
+thunder_cloud_and_rain
+rain_cloud
+sunny
+mostly_sunny
+barely_sunny
+partly_sunny
+cloud
+lightning_cloud
+ */
+
+ /* SAMPLE OPENWEATHERMAP JSON DATA
+ {
+   "coord":{
+      "lon":-95.37,
+      "lat":29.76
+   },
+   "weather":[
+      {
+         "id":801,
+         "main":"Clouds",
+         "description":"few clouds",
+         "icon":"02d"
+      }
+   ],
+   "base":"stations",
+   "main":{
+      "temp":307.19,
+      "pressure":1011,
+      "humidity":50,
+      "temp_min":305.93,
+      "temp_max":308.71
+   },
+   "visibility":16093,
+   "wind":{
+      "speed":2.6,
+      "gust":7.2
+   },
+   "clouds":{
+      "all":20
+   },
+   "dt":1560968855,
+   "sys":{
+      "type":1,
+      "id":4850,
+      "message":0.01,
+      "country":"US",
+      "sunrise":1560943267,
+      "sunset":1560993869
+   },
+   "timezone":-18000,
+   "id":4699066,
+   "name":"Houston",
+   "cod":200
 }
 */
 
