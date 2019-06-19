@@ -7,7 +7,7 @@ const config  = require('../../utils/config.js');
 
 class IpApi {
     static getCoordinates (ipAddress, callback) {
-        let url = config.ipApi.baseUrl + "/" + ipAddress + "/json";
+        let url = config.ipApi.baseUrl + "/" + ipAddress;
         let getOptions = {
             uri: url,
             method: 'GET',
