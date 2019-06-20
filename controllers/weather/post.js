@@ -29,6 +29,8 @@ router.post('/', (req, res) => {
                     weatherApi.getWeatherIconUrl(weather.weather.icon)
                 );
             console.log(JSON.parse(JSON.stringify(weatherInfo)));
+            console.log(weatherInfo.blocks.text)
+            console.log(weatherInfo.blocks.accessory)
             slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
         } else {
             res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
