@@ -59,21 +59,4 @@ router.post('/button', (req, res) => {
 });
 
 
-//================================
-// ROUTE: /link/interactive 
-//================================
-router.post('/interactive', (req, res) => {
-    res.status(200).end();
-    console.log("________________________________________________________");
-    console.log("Interactive Button Clicked");
-    console.log("________________________________________________________");
-    let responseUrl = req.body.response_url;
-    let json = {
-        text: "Thanks for clicking!"
-    };
-    let jsonMessage = JSON.parse(json);
-    slack.api.post.jsonMessage(responseUrl, jsonMessage);
-});
-
-
 module.exports = router;

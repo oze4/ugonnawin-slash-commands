@@ -8,9 +8,10 @@ const helmet     = require('helmet');
 const middleware = require('../utils/middleware.js');
 
 // Set up controllers for routes
-const LinkController    = require('../controllers/link');
-const EventsController  = require('../controllers/events');
-const WeatherController = require('../controllers/weather');
+const LinkController        = require('../controllers/link');
+const EventsController      = require('../controllers/events');
+const WeatherController     = require('../controllers/weather');
+const InteractiveController = require('../controllers/interactive');
 
 
 // set up body parsing and url parsing tools
@@ -30,6 +31,7 @@ app.use(middleware.logger.headersAndbody);
 app.use('/link', LinkController);
 app.use('/events', EventsController);
 app.use('/weather', WeatherController);
+app.use('/interactive', InteractiveController);
 
 
 
