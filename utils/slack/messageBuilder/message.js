@@ -84,7 +84,7 @@ const slackMessages = {
                 }
             ]
         };
-        console.log(message);
+        console.log(JSON.stringify(message));
         return JSON.parse(JSON.stringify(message));          
     },
 
