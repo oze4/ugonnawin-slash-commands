@@ -24,12 +24,11 @@ router.post('/', (req, res) => {
         } else if (data) {
             let weather = JSON.parse(data);
             console.log(weather.main);
-            let weatherInfo = slack.messageBuilder.currentWeather(
-                    weather.name, 
-                    weatherApi.kelvinToFahrenheit(weather.main.temp), 
-                    weather.weather.description,
-                    weatherApi.getWeatherIconUrl(weather.weather.icon)
-                );
+            let finalTemp = weatherApi.kelvinToFahrenheit(weather.main.temp);
+            let finalIcon = weatherApi.getWeatherIconUrl(weather.weather.icon);
+            console.log("temp: " + finalTemp);
+            console.log("icon: " + finalIcon)
+            let weatherInfo = slack.messageBuilder.currentWeather(weather.name, finalTemp, weather.weather.description, finalIcon);
             console.log('weatherinfo:');
             console.log(weatherInfo);
             slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
