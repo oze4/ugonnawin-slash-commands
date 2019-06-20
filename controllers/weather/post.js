@@ -23,9 +23,13 @@ router.post('/', (req, res) => {
             res.status(200).send("Unable to complete that action :cry: " + err);
         } else if (data) {
             let weather = JSON.parse(data);
-            let finalTemp = weatherApi.kelvinToFahrenheit(weather.main.temp);  
-            let finalIcon = weatherApi.getWeatherIconUrl(weather.weather[0].icon);
-            let weatherInfo = slack.messageBuilder.currentWeather(weather.name, finalTemp, weather.weather.description, finalIcon);
+            let mainWeather = weather.weather[0];            
+            let weatherInfo = slack.messageBuilder.currentWeather(
+                weather.name, 
+                weatherApi.kelvinToFahrenheit(weather.main.temp), 
+                mainWeather.description, 
+                weatherApi.getWeatherIconUrl(mainWeather.icon)
+            );
             console.log('weatherinfo:');
             console.log(JSON.stringify(weatherInfo));
             slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
