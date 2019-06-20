@@ -23,8 +23,8 @@ router.post('/', (req, res) => {
             res.status(200).send("Unable to complete that action :cry: " + err);
         } else if (data) {
             let weather = JSON.parse(data);
-            console.log(weather.main);
-            let finalTemp = weatherApi.kelvinToFahrenheit(weather.main.temp);
+            console.log(weather);
+            let finalTemp = weatherApi.kelvinToFahrenheit(weather.main.temp);  
             let finalIcon = weatherApi.getWeatherIconUrl(weather.weather.icon);
             console.log("finalTemp: " + finalTemp);
             console.log("preIcon: " + weather.weather.icon);
