@@ -62,6 +62,31 @@ const slackMessages = {
         return JSON.parse(JSON.stringify(message));        
     },
 
+    currentWeather (city, temp, description, iconUrl) {
+        let degreeSymbol = "°";
+        let listSymbol = "•";
+        let desc = titleCase(description);
+        let weatherText = "Current weather for *" + city + "*:\n  " + listSymbol + " " + temp + degreeSymbol + "\n  " + listSymbol + " " + desc;
+        let message = {
+            response_type: "ephemeral",
+            blocks: [
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: weatherText
+                    },
+                    accessory: {
+                        type: "image",
+                        image_url: iconUrl,
+                        alt_text: desc
+                    }
+                }
+            ]
+        };
+        return JSON.parse(JSON.stringify(message));          
+    },
+
     invalidUrlResponse () {
         const invalidResponses = [
             "Hmmm.. that doesn't seem to be a valid URL..",
@@ -76,6 +101,15 @@ const slackMessages = {
         return invalidResponses[Math.floor(Math.random()*invalidResponses.length)];
     }
 }
+
+
+function titleCase(str) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+ }
 
 
 module.exports = slackMessages;
