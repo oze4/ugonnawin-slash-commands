@@ -14,7 +14,9 @@ router.use(middleware.request.verifySlackRequest);
 //================================
 // ROUTE: /interactive
 //================================
-router.post('/', (req, res) => {    
+router.post('/', (req, res) => {  
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")  
+    /*
     console.log("________________________________________________________");
     console.log("Interactive Button Clicked");
     console.log("________________________________________________________");
@@ -26,6 +28,7 @@ router.post('/', (req, res) => {
     let jsonMessage = JSON.parse(json);
     res.status(200).end();
     slack.api.post.jsonMessage(responseUrl, jsonMessage);
+    */
 });
 
 
