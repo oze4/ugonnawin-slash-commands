@@ -22,8 +22,8 @@ router.post('/', (req, res) => {
         if (err) {
             res.status(200).send("Unable to complete that action :cry: " + err);
         } else if (data) {
-            let weather = data;
-            console.log(data.main);
+            let weather = JSON.parse(data);
+            console.log(weather.main);
             let weatherInfo = slack.messageBuilder.currentWeather(
                     weather.name, 
                     weatherApi.kelvinToFahrenheit(weather.main.temp), 
