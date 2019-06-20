@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
                 );
                 slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
             } catch {
-                slack.api.post.jsonMessage(req.body.response_url, {text: "That city does not exist!"});
+                slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
             }
         } else {
             res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
