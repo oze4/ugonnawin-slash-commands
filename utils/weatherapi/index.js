@@ -29,7 +29,7 @@ class WeatherAPI {
     static kelvinToFahrenheit(degreesKelvin) {
         try { 
             let result = Number(degreesKelvin) * 9 / 5 - 459.67;
-            return result.toFixed(2) + "F";
+            return result.toFixed(2);
         } catch {
             return 0;
         }
