@@ -8,9 +8,9 @@ const config  = require('../../utils/config.js');
 
 
 class WeatherAPI {
-    static getWeatherByCityName (city, callback) {
+    static getCurrentWeather (cityOrZip, callback) {
         request({
-            uri: config.weatherApi.baseUrl + "/weather?q=" + city + "&appid=" + config.weatherApi.apiKey,
+            uri: config.weatherApi.baseUrl + "/weather?q=" + cityOrZip + "&appid=" + config.weatherApi.apiKey,
             method: 'GET'
         }, (error, res, body) => {
             if (error) {

@@ -17,8 +17,8 @@ router.use(middleware.request.verifySlackRequest);
 //================================
 router.post('/', (req, res) => {
     res.status(200).end(); // Have to send 200 within 3000ms
-    let city = req.body.text.trim();
-    weatherApi.getWeatherByCityName(city, (data, err) => {
+    let query = req.body.text.trim();
+    weatherApi.getCurrentWeather(query, (data, err) => {
         if (err) {
             res.status(200).send("Unable to complete that action :cry: " + err);
         } else if (data) {
