@@ -33,7 +33,8 @@ const slackMessages = {
     },
 
     textToLink (request, mainMessage) {
-        let bodyText = request.body.text;
+        let bodyText = request.body.text.trim();
+        let finalBody = bodyText.startsWith("http") ? bodyText : "http://" + bodyText;
         let message = {
             response_type: "in_channel",
             blocks: [
@@ -51,7 +52,7 @@ const slackMessages = {
                     type: "section",
                     text: {
                         type: "mrkdwn",
-                        text: "<"+ bodyText.trim() +" | "+ bodyText.trim() +">"
+                        text: "<"+ finalBody +" | "+ bodyText +">"
                     }
                 }
             ]
