@@ -36,6 +36,9 @@ const middleware = {
         headersAndbody (req, res, next) {
             console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*");
             console.log("~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*~~*");
+            console.log("--------------------- req.route.path -----------------------------");
+            console.log(req.route.path)
+            console.log("------------------- end req.route.path ---------------------------");
             console.log("----------------------- req.headers ------------------------------");
             console.log(req.headers);
             console.log("--------------------- end req.headers ----------------------------");
