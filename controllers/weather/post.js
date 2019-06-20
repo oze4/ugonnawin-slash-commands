@@ -16,6 +16,7 @@ router.use(middleware.request.verifySlackRequest);
 // ROUTE: /weather
 //================================
 router.post('/', (req, res) => {
+    res.status(200).end(); // Have to send 200 within 3000ms
     let city = req.body.text.trim();
     weatherApi.getWeatherByCityName(city, (data, err) => {
         if (err) {
