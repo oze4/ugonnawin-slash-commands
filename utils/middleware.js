@@ -24,10 +24,12 @@ const middleware = {
                 if (req.body.token === config.slack.verificationToken) {
                     next();
                 } else {
-                    res.status(403).send("Slack verification token mismatch!");
+                    console.log("Slack verification token mismatch!");
+                    res.status(200).send("Slack verification token mismatch!");
                 }
             } else {
-                res.status(403).send("Slack signature does not match hash!");
+                console.log("Slack signature does not match hash!");
+                res.status(200).send("Slack signature does not match hash!");
             }
         },
     },
