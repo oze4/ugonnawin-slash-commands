@@ -26,8 +26,9 @@ router.post('/', (req, res) => {
             console.log(weather.main);
             let finalTemp = weatherApi.kelvinToFahrenheit(weather.main.temp);
             let finalIcon = weatherApi.getWeatherIconUrl(weather.weather.icon);
-            console.log("temp: " + finalTemp);
-            console.log("icon: " + finalIcon)
+            console.log("finalTemp: " + finalTemp);
+            console.log("preIcon: " + weather.weather.icon);
+            console.log("finalIcon: " + finalIcon)
             let weatherInfo = slack.messageBuilder.currentWeather(weather.name, finalTemp, weather.weather.description, finalIcon);
             console.log('weatherinfo:');
             console.log(weatherInfo);
