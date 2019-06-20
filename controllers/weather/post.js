@@ -22,17 +22,19 @@ router.post('/', (req, res) => {
         if (err) {
             res.status(200).send("Unable to complete that action :cry: " + err);
         } else if (data) {
-            let weather = JSON.parse(data);
-            let mainWeather = weather.weather[0];            
-            let weatherInfo = slack.messageBuilder.currentWeather(
-                weather.name, 
-                weatherApi.kelvinToFahrenheit(weather.main.temp), 
-                mainWeather.description, 
-                weatherApi.getWeatherIconUrl(mainWeather.icon)
-            );
-            console.log('weatherinfo:');
-            console.log(JSON.stringify(weatherInfo));
-            slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
+            try { 
+                let weather = JSON.parse(data);
+                let mainWeather = weather.weather[0];            
+                let weatherInfo = slack.messageBuilder.currentWeather(
+                    weather.name, // City name
+                    weatherApi.kelvinToFahrenheit(weather.main.temp), // Temp in Fahrenheit
+                    mainWeather.description, // Short description of weather
+                    weatherApi.getWeatherIconUrl(mainWeather.icon) // Icon representing weather conditions
+                );
+                slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
+            } catch {
+                slack.api.post.jsonMessage(req.body.response_url, JSON.parse({text: "That city does not exist!"}));
+            }
         } else {
             res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
         }
