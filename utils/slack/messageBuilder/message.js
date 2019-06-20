@@ -65,7 +65,7 @@ const slackMessages = {
     currentWeather (city, temp, description, iconUrl) {
         let degreeSymbol = "°";
         let listSymbol = "•";
-        let desc = titleCase(description);
+        let desc = titleCase(String(description));
         let weatherText = "Current weather for *" + city + "*:\n  " + listSymbol + " " + temp + degreeSymbol + "\n  " + listSymbol + " " + desc;
         let message = {
             response_type: "ephemeral",
