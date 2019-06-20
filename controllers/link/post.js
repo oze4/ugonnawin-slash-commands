@@ -66,7 +66,7 @@ router.post('/interactive', (req, res) => {
     console.log("________________________________________________________");
     console.log("Interactive Button Clicked");
     console.log("________________________________________________________");
-    res.status(404).send("Hmmm.. can't find that..");
+    res.status(200).send();
 });
 
 
