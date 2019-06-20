@@ -78,8 +78,16 @@ lightning_cloud
 // ROUTE: /weather
 //================================
 router.post('/', (req, res) => {
-    let ip = req.headers['x-real-ip'];
-    console.log("IP: " + ip)
+    let city = req.body.text.trim();
+    weatherApi.getWeatherByCityName(city, (data, err) => {
+        if (err) {
+            res.status(200).send("Unable to complete that action :cry: " + err);
+        } else if (data) {
+            res.status(200).send(data);
+        } else {
+            res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
+        }
+    })
     let responseUrl = req.body.response_url;
 });
 
