@@ -31,6 +31,7 @@ router.post('/', (req, res) => {
                         weather.weather.description,
                         weatherApi.getWeatherIconUrl(weather.weather.icon)
                     );
+                console.log('weatherinfo:');
                 console.log(weatherInfo);
                 slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
             } catch {
