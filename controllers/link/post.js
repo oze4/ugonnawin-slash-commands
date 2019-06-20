@@ -63,7 +63,7 @@ router.post('/button', (req, res) => {
 // ROUTE: /link/interactive 
 //================================
 router.post('/interactive', (req, res) => {
-    req.status(200).end();
+    res.status(200).end();
     console.log("________________________________________________________");
     console.log("Interactive Button Clicked");
     console.log("________________________________________________________");
