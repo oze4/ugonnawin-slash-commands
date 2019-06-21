@@ -21,7 +21,8 @@ const middleware = {
     request: {
         verifySlackRequest (req, res, next) {
             if (_validateSlackRequest(config.slack.signingSecret, config.slack.versionNumber, req, res)) {
-                if (req.body.token === config.slack.verificationToken) {
+                let tokenInRequest = req.body.token || req.body.payload.token;
+                if (tokenInRequest === config.slack.verificationToken) {
                     next();
                 } else {
                     console.log("Slack verification token mismatch!");
@@ -68,13 +69,13 @@ function _lessThanFiveMinutes(reqTimestamp) {
 //      Taken From: https://github.com/gverni/validate-slack-request/blob/master/index.js
 function _validateSlackRequest (slackAppSigningSecret, slackVersionNumber, httpReq, httpRes) { 
     let signingSecretIsInvalid = !slackAppSigningSecret || typeof slackAppSigningSecret !== 'string' || slackAppSigningSecret === '';
-    if (signingSecretIsInvalid) { return httpRes.status(403).send('Slack signing secret empty or not a string'); }
+    if (signingSecretIsInvalid) { return httpRes.status(200).send('Slack signing secret empty or not a string'); }
     const SlackSignature = httpReq.get('X-Slack-Signature')
-    if (!SlackSignature) { return res.status(403).send('No Slack signature found in request'); }
+    if (!SlackSignature) { return res.status(200).send('No Slack signature found in request'); }
     const xSlackRequestTimeStamp = httpReq.get('X-Slack-Request-Timestamp')
-    if (!_lessThanFiveMinutes(xSlackRequestTimeStamp)) { return res.status(403).send('older than five min'); }
+    if (!_lessThanFiveMinutes(xSlackRequestTimeStamp)) { return res.status(200).send('older than five min'); }
     const bodyPayload = qs.stringify(httpReq.body).replace(/%20/g, '+');
-    if (!(xSlackRequestTimeStamp && SlackSignature && bodyPayload)) { return httpRes.status(403).send('Invalid request from Slack'); }
+    if (!(xSlackRequestTimeStamp && SlackSignature && bodyPayload)) { return httpRes.status(200).send('Invalid request from Slack'); }
     const baseString = `${slackVersionNumber}:${xSlackRequestTimeStamp}:${bodyPayload}`;
     const hash = `${slackVersionNumber}=${crypto.createHmac('sha256', slackAppSigningSecret).update(baseString).digest('hex')}`;
     return (SlackSignature === hash);

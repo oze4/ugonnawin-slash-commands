@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
         ];
         let select = slack.messageBuilder.textWithSelect("Please select an option:", "Locations", myOptions);
         slack.api.post.jsonMessage(req.body.response_url, select);
-    } else {
+    } else if (req.body.payload) {
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         console.log(JSON.parse(req.body.payload))
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
