@@ -22,7 +22,7 @@ const middleware = {
         verifySlackRequest (req, res, next) {
             if (_validateSlackRequest(config.slack.signingSecret, config.slack.versionNumber, req, res)) {
                 let tokenInRequest;
-                let b = JSON.parse(req.body);
+                let b = JSON.parse(JSON.stringify(req.body));
                 console.log(b);
                 try { tokenInRequest = b.payload.token } catch { tokenInRequest = b.token };
                 console.log(tokenInRequest)
