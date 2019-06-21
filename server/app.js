@@ -15,8 +15,8 @@ const InteractiveController = require('../controllers/interactive');
 
 
 // set up body parsing and url parsing tools
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Set the port for our application
 app.set('port', config.app.port);
