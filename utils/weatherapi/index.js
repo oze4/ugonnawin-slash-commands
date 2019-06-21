@@ -8,11 +8,11 @@ const config  = require('../../utils/config.js');
 
 
 class WeatherAPI {
-    static getCurrentWeather (cityOrZip, callback) {
-        let singleWeatherUrl = config.weatherApi.baseUrl + "/weather?q=" + cityOrZip + "&appid=" + config.weatherApi.apiKey
-        let multiWeatherUrl = config.weatherApi.baseUrl + "/find?q=" + cityOrZip + "&appid=" + config.weatherApi.apiKey
+    static getCurrentWeather (cityOrZip, multi=false, callback) {
+        let urlParam = multi ? "/find?q=" : "/weather?q=";
+        let url = config.weatherApi.baseUrl + urlParam + cityOrZip + "&appid=" + config.weatherApi.apiKey
         request({
-            uri: singleWeatherUrl,
+            uri: url,
             method: 'GET'
         }, (error, res, body) => {
             if (error) {

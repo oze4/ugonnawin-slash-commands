@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
                         weatherApi.kelvinToFahrenheit(weather.main.temp), // Temp in Fahrenheit
                         mainWeather.description, // Short description of weather
                         weatherApi.getWeatherIconUrl(mainWeather.icon), // Icon representing weather conditions
-                        multipleLocationsFoundWarning
+                        multipleLocationsFoundWarning // Any extra text - as a 'context block' https://api.slack.com/reference/messaging/blocks#context
                     );
                     slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
                 } catch {
