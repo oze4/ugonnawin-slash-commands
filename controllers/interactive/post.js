@@ -40,23 +40,9 @@ router.post('/', (req, res) => {
         slack.api.post.jsonMessage(req.body.response_url, select);
     } else {
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        console.log(JSON.parse(req.body))
+        console.log(req.body)
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
     }
-
-    /*
-    console.log("________________________________________________________");
-    console.log("Interactive Button Clicked");
-    console.log("________________________________________________________");
-    let responseUrl = req.body.response_url;
-    console.log(responseUrl);
-    let json = {
-        text: "Thanks for clicking!"
-    };
-    let jsonMessage = JSON.parse(json);
-    res.status(200).end();
-    slack.api.post.jsonMessage(responseUrl, jsonMessage);
-    */
 });
 
 
