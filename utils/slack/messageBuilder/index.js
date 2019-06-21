@@ -54,17 +54,16 @@ const slackMessages = {
                             text: "Locations",
                             emoji: true
                         },
-                        //options: []
+                        options: []
                     }
                 },
             ]
         };
-        let optns = []
         selectOptions.forEach(option => {
             let o = new SlackBlockSelectOption(option.text, option.value);
-            optns.push(o.toJson());
+            message.blocks[0].accessory.options.push(o.toJson());
         });
-        message.blocks.accessory["options"] = optns;
+
         return JSON.parse(JSON.stringify(message)); 
     },
 
