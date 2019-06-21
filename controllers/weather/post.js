@@ -28,10 +28,7 @@ router.post('/', (req, res) => {
             } else if (data) {
                 try { 
                     let weather = JSON.parse(data);
-                    let multipleLocationsFoundWarning = null;
-                    if (weather.weather.length > 1) {
-                        multipleLocationsFoundWarning = "*Multiple locations were found for your search! If the data you are seeing is incorrect, you may need to specify a 2 character Country Code (ex: US)!!*\nYou may also run `/weather -h` for more info.";
-                    }
+                    let multipleLocationsFoundWarning = "*If the returned data is incorrect, you may need to supply a Country Code. Use `/weather -h` for more info.";
                     let mainWeather = weather.weather[0];            
                     let weatherInfo = slack.messageBuilder.currentWeather(
                         weather.name, // City name
