@@ -9,7 +9,7 @@ class SlackBlockSelectOption {
         this.optionValue = optionValue;
     }
 
-    static toJson () {
+    toJson () {
         return {
             text: {
                 type: "plain_text",

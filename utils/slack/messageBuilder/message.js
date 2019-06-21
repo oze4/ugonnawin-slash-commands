@@ -63,7 +63,7 @@ const slackMessages = {
         console.log(selectOptions);
         selectOptions.forEach(option => {
             let o = new SlackBlockSelectOption(option.text, option.value);
-            message.blocks.accessory.options.push(o);
+            message.blocks.accessory.options.push(o.toJson());
         });
         return JSON.parse(JSON.stringify(message)); 
     },
