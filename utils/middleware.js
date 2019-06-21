@@ -74,7 +74,8 @@ function _validateSlackRequest (slackAppSigningSecret, slackVersionNumber, httpR
     if (!SlackSignature) { return res.status(200).send('No Slack signature found in request'); }
     const xSlackRequestTimeStamp = httpReq.get('X-Slack-Request-Timestamp')
     if (!_lessThanFiveMinutes(xSlackRequestTimeStamp)) { return res.status(200).send('older than five min'); }
-    const bodyPayload = qs.stringify(httpReq.body).replace(/%20/g, '+');
+    let stagingBody = httpReq.body.payload || httpReq.body;
+    const bodyPayload = qs.stringify(stagingBody).replace(/%20/g, '+');
     if (!(xSlackRequestTimeStamp && SlackSignature && bodyPayload)) { return httpRes.status(200).send('Invalid request from Slack'); }
     const baseString = `${slackVersionNumber}:${xSlackRequestTimeStamp}:${bodyPayload}`;
     const hash = `${slackVersionNumber}=${crypto.createHmac('sha256', slackAppSigningSecret).update(baseString).digest('hex')}`;
