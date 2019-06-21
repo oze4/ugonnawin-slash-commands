@@ -8,14 +8,38 @@ const slack       = require('../../utils/slack');
 
 
 // Middleware to verify request is from Slack.
-router.use(middleware.request.verifySlackRequest);
+// TODO: NEED TO REFINE THIS VERIFICATION TO ACCOUNT FOR INTERACTIVE REQUESTS
+//router.use(middleware.request.verifySlackRequest);
 
 
 //================================
 // ROUTE: /interactive
 //================================
 router.post('/', (req, res) => {  
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")  
+    if (req.body.command === "/interactivetest") { 
+        res.status(200).end();
+        let myOptions = [
+            {
+                text: "Option 1",
+                value: "Option1Value"
+            },
+            {
+                text: "Option 2",
+                value: "Option2Value"
+            },
+            {
+                text: "Option 3",
+                value: "Option3Value"
+            },
+            {
+                text: "Option 4",
+                value: "Option4Value"
+            },                        
+        ];
+        let select = slack.messageBuilder.textWithSelect("Please select an option:", myOptions);
+        slack.api.post.jsonMessage(req.body.response_url, JSON.parse(select));
+    }
+
     /*
     console.log("________________________________________________________");
     console.log("Interactive Button Clicked");
@@ -30,6 +54,8 @@ router.post('/', (req, res) => {
     slack.api.post.jsonMessage(responseUrl, jsonMessage);
     */
 });
+
+
 
 
 module.exports = router;

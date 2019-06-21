@@ -2,6 +2,8 @@
 
 'use strict'
 
+const SlackBlockSelectOption = require('./SlackBlockSelectOption.js');
+
 
 const slackMessages = {
     linkWithButton (request, mainText) {
@@ -31,7 +33,45 @@ const slackMessages = {
         };
         return JSON.parse(JSON.stringify(message));  
     },
+    
+    /**
+     * @param  {String} text
+     * @param  {Array<{text: 'display', value: 'value'}>} selectOptions
+     */
+    textWithSelect (text, selectOptions) {
+        let message = {
+            response_type: "in_channel",
+            blocks: [
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: text //"Please select a location:" 
+                    },
+                    accessory: {
+                        type: "static_select",
+                        placeholder: {
+                            type: "plain_text",
+                            text: "Locations",
+                            emoji: true
+                        },
+                        options: []
+                    }
+                },
+            ]
+        };
+        selectOptions.forEach(option => {
+            let o = new SlackBlockSelectOption(option.text, option.value)
+            message.blocks.accessory.options.push(o);
+        });
+        return JSON.parse(JSON.stringify(message)); 
+    },
 
+
+    /**
+     * @param  {Express.request} request
+     * @param  {String} mainMessage
+     */
     textToLink (request, mainMessage) {
         let bodyText = request.body.text.trim();
         let finalBody = bodyText.startsWith("http") ? bodyText : "http://" + bodyText;
