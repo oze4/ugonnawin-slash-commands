@@ -65,9 +65,6 @@ const slackMessages = {
         let listSymbol = "•";
         let desc = titleCase(String(description));
         let weatherText = "Current weather for *" + city + "*:\n  " + listSymbol + " " + temp + degreeSymbol + "F\n  " + listSymbol + " " + desc;
-        if (extraText !== null) {
-            weatherText += "\n" + extraText
-        }
         let message = {
             response_type: "ephemeral",
             blocks: [
@@ -85,6 +82,17 @@ const slackMessages = {
                 }
             ]
         };
+        if (extraText !== null) {
+            message.blocks.push({
+                type: "context",
+                elements: [
+                    {
+                        type: "mrkdwn",
+                        text: extraText
+                    }
+                ]
+            })
+        }
         return JSON.parse(JSON.stringify(message));          
     },
 
