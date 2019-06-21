@@ -16,8 +16,8 @@
    - Same as `/link [url]` or `/l [url]`, only the link is in the form of a button and overflow is cut off at 75 chars
 
  - ### `/weather [city] [zip] [city,CN] [zip,CN]`
-   - Use `/weather -h` for help!
+   - #### Use `/weather -h` for help!
    - Where CN is a Country Code
-   - Takes a city name, zip code or city plus country code or zip plus Country Code
+   - Takes a city name or zip code or city plus country code or zip plus Country Code
    - No space allowed between city/zip and Country Code
    - Must be separated by a comma - no spaces allowed between city/zip, comma, and Country Code
