@@ -37,7 +37,7 @@ const slackMessages = {
      * @param  {String} text
      * @param  {Array<{text: 'display', value: 'value'}>} selectOptions
      */
-    textWithSelect (text, selectOptions) {
+    textWithSelect (text, selectPlaceholder, selectOptions) {
         let message = {
             response_type: "in_channel",
             blocks: [
@@ -51,11 +51,11 @@ const slackMessages = {
                         type: "static_select",
                         placeholder: {
                             type: "plain_text",
-                            text: "Locations",
+                            text: selectPlaceholder,
                             emoji: true
                         },
                         options: []
-                    }
+                    },
                 },
             ]
         };

@@ -36,8 +36,8 @@ router.post('/', (req, res) => {
                 value: "Option4Value"
             },                        
         ];
-        let select = slack.messageBuilder.textWithSelect("Please select an option:", myOptions);
-        slack.api.post.jsonMessage(req.body.response_url, JSON.parse(select));
+        let select = slack.messageBuilder.textWithSelect("Please select an option:", "Locations", myOptions);
+        slack.api.post.jsonMessage(req.body.response_url, select);
     }
 
     /*
