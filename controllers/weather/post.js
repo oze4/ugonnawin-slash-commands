@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
     res.status(200).end(); // Have to send 200 within 3000ms
     let query = req.body.text.trim();
     if (query === "-h") {
-        let helpText = "You may search by city name or by ZIP code. \nIf the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\nThe search parameters ARE NOT case sensitive.\nSome examples are below:\n  • /weather 77065,US\n  • /weather Houston\n  • /weather Houston,US"
+        let helpText = "You may search by city name or by ZIP code. \nIf the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\nThe search parameters ARE NOT case sensitive.\nSome examples are below:\n  • /weather 77065,US *(comma without a space is required!!)*\n  • /weather Houston\n  • /weather Houston,US"
         slack.api.post.jsonMessage(req.body.response_url, {text: helpText});
     } else { 
         weatherApi.getCurrentWeather(query, (data, err) => {
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
                     let weather = JSON.parse(data);
                     let multipleLocationsFoundWarning = null;
                     if (weather.weather.length > 1) {
-                        multipleLocationsFoundWarning = "*Multiple locations were found for your search! If the data you are seeing is incorrect, you may need to specify a 2 character Country Code (ex: US)!!*";
+                        multipleLocationsFoundWarning = "*Multiple locations were found for your search! If the data you are seeing is incorrect, you may need to specify a 2 character Country Code (ex: US)!!*\nYou may also run `/weather -h` for more info.";
                     }
                     let mainWeather = weather.weather[0];            
                     let weatherInfo = slack.messageBuilder.currentWeather(
