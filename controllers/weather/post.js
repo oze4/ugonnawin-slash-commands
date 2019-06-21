@@ -28,12 +28,17 @@ router.post('/', (req, res) => {
             } else if (data) {
                 try { 
                     let weather = JSON.parse(data);
+                    let multipleLocationsFoundWarning = null;
+                    if (weather.weather.length > 1) {
+                        multipleLocationsFoundWarning = "*Multiple locations were found for your search! If the data you are seeing is incorrect, you may need to specify a 2 character Country Code (ex: US)!!*";
+                    }
                     let mainWeather = weather.weather[0];            
                     let weatherInfo = slack.messageBuilder.currentWeather(
                         weather.name, // City name
                         weatherApi.kelvinToFahrenheit(weather.main.temp), // Temp in Fahrenheit
                         mainWeather.description, // Short description of weather
-                        weatherApi.getWeatherIconUrl(mainWeather.icon) // Icon representing weather conditions
+                        weatherApi.getWeatherIconUrl(mainWeather.icon), // Icon representing weather conditions
+                        multipleLocationsFoundWarning
                     );
                     slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
                 } catch {
