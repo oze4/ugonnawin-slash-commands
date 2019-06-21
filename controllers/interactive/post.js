@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
         slack.api.post.jsonMessage(req.body.response_url, select);
     } else {
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        console.log(req.body.payload)
+        console.log(JSON.parse(req.body.payload))
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
     }
 });
