@@ -8,6 +8,11 @@ const config  = require('../../utils/config.js');
 
 
 class WeatherAPI {
+    /**
+     * @param  {String} cityOrZip
+     * @param  {Boolean} multi - Return all results found, otherwise we return only first result found
+     * @param  {Function} callback
+     */
     static getCurrentWeather (cityOrZip, multi, callback) {
         let urlParam = multi ? "/find?q=" : "/weather?q=";
         let url = config.weatherApi.baseUrl + urlParam + cityOrZip + "&appid=" + config.weatherApi.apiKey

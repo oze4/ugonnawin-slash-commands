@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         let helpText = "==========================================\n\n  ---- *`/weather -h` README* ----\n\n- You may search by city name or by ZIP code. \n\n- If the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\n\n- The search parameters ARE NOT case sensitive.\n\n- Examples:\n  • `/weather 77065,US` *(comma without a space is required when specifying country code!!)*\n  • `/weather Houston`\n  • `/weather 77065`\n  • `/weather Houston,US`\n\n=========================================="
         slack.api.post.jsonMessage(req.body.response_url, {text: helpText});
     } else { 
-        weatherApi.getCurrentWeather(query, (data, err) => {
+        weatherApi.getCurrentWeather(query, false, (data, err) => {
             if (err) {
                 res.status(200).send("Unable to complete that action :cry: " + err);
             } else if (data) {
