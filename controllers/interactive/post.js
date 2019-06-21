@@ -17,9 +17,6 @@ const slack       = require('../../utils/slack');
 //================================
 router.post('/', (req, res) => {  
     if (req.body.command === "/interactivetest") { 
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        console.log(JSON.parse(req.body))
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         res.status(200).end();
         let myOptions = [
             {
@@ -41,6 +38,10 @@ router.post('/', (req, res) => {
         ];
         let select = slack.messageBuilder.textWithSelect("Please select an option:", "Locations", myOptions);
         slack.api.post.jsonMessage(req.body.response_url, select);
+    } else {
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        console.log(JSON.parse(req.body))
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
     }
 
     /*
