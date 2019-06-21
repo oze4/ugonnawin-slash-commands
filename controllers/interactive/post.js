@@ -17,6 +17,9 @@ const slack       = require('../../utils/slack');
 //================================
 router.post('/', (req, res) => {  
     if (req.body.command === "/interactivetest") { 
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        console.log(JSON.parse(req.body))
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         res.status(200).end();
         let myOptions = [
             {
