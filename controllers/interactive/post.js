@@ -8,7 +8,6 @@ const slack       = require('../../utils/slack');
 
 
 // Middleware to verify request is from Slack.
-// TODO: NEED TO REFINE THIS VERIFICATION TO ACCOUNT FOR INTERACTIVE REQUESTS
 router.use(middleware.request.verifySlackRequest);
 
 
