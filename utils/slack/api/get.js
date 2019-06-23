@@ -26,7 +26,7 @@ class SlackGet {
                 callback(null, err);
             } else if (data) {
                 let user = JSON.parse(data).user;
-                console.log(user);
+                console.log(data);
                 let userName = user.profile.display_name !== '' 
                                 ? user.profile.display_name : user.name !== ''
                                     ? user.name : user.real_name !== ''
