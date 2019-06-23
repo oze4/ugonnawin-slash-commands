@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Remove config
-config
+config/
 
 # Runtime data
 pids
