@@ -5,6 +5,11 @@ const SlackBlockSelectOption = require('./SlackBlockSelectOption.js');
 
 
 const slackMessages = {
+    /**
+     * @param  {Express.request} request
+     * @param  {String} mainText
+     *     Text to display along with the button
+     */
     linkWithButton (request, mainText) {
         let stageBodyText = request.body.text;
         let preBodyText   = stageBodyText.trim();
@@ -35,7 +40,10 @@ const slackMessages = {
     
     /**
      * @param  {String} text
-     * @param  {Array<{text: 'display', value: 'value'}>} selectOptions
+     * @param  {String} selectPlaceholder
+     *     Place holder to be shown before a selection is made
+     * @param  {Array<{text: String, value: String}>} selectOptions
+     *     Must be an object that has a text and value property - both properties should be a String
      */
     textWithSelect (text, selectPlaceholder, selectOptions) {
         let message = {
@@ -100,6 +108,14 @@ const slackMessages = {
         return JSON.parse(JSON.stringify(message));        
     },
 
+
+    /**
+     * @param  {String} city
+     * @param  {String|Number} temp
+     * @param  {String} description
+     * @param  {String} iconUrl
+     * @param  {String} extraText=null
+     */
     currentWeather (city, temp, description, iconUrl, extraText = null) {
         let degreeSymbol = "°";
         let listSymbol = "•";

@@ -5,6 +5,11 @@ const request = require('request');
 
 
 const httpPost = {
+    /**
+     * @param  {String} url
+     * @param  {Object} json
+     * @param  {String} contentType='application/json'
+     */
     jsonMessage: (url, json, contentType = 'application/json') => {
         request({
             uri: url,

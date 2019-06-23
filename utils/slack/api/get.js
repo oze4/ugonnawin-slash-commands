@@ -6,6 +6,10 @@ const config       = require('../../config.js');
 const baseSlackUrl = "https://slack.com/api/";
 
 class SlackGet {
+    /**
+     * @param  {String} user_id
+     * @param  {(res.body,error)=>{}} callback
+     */
     static userInfo(user_id, callback) {
         request({
             uri: baseSlackUrl + "users.info?token=" + config.slack.oAuthAccessToken + "&user=" + user_id,
@@ -20,6 +24,11 @@ class SlackGet {
         });
     }
 
+    
+    /**
+     * @param  {String} user_id
+     * @param  {(res.body,error)=>{}} callback
+     */
     static userName (user_id, callback) {
         this.userInfo(user_id, (data, err) => {
             if (err) {
