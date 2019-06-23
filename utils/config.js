@@ -14,8 +14,8 @@ try {
             port: process.env.PORT,
         },
         weatherApi: {
-            apiKey: "9d6e842241161dffa8f9963157efeded",
-            baseUrl: "https://api.openweathermap.org/data/2.5"
+            apiKey: process.env.OPENWEATHERMAP_API_KEY,
+            baseUrl: process.env.OPENWEATHERMAP_BASE_URL
         },  
         slack: {
             versionNumber: "v0",
@@ -27,6 +27,13 @@ try {
             oAuthAccessToken: process.env.OAUTH_ACCESS_TOKEN,
             incomingWebHookUrl: process.env.INCOMING_WEB_HOOK_URL,
         },
+    }
+
+    if (config.weatherApi.baseUrl.endsWith("/")) {
+        config.weatherApi.baseUrl = config.weatherApi.baseUrl.slice(0, -1);
+    }
+    if (config.weatherApi.baseUrl.endsWith("\\")) {
+        config.weatherApi.baseUrl = config.weatherApi.baseUrl.slice(0, -1);
     }
 }
 

@@ -1,7 +1,4 @@
-// This file is not in '.gitignore' because the repo is private.. We do not copy this folder 
-//     into the Docker container (via '.dockerignore') - you have to supply environmental variables
-//     on the contianer. We supply those environmental varibles in the docker-compose.yml file
-//     (on ost-sf-dckr-00). The "main" import file is in %project_root_dir%/utils/config.js..
+// Config file to be used for local testing - otherwise these vars need to be supplied via Docker
 
 'use strict'
 const config = {
@@ -10,7 +7,7 @@ const config = {
     },
     weatherApi: {
         apiKey: "9d6e842241161dffa8f9963157efeded",
-        baseUrl: "https://api.openweathermap.org/data/2.5/"
+        baseUrl: "https://api.openweathermap.org/data/2.5"
     }, 
     slack: {
         versionNumber: "v0",
@@ -22,6 +19,13 @@ const config = {
         oAuthAccessToken: 'xoxp-537456956134-536227564035-666665028144-eb1d2b7eefb7c391bc8e545d3c65764d',
         incomingWebHookUrl: 'https://hooks.slack.com/services/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',
     }
+}
+
+if (config.weatherApi.baseUrl.endsWith("/")) {
+    config.weatherApi.baseUrl = config.weatherApi.baseUrl.slice(0, -1);
+}
+if (config.weatherApi.baseUrl.endsWith("\\")) {
+    config.weatherApi.baseUrl = config.weatherApi.baseUrl.slice(0, -1);
 }
 
 
