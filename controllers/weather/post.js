@@ -43,6 +43,7 @@ router.post('/', (req, res) => {
                                 value: location.id 
                             }
                             console.log(kv);
+                            return kv;
                         });
                         let jsonMessage = slack.messageBuilder.textWithSelect("Please select a Location", "Locations", allLocations);
                         slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
