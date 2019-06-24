@@ -11,22 +11,26 @@ class WeatherAPI {
 
     /**
      * @param  {String} cityOrZip
-     * @param  {Boolean} multi - Return all results found, otherwise we return only first result found
+     * @param  {String} queryType - can either be weather, find, or id
      * @param  {Function(result, error)} callback
      */
-    static getCurrentWeather (cityOrZip, multi, callback) {
-        let urlParam = multi ? "/find?q=" : "/weather?q=";
-        let url = config.weatherApi.baseUrl + urlParam + cityOrZip + "&appid=" + config.weatherApi.apiKey
-        request({
-            uri: url,
-            method: 'GET'
-        }, (error, res, body) => {
-            if (error) {
-                callback(null, error);
-            } else {
-                callback(body, null);
-            }
-        });
+    static getCurrentWeather (cityOrZip, queryType, callback) {
+        if (!['weather', 'find', 'id'].includes(queryType)) {
+            throw "queryType parameter is wrong! Has to be either 'weather','find', or 'id'!";
+        } else { 
+            let urlParam = multi ? "/find?q=" : "/weather?q=";
+            let url = config.weatherApi.baseUrl + urlParam + cityOrZip + "&appid=" + config.weatherApi.apiKey
+            request({
+                uri: url,
+                method: 'GET'
+            }, (error, res, body) => {
+                if (error) {
+                    callback(null, error);
+                } else {
+                    callback(body, null);
+                }
+            });
+        }
     }
 
     static getWeatherIconUrl (icon) {
