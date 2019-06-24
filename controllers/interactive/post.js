@@ -18,33 +18,10 @@ router.use(middleware.request.verifySlackRequest);
 router.post('/', (req, res) => {  
     res.status(200).end();
     if (req.body.command === "/interactivetest") {         
-        let myOptions = [
-            {
-                text: "Option 1",
-                value: "Option1Value"
-            },
-            {
-                text: "Option 2",
-                value: "Option2Value"
-            },
-            {
-                text: "Option 3",
-                value: "Option3Value"
-            },
-            {
-                text: "Option 4",
-                value: "Option4Value"
-            },                        
-        ];
-        let select = slack.messageBuilder.textWithSelect("Please select an option:", "Locations", myOptions);
-        slack.api.post.jsonMessage(req.body.response_url, select);
+
     } else if (req.body.payload) {
         let payLoad = JSON.parse(req.body.payload);
         let userQuery = payLoad.actions[0].selected_option.value;
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        console.log(userQuery);
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
-        console.log(payLoad.response_url);
         weatherApi.getCurrentWeather(userQuery, "id", (data, err) => {
             if (err) {
                 res.status(200).send("Unable to complete that action :cry: " + err);
