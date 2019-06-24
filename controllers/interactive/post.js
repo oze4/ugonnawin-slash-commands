@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
         slack.api.post.jsonMessage(req.body.response_url, select);
     } else if (req.body.payload) {
         let payLoad = JSON.parse(req.body.payload);
-        let userQuery = payLoad.actions.selected_option;
+        let userQuery = payLoad.actions[0].selected_option.value;
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         console.log(userQuery);
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
