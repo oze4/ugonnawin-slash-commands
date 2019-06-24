@@ -18,7 +18,7 @@ class WeatherAPI {
         if (!['weather', 'find', 'id'].includes(queryType)) {
             throw "queryType parameter is wrong! Has to be either 'weather','find', or 'id'!";
         } else { 
-            let urlParam = multi ? "/find?q=" : "/weather?q=";
+            let urlParam = queryType === "id" ? "/weather?id=" : "/" + queryType + "?q=";
             let url = config.weatherApi.baseUrl + urlParam + cityOrZip + "&appid=" + config.weatherApi.apiKey
             request({
                 uri: url,

@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
         console.log(userQuery);
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");        
         console.log(payLoad.response_url);
-        weatherApi.getCurrentWeather(userQuery, false, (data, err) => {
+        weatherApi.getCurrentWeather(userQuery, "id", (data, err) => {
             if (err) {
                 res.status(200).send("Unable to complete that action :cry: " + err);
             } else if (data) {
