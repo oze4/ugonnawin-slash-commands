@@ -38,10 +38,16 @@ router.post('/', (req, res) => {
                     // If the request was valid - the third party weather api sends this property for us to check
                     if (allWeather.message === "accurate") {
                         console.log(allWeather.list[0])
-                        /*let allLocations = allWeather.list.map(location => {
-                            return 
-                        })
-                        let jsonMessage = slack.messageBuilder.textWithSelect("Please select a Location", "Locations")*/
+                        let allLocations = allWeather.list.map(location => {
+                            return {
+                                text: location.name + " (*lat*: " + location.coord.lat + ", *lon*: " + location.coord.lon + ")",
+                                value: location.id 
+                            }
+                        });
+                        let jsonMessage = slack.messageBuilder.textWithSelect("Please select a Location", "Locations", allLocations);
+                        slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
+                    } else if (allWeather.message === "bad query") {
+                        slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
                     }
                 } catch {
                     slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
