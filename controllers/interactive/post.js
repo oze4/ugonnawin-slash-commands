@@ -59,8 +59,8 @@ router.post('/', (req, res) => {
                         weatherApi.getWeatherIconUrl(mainWeather.icon), // Icon representing weather conditions
                     );
                     slack.api.post.jsonMessage(payLoad.response_url, weatherInfo);
-                } catch {
-                    slack.api.post.jsonMessage(payLoad.response_url, {text: "Unable to find weather for that location!"});
+                } catch (tryerr) {
+                    slack.api.post.jsonMessage(payLoad.response_url, {text: "Unable to find weather for that location! " + tryerr});
                 }
             } else {
                 res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
