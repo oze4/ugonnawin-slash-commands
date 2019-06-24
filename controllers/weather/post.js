@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
                         });
                         let jsonMessage = slack.messageBuilder.textWithSelect("Please select a Location", "Locations", allLocations);
                         slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
-                    } else if (allWeather.message === "bad query") {
+                    } else {
                         slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
                     }
                 } catch {
