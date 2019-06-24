@@ -28,7 +28,8 @@ router.post('/', (req, res) => {
     } else if (query.startsWith("-a")) {
 
         let qry = textHelper.replaceMultipleSpacesWithSingleSpace(query);
-        let userQuery = qry.split(' ').slice(-1)[0]
+        let userQuery = qry.split(' ').slice(1, nStr.length).join(' ');
+        //let userQuery = qry.split(' ').slice(-1)[0]
         weatherApi.getCurrentWeather(userQuery, 'find', (data, err) => {
             if (err) { 
                 res.status(200).send("Unable to complete that action :cry: " + err);
