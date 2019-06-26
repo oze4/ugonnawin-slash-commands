@@ -1,14 +1,14 @@
 'use strict'
 const express = require('express');
 const router  = express.Router();
-const request = require('request');
 
 
 ////////////////////////////
 // ROUTE: /myip
 ////////////////////////////
 router.get('/', (req, res) => {
-    res.status(200).send('ok');
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(JSON.stringify({ ip: req.headers['x-real-ip'] }));
 })
 
 
