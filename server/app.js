@@ -12,6 +12,7 @@ const LinkController        = require('../controllers/link');
 const EventsController      = require('../controllers/events');
 const WeatherController     = require('../controllers/weather');
 const InteractiveController = require('../controllers/interactive');
+const MyIPController        = require('../controllers/myip');
 
 
 // set up body parsing and url parsing tools
@@ -32,6 +33,7 @@ app.use('/link', LinkController);
 app.use('/events', EventsController);
 app.use('/weather', WeatherController);
 app.use('/interactive', InteractiveController);
+app.use('/myip', MyIPController);
 
 
 
