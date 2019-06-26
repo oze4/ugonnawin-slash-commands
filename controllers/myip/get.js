@@ -1,7 +1,10 @@
 'use strict'
-const express = require('express');
-const router  = express.Router();
+const express    = require('express');
+const router     = express.Router();
+const middleware = require('../../utils/middleware.js');
 
+
+router.use(middleware.request.allowCors);
 
 ////////////////////////////
 // ROUTE: /myip

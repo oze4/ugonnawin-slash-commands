@@ -38,6 +38,12 @@ const middleware = {
                 //res.status(200).send("Slack signature does not match hash!");
             }
         },
+
+        allowCors (req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        },
     },
 
     logger: {
