@@ -8,6 +8,8 @@ yarn-error.log*
 # Remove config
 config/
 
+.DS_Store
+
 # Runtime data
 pids
 *.pid
