@@ -27,8 +27,8 @@ router.post('/', (req, res) => {
         "- If the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\n\n" +
         "- The search parameters ARE NOT case sensitive.\n\n" + 
         "- Examples:\n" +
-        "  • `/weather -a Houston` *(returns select box of all 'Houston' locations found)*\n" +
-        "  • `/weather 77065,US` *(comma without a space is required when specifying country code!!)*\n" +
+        "  • `/weather -a Houston` _*(returns select box of all 'Houston' locations found)*_\n" +
+        "  • `/weather 77065,US` _*(comma without a space is required when specifying country code!!)*_\n" +
         "  • `/weather Houston`\n" +
         "  • `/weather 77065`\n" +
         "  • `/weather Houston,US`\n\n" +
@@ -77,7 +77,7 @@ router.post('/', (req, res) => {
             } else if (data) {
                 try { 
                     let weather = JSON.parse(data);
-                    let multipleLocationsFoundWarning = "*If location is incorrect you need to supply a Country Code.* `/weather -help` for help";
+                    let multipleLocationsFoundWarning = "_*If location is incorrect you need to supply a Country Code.*_ `/weather -help` for help";
                     let mainWeather = weather.weather[0];            
                     let weatherInfo = slack.messageBuilder.currentWeather(
                         weather.name, // City name
