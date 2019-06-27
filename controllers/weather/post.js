@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
         //let userQuery = qry.split(' ').slice(-1)[0]
         weatherApi.getCurrentWeather(userQuery, 'find', (data, err) => {
             if (err) { 
-                res.status(200).send("Unable to complete that action :cry: " + err);
+                res.status(200).send("Unable to complete that action :cry: " + err + "\n\n_*Please use `/weather -help` for help!*_");
             } else if (data) {
                 res.status(200).end(); // Have to send 200 within 3000ms
                 try {
@@ -88,10 +88,10 @@ router.post('/', (req, res) => {
                     );
                     slack.api.post.jsonMessage(req.body.response_url, weatherInfo);
                 } catch {
-                    slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
+                    slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!\n _*Please use `/weather -help` for help!*_"});
                 }
             } else {
-                res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
+                res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:\n _*Please use `/weather -help` for help!*_");
             }
         });
 
