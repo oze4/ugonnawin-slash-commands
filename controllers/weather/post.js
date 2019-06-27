@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
 
         res.status(200).end(); // Have to send 200 within 3000ms
         let helpText = "==========================================\n\n" +
-        "  ---- *`"+ query +"` README* ----\n\n- You may search by city name or by ZIP code. \n\n" +
+        "  ---- *`/weather " + query + "` README* ----\n\n- You may search by city name or by ZIP code. \n\n" +
         "- If the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\n\n" +
         "- The search parameters ARE NOT case sensitive.\n\n" + 
         "- Examples:\n" +
