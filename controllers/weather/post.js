@@ -19,10 +19,20 @@ router.use(middleware.request.verifySlackRequest);
 router.post('/', (req, res) => {
     let query = req.body.text.trim();
 
-    if (query === "-h") {
+    if (query === "-h" || query === "-help") {
 
         res.status(200).end(); // Have to send 200 within 3000ms
-        let helpText = "==========================================\n\n  ---- *`/weather -h` README* ----\n\n- You may search by city name or by ZIP code. \n\n- If the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\n\n- The search parameters ARE NOT case sensitive.\n\n- Examples:\n  • `/weather 77065,US` *(comma without a space is required when specifying country code!!)*\n  • `/weather Houston`\n  • `/weather 77065`\n  • `/weather Houston,US`\n\n=========================================="
+        let helpText = "==========================================\n\n" +
+        "  ---- *`"+ query +"` README* ----\n\n- You may search by city name or by ZIP code. \n\n" +
+        "- If the city or ZIP code provide incorrect data, you may need to specify a *2 character* country code!!\n\n" +
+        "- The search parameters ARE NOT case sensitive.\n\n" + 
+        "- Examples:\n" +
+        "  • `/weather -a Houston` *(returns select box of all 'Houston' locations found)*\n" +
+        "  • `/weather 77065,US` *(comma without a space is required when specifying country code!!)*\n" +
+        "  • `/weather Houston`\n" +
+        "  • `/weather 77065`\n" +
+        "  • `/weather Houston,US`\n\n" +
+        "=========================================="
         slack.api.post.jsonMessage(req.body.response_url, {text: helpText});
 
     } else if (query.startsWith("-a")) {
@@ -48,13 +58,13 @@ router.post('/', (req, res) => {
                         let jsonMessage = slack.messageBuilder.textWithSelect("Please select a Location", "Locations", allLocations);
                         slack.api.post.jsonMessage(req.body.response_url, jsonMessage);
                     } else {
-                        slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
+                        slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!\n _*Please use `/weather -help` for help!*_"});
                     }
                 } catch {
-                    slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!"});
+                    slack.api.post.jsonMessage(req.body.response_url, {text: "Unable to find weather for that location!\n _*Please use `/weather -help` for help!*_"});
                 }
             } else {
-                res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:");
+                res.status(200).send("We were unable to get weather info, and we received no errors.. Try again later :cry:\n _*Please use `/weather -help` for help!*_");
             }
         })
 
@@ -67,7 +77,7 @@ router.post('/', (req, res) => {
             } else if (data) {
                 try { 
                     let weather = JSON.parse(data);
-                    let multipleLocationsFoundWarning = "*If location is incorrect you need to supply a Country Code.* `/weather -h` for help";
+                    let multipleLocationsFoundWarning = "*If location is incorrect you need to supply a Country Code.* `/weather -help` for help";
                     let mainWeather = weather.weather[0];            
                     let weatherInfo = slack.messageBuilder.currentWeather(
                         weather.name, // City name
