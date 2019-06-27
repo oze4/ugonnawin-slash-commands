@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
         "  • `/weather 77065`\n" +
         "  • `/weather Houston,US`\n\n" +
         "=========================================="
-        slack.api.post.jsonMessage(req.body.response_url, {text: helpText});
+        slack.api.post.jsonMessage(req.body.response_url, {response_type: "ephemeral", text: helpText});
 
     } else if (query.startsWith("-a")) {
 
