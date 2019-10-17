@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
     console.log(req.headers);
     //res.status(200).send(req.body.challenge);
     res.status(200).end(); // Have to send 200 within 3000ms
-    if (req.event.type === "app_mention") {
+    if (req.body.event.type === "app_mention") {
         request({
             uri: "https://slack.com/api/chat.postMessage",
             method: 'POST',
