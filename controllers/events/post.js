@@ -47,26 +47,16 @@ async function botResponse(jsonResponse, channel) {
 }
 
 async function getRandomSubredditPost(subreddit) {
-    try {
-        let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`);
-        let json = await res.json();
-        let posts = json.data.children;
-        return posts[Math.floor(Math.random() * posts.length)];
-    } catch (err) {
-        throw err;
-    }
+    return fetch(`https://www.reddit.com/r/${subreddit}/.json`)
+        .then(res => res.json())
+        .then(json => json.data.children[Math.floor(Math.random() * json.data.children.length)])
+        .catch(err => { throw err; });
 }
 
 function getPicFromSubreddit(subreddit, callback) {
     getRandomSubredditPost(subreddit)
-        .then(r => {
-            r.data.url.endsWith("jpg")
-                ? callback(r.data.url)
-                : getPicFromSubreddit(subreddit, callback)
-        })
-        .catch(e => {
-            throw e
-        });
+        .then(r => callback(r.data.url))
+        .catch(e => { throw e });
 }
 
 function makeSlackImageAttachment(url, fallback = null) {
@@ -100,10 +90,8 @@ router.post('/', (req, res, next) => {
                 botResponse(makeSlackImageAttachment(cat), constants.CHANNEL)
             });
         } else {
-            botResponse({
-                text: `${getRandomWelcome(SALUTATIONS)}, <@${req.body.event.user}>!!`,
-                channel: constants.CHANNEL
-            });
+            let message = { text: `${getRandomWelcome(SALUTATIONS)}, <@${req.body.event.user}>!!` };
+            botResponse(message, constants.CHANNEL);
         }
     }
 
