@@ -37,10 +37,20 @@ async function botResponse(req, responseText) {
 }
 
 async function getRandomSubredditPost(subreddit) {
-    let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
-    let json = await res.json();
-    console.log(json.data.children);
-    return json;
+    try {
+        let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
+        let json = await res.json();
+        let count = json.data.children.length;
+        let random = Math.floor(Math.random() * count);
+        return json.data.children[random]
+    } catch (err) {
+        throw err;
+    }
+}
+
+function getRandomCat() {
+    let post = getRandomSubredditPost("cats");
+    return post.data.thumbnail
 }
 
 /**
@@ -52,7 +62,7 @@ router.post('/', (req, res, next) => {
 
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
-            getRandomSubredditPost("cats");
+            getRandomCat();
             botResponse(req, `( . Y . )`);
         } else {
             botResponse(req, `Hello <@${req.body.event.user}>!!`);
