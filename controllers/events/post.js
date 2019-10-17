@@ -14,7 +14,7 @@ const middleware = require('../../utils/middleware.js');
 
 
 
-function handleAppMention(req) {
+async function handleAppMention(req) {
     try {
         const jsonResponse = {
             text: `Hello <${req.body.event.user}>!!`,
