@@ -104,31 +104,31 @@ const types = {
 router.post('/', (req, res, next) => {
     res.status(200).end(); // Have to send 200 within 3000ms
 
-    const constants = {
+    const event = {
         CHANNEL: req.body.event.channel,
         USER: req.body.event.user,
         TEXT: req.body.event.text,
         TYPE: req.body.event.type,
     }
 
-    if (constants.TYPE === types.APP_MENTION) {
-        if (isTittyEvent(constants.TEXT)) {
-            getPicFromSubreddit('tits', tit => {
-                botResponse(makeSlackImageAttachment(tit), constants.CHANNEL)
+    if (event.TYPE === types.APP_MENTION) {
+        if (isTittyEvent(event.TEXT)) {
+            getPicFromSubreddit('tits', titty => {
+                botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
             });
-        } else if (isCatEvent(constants.TEXT)) {
+        } else if (isCatEvent(event.TEXT)) {
             getPicFromSubreddit('cats', cat => {
-                botResponse(makeSlackImageAttachment(cat), constants.CHANNEL)
+                botResponse(makeSlackImageAttachment(cat), event.CHANNEL)
             });
         } else {
-            let message = { text: `${getRandomElementFromArray(salutations)}, <@${constants.USER}>!!` };
-            botResponse(message, constants.CHANNEL);
+            let message = { text: `${getRandomElementFromArray(salutations)}, <@${event.USER}>!!` };
+            botResponse(message, event.CHANNEL);
         }
     }
 
-    if (constants.TYPE === types.MESSAGE && constants.TEXT === "BOBBY") {
-        let message = { text: `I don't do anything yet, but I am at your service, <@${constants.USER}>!!` }
-        botResponse(message, constants.CHANNEL);
+    if (event.TYPE === types.MESSAGE && event.TEXT === "BOBBY") {
+        let message = { text: `I don't do anything yet, but I am at your service, <@${event.USER}>!!` }
+        botResponse(message, event.CHANNEL);
     }
 
 });
