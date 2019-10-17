@@ -30,7 +30,7 @@ async function botResponse(req, responseText) {
                 'Authorization': `Bearer ${config.slack.botOAuthAccessToken}`
             },
             body: JSON.stringify(jsonResponse),
-        })
+        });
     } catch (err) {
         console.log("Something went wrong!", err);
     }
@@ -38,23 +38,23 @@ async function botResponse(req, responseText) {
 
 async function getRandomSubredditPost(subreddit) {
     try {
-        let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
+        let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`);
         let json = await res.json();
-        return json;
+        let posts = json.data.children;
+        return posts[Math.floor(Math.random() * posts.length)];
     } catch (err) {
         throw err;
     }
 }
 
-function getRandomCat() {
-    let post = getRandomSubredditPost("cats");
-    /*
-        let count = json.data.children.length;
-        let random = Math.floor(Math.random() * count);
-        return json.data.children[random]
-    */
-    console.log(post);
-    return post.data.thumbnail
+function getRandomCat(callback) {
+    getRandomSubredditPost('cats').then(r => {
+        if (r.data.url.endsWith("jpg")) {
+            callback(r.data.url);
+        } else {
+            getRandomCat();
+        }
+    });    
 }
 
 /**
@@ -66,7 +66,7 @@ router.post('/', (req, res, next) => {
 
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
-            botResponse(req, getRandomCat());
+            getRandomCat(cat => botResponse(req, cat));
         } else {
             botResponse(req, `Hello <@${req.body.event.user}>!!`);
         }
