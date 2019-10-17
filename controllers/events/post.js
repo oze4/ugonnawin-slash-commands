@@ -35,17 +35,39 @@ async function handleAppMention(req) {
 }
 
 
+async function handleMessage(req) {
+    try {
+        const jsonResponse = {
+            text: `I don't do anything yet, but I am at your service, <@${req.body.event.user}>!!`,
+            channel: req.body.event.channel
+        };
+
+        await fetch("https://slack.com/api/chat.postMessage", {
+            method: 'POST',
+            headers: {
+                'Content-type': "application/json",
+                'Authorization': `Bearer ${config.slack.botOAuthAccessToken}`
+            },
+            body: JSON.stringify(jsonResponse),
+        })
+    } catch (err) {
+        console.log("Something went wrong!", err);
+    }
+}
+
+
 
 router.post('/', (req, res, next) => {
-    //TODO: https://api.slack.com/docs/message-link-unfurling
-    console.log(req.body)
-    console.log(req.headers);
-    //res.status(200).send(req.body.challenge);
     res.status(200).end(); // Have to send 200 within 3000ms
+
     if (req.body.event.type === "app_mention") {
-        console.log("BOBBY WAS MENTIONED!");
         handleAppMention(req);
     }
+
+    if (req.body.event.type === "message" && req.body.event.text === "BOBBY") {
+        handleMessage(req);
+    }
+
 });
 
 module.exports = router;
