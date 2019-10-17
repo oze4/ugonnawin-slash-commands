@@ -18,7 +18,7 @@ async function handleAppMention(req) {
     try {
         const jsonResponse = {
             text: `Hello <${req.body.event.user}>!!`,
-            channel: `${req.body.event.channel}`
+            channel: req.body.event.channel
         };
 
         await fetch("https://slack.com/api/chat.postMessage", {
