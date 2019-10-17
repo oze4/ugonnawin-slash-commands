@@ -39,10 +39,7 @@ async function botResponse(req, responseText) {
 async function getRandomSubredditPost(subreddit) {
     try {
         let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
-        let json = await res.json();
-        let count = json.data.children.length;
-        let random = Math.floor(Math.random() * count);
-        return json.data.children[random]
+        return await res.json();
     } catch (err) {
         throw err;
     }
@@ -50,6 +47,11 @@ async function getRandomSubredditPost(subreddit) {
 
 function getRandomCat() {
     let post = getRandomSubredditPost("cats");
+    /*
+        let count = json.data.children.length;
+        let random = Math.floor(Math.random() * count);
+        return json.data.children[random]
+    */
     console.log(post);
     return post.data.thumbnail
 }
