@@ -3,10 +3,9 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
-const slack = require('../../utils/slack');
 const config = require('../../utils/config');
 const fetch = require('node-fetch');
-const middleware = require('../../utils/middleware.js');
+//const middleware = require('../../utils/middleware.js');
 
 /**TODO
  * LOOK INTO WHY REQUEST VALIDATION FAILS FOR BOT REQUESTS
