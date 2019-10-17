@@ -20,6 +20,12 @@ router.post('/', (req, res, next) => {
     //res.status(200).send(req.body.challenge);
     res.status(200).end(); // Have to send 200 within 3000ms
     if (req.body.event.type === "app_mention") {
+        console.log("BOBBY WAS MENTIONED!");
+        const jsonResponse = {
+            text: `Hello <${req.body.event.user}>!!`,
+            channel: `${req.body.event.channel}`
+        };
+        console.log("JSON RESPONSE: ", jsonResponse);
         request({
             uri: "https://slack.com/api/chat.postMessage",
             method: 'POST',
@@ -27,10 +33,7 @@ router.post('/', (req, res, next) => {
                 'Content-type': "application/json",
                 'Authorization': `Bearer ${config.slack.oAuthAccessToken}`
             },
-            json: {
-                text: `Hello <${req.body.event.user}>!!`,
-                channel: `${req.body.event.channel}`
-            }
+            json: JSON.stringify(jsonResponse),
         }, (error, res, body) => {
             if (error) {
                 res.status(404).send("Something went wrong! " + error);
