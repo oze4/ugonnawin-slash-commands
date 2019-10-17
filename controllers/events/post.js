@@ -25,7 +25,7 @@ function handleAppMention(req) {
             method: 'POST',
             headers: {
                 'Content-type': "application/json",
-                'Authorization': `Bearer ${config.slack.oAuthAccessToken}`
+                'Authorization': `Bearer ${config.slack.botOAuthAccessToken}`
             },
             body: JSON.stringify(jsonResponse),
         })
