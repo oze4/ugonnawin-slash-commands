@@ -62,8 +62,7 @@ router.post('/', (req, res, next) => {
 
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
-            getRandomCat();
-            botResponse(req, `( . Y . )`);
+            botResponse(req, getRandomCat());
         } else {
             botResponse(req, `Hello <@${req.body.event.user}>!!`);
         }
