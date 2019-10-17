@@ -35,10 +35,10 @@ async function handleAppMention(req) {
 }
 
 
-async function handleMessage(req) {
+async function handleMessage(req, responseText) {
     try {
         const jsonResponse = {
-            text: `I don't do anything yet, but I am at your service, <@${req.body.event.user}>!!`,
+            text: responseText,
             channel: req.body.event.channel
         };
 
@@ -61,11 +61,15 @@ router.post('/', (req, res, next) => {
     res.status(200).end(); // Have to send 200 within 3000ms
 
     if (req.body.event.type === "app_mention") {
-        handleAppMention(req);
+        if (req.body.event.text === "tiddies") {
+            handleMessage(req, `( . Y . )`);
+        } else {
+            handleAppMention(req);
+        }
     }
 
     if (req.body.event.type === "message" && req.body.event.text === "BOBBY") {
-        handleMessage(req);
+        handleMessage(req, `I don't do anything yet, but I am at your service, <@${req.body.event.user}>!!`);
     }
 
 });
