@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
             uri: "https://slack.com/api/chat.postMessage",
             method: 'POST',
             headers: {
-                'Content-type': contentType,
+                'Content-type': "application/json",
                 'Authorization': `Bearer ${config.slack.oAuthAccessToken}`
             },
             json: {
