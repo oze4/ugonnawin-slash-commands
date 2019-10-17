@@ -57,12 +57,20 @@ async function getRandomSubredditPost(subreddit) {
 
 function getRandomCat(callback) {
     getRandomSubredditPost('cats')
-        .then(r => r.data.url.endsWith("jpg") ? callback(r.data.url) : getRandomCat());
+        .then(r => {
+            if (r.data.url.endsWith("jpg")) {
+                callback(r.data.url)
+            } else {
+                getRandomCat();
+            }
+        });
 }
 
 function getRandomTitties(callback) {
-    getRandomSubredditPost('titties')
-        .then(r => r.data.url.endsWith("jpg") ? callback(r.data.url) : getRandomTitties());
+    getRandomSubredditPost('tits')
+        .then(r => {
+            callback(r.data.url);      
+        });
 }
 
 
@@ -81,14 +89,13 @@ router.post('/', (req, res, next) => {
                     "image_url": titty
                 }]
             }));
-        } else if (req.body.event.text === "<@UPKCHH806> kitties") {
+        }
+        if (req.body.event.text === "<@UPKCHH806> kitties") {
             getRandomCat(cat => botResponse({
-                "attachments": [
-                    {
-                        "fallback": cat,           
-                        "image_url": cat
-                    }
-                ]
+                "attachments": [{
+                    "fallback": cat,
+                    "image_url": cat
+                }]
             }));
         } else {
             botResponse({
