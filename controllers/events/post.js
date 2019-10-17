@@ -5,12 +5,35 @@ const express = require('express');
 const router = express.Router();
 const slack = require('../../utils/slack');
 const config = require('../../utils/config');
-const request = require('request');
+const fetch = require('node-fetch');
 const middleware = require('../../utils/middleware.js');
 
 
 // Middleware to verify request is from Slack.  
 //router.use(middleware.request.verifySlackRequest);
+
+
+
+function handleAppMention(req) {
+    try {
+        const jsonResponse = {
+            text: `Hello <${req.body.event.user}>!!`,
+            channel: `${req.body.event.channel}`
+        };
+
+        await fetch("https://slack.com/api/chat.postMessage", {
+            method: 'POST',
+            headers: {
+                'Content-type': "application/json",
+                'Authorization': `Bearer ${config.slack.oAuthAccessToken}`
+            },
+            body: JSON.stringify(jsonResponse),
+        })
+    } catch (err) {
+        console.log("Something went wrong!", err);
+    }
+}
+
 
 
 router.post('/', (req, res, next) => {
@@ -21,26 +44,8 @@ router.post('/', (req, res, next) => {
     res.status(200).end(); // Have to send 200 within 3000ms
     if (req.body.event.type === "app_mention") {
         console.log("BOBBY WAS MENTIONED!");
-        const jsonResponse = {
-            text: `Hello <${req.body.event.user}>!!`,
-            channel: `${req.body.event.channel}`
-        };
-        console.log("JSON RESPONSE: ", jsonResponse);
-        request({
-            uri: "https://slack.com/api/chat.postMessage",
-            method: 'POST',
-            headers: {
-                'Content-type': "application/json",
-                'Authorization': `Bearer ${config.slack.oAuthAccessToken}`
-            },
-            json: JSON.stringify(jsonResponse),
-        }, (error, res, body) => {
-            if (error) {
-                res.status(404).send("Something went wrong! " + error);
-            }
-        })
+        handleAppMention(req);
     }
-})
-
+});
 
 module.exports = router;
