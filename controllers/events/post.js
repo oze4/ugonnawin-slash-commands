@@ -17,7 +17,7 @@ const middleware = require('../../utils/middleware.js');
 async function handleAppMention(req) {
     try {
         const jsonResponse = {
-            text: `Hello <${req.body.event.user}>!!`,
+            text: `Hello <@${req.body.event.user}>!!`,
             channel: req.body.event.channel
         };
 
