@@ -27,9 +27,11 @@ const SALUTATIONS = [
     "WAAAAAZZZZUPPPP"
 ];
 
-const RANDOM_WELCOME = () => SALUTATIONS[Math.random() * SALUTATIONS.length]
+function getRandomWelcome(wordList) {
+    return wordList[Math.random() * wordList.length]
+}
 
-async function botResponse(jsonResponse) {
+async function botResponse(jsonResponse, channel) {
     try {
         await fetch("https://slack.com/api/chat.postMessage", {
             method: 'POST',
@@ -37,7 +39,7 @@ async function botResponse(jsonResponse) {
                 'Content-type': "application/json",
                 'Authorization': `Bearer ${config.slack.botOAuthAccessToken}`
             },
-            body: JSON.stringify(jsonResponse),
+            body: JSON.stringify({ ...jsonResponse, channel }),
         });
     } catch (err) {
         console.log("Something went wrong!", err);
@@ -55,22 +57,25 @@ async function getRandomSubredditPost(subreddit) {
     }
 }
 
-function getRandomCat(callback) {
-    getRandomSubredditPost('cats')
+function getPicFromSubreddit(subreddit, callback) {
+    getRandomSubredditPost(subreddit)
         .then(r => {
-            if (r.data.url.endsWith("jpg")) {
-                callback(r.data.url)
-            } else {
-                getRandomCat();
-            }
+            r.data.url.endsWith("jpg")
+                ? callback(r.data.url)
+                : getPicFromSubreddit(subreddit, callback)
+        })
+        .catch(e => {
+            throw e
         });
 }
 
-function getRandomTitties(callback) {
-    getRandomSubredditPost('tits')
-        .then(r => {
-            callback(r.data.url);      
-        });
+function makeSlackImageAttachment(url, fallback = null) {
+    return {
+        "attachments": [{
+            "fallback": fallback === null ? url : fallback,
+            "image_url": url
+        }]
+    }
 }
 
 
@@ -81,26 +86,23 @@ function getRandomTitties(callback) {
 router.post('/', (req, res, next) => {
     res.status(200).end(); // Have to send 200 within 3000ms
 
+    const constants = {
+        CHANNEL: req.body.event.channel
+    }
+
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
-            getRandomTitties(titty => botResponse({
-                "attachments": [{
-                    "fallback": titty,
-                    "image_url": titty
-                }]
-            }));
-        }
-        if (req.body.event.text === "<@UPKCHH806> kitties") {
-            getRandomCat(cat => botResponse({
-                "attachments": [{
-                    "fallback": cat,
-                    "image_url": cat
-                }]
-            }));
+            getPicFromSubreddit('tits', tit => {
+                botResponse(makeSlackImageAttachment(tit), constants.CHANNEL)
+            });
+        } else if (req.body.event.text === "<@UPKCHH806> kitties") {
+            getPicFromSubreddit('cats', cat => {
+                botResponse(makeSlackImageAttachment(cat), constants.CHANNEL)
+            });
         } else {
             botResponse({
-                text: `${RANDOM_WELCOME}, <@${req.body.event.user}>!!`,
-                channel: req.body.event.channel
+                text: `${getRandomWelcome(SALUTATIONS)}, <@${req.body.event.user}>!!`,
+                channel: constants.CHANNEL
             });
         }
     }
