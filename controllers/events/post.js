@@ -50,6 +50,7 @@ async function getRandomSubredditPost(subreddit) {
 
 function getRandomCat() {
     let post = getRandomSubredditPost("cats");
+    console.log(post);
     return post.data.thumbnail
 }
 
