@@ -16,19 +16,18 @@ const middleware = require('../../utils/middleware.js');
 // Middleware to verify request is from Slack.  
 //router.use(middleware.request.verifySlackRequest);
 
-/*
-{
-    "attachments": [
-        {
-            "fallback": "Required plain-text summary of the attachment.",
-            "author_link": "http://flickr.com/bobby/",
-            "author_icon": "http://flickr.com/icons/bobby.jpg",
-            "image_url": "https://i.redd.it/7jjdqcck04t31.jpg",
-            "thumb_url": "http://example.com/path/to/thumb.png"
-        }
-    ]
-}
-*/
+const SALUTATIONS = [
+    "Hello",
+    "Whats the deal",
+    "What up",
+    "How's it going",
+    "Say",
+    "Whats crack-a-lackin",
+    "Pull my finger",
+    "WAAAAAZZZZUPPPP"
+];
+
+const RANDOM_WELCOME = () => SALUTATIONS[Math.random() * SALUTATIONS.length]
 
 async function botResponse(jsonResponse) {
     try {
@@ -61,6 +60,12 @@ function getRandomCat(callback) {
         .then(r => r.data.url.endsWith("jpg") ? callback(r.data.url) : getRandomCat());
 }
 
+function getRandomTitties(callback) {
+    getRandomSubredditPost('titties')
+        .then(r => r.data.url.endsWith("jpg") ? callback(r.data.url) : getRandomTitties());
+}
+
+
 /**
  * @route /events
  * @description handles bot events for BobbyBot
@@ -70,28 +75,43 @@ router.post('/', (req, res, next) => {
 
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
-            botResponse({
-                attachments: [
-                    {
-                        "fallback": "Required plain-text summary of the attachment.",
-                        "author_link": "http://flickr.com/bobby/",
-                        "author_icon": "http://flickr.com/icons/bobby.jpg",
-                        "image_url": "https://i.redd.it/7jjdqcck04t31.jpg",
-                        "thumb_url": "http://example.com/path/to/thumb.png"
-                    }
-                ],
-                channel: req.body.event.channel
-            })
-            //getRandomCat(cat => botResponse(req, cat));
+            getRandomTitties(titty => botResponse({
+                "blocks": [{
+                    "type": "image",
+                    "title": {
+                        "type": "plain_text",
+                        "text": titty,
+                        "emoji": true
+                    },
+                    "image_url": titty,
+                    "alt_text": titty
+                }]
+            }));
+        } else if (req.body.event.text === "<@UPKCHH806> kitties") {
+            getRandomCat(cat => botResponse({
+                "blocks": [{
+                    "type": "image",
+                    "title": {
+                        "type": "plain_text",
+                        "text": cat,
+                        "emoji": true
+                    },
+                    "image_url": cat,
+                    "alt_text": cat
+                }]
+            }));
         } else {
-            botResponse({ text: `Hello <@${req.body.event.user}>!!`, channel: req.body.event.channel });
+            botResponse({
+                text: `${RANDOM_WELCOME}, <@${req.body.event.user}>!!`,
+                channel: req.body.event.channel
+            });
         }
     }
 
     if (req.body.event.type === "message" && req.body.event.text === "BOBBY") {
-        botResponse({ 
-            text: `I don't do anything yet, but I am at your service, <@${req.body.event.user}>!!`, 
-            channel: req.body.event.channel 
+        botResponse({
+            text: `I don't do anything yet, but I am at your service, <@${req.body.event.user}>!!`,
+            channel: req.body.event.channel
         });
     }
 
