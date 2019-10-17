@@ -39,7 +39,7 @@ async function botResponse(req, responseText) {
 async function getRandomSubredditPost(subreddit) {
     let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
     let json = await res.json();
-    console.log(json);
+    console.log(json.data.children);
     return json;
 }
 
