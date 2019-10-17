@@ -61,7 +61,7 @@ router.post('/', (req, res, next) => {
     res.status(200).end(); // Have to send 200 within 3000ms
 
     if (req.body.event.type === "app_mention") {
-        if (req.body.event.text === "tiddies") {
+        if (req.body.event.text === "<@UPKCHH806> tiddies") {
             handleMessage(req, `( . Y . )`);
         } else {
             handleAppMention(req);
