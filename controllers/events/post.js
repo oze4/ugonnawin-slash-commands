@@ -76,29 +76,19 @@ router.post('/', (req, res, next) => {
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
             getRandomTitties(titty => botResponse({
-                "blocks": [{
-                    "type": "image",
-                    "title": {
-                        "type": "plain_text",
-                        "text": titty,
-                        "emoji": true
-                    },
-                    "image_url": titty,
-                    "alt_text": titty
+                "attachments": [{
+                    "fallback": titty,
+                    "image_url": titty
                 }]
             }));
         } else if (req.body.event.text === "<@UPKCHH806> kitties") {
             getRandomCat(cat => botResponse({
-                "blocks": [{
-                    "type": "image",
-                    "title": {
-                        "type": "plain_text",
-                        "text": cat,
-                        "emoji": true
-                    },
-                    "image_url": cat,
-                    "alt_text": cat
-                }]
+                "attachments": [
+                    {
+                        "fallback": cat,           
+                        "image_url": cat
+                    }
+                ]
             }));
         } else {
             botResponse({
