@@ -36,6 +36,13 @@ async function botResponse(req, responseText) {
     }
 }
 
+async function getRandomSubredditPost(subreddit) {
+    let res = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
+    let json = await res.json();
+    console.log(json);
+    return json;
+}
+
 /**
  * @route /events
  * @description handles bot events for BobbyBot
@@ -45,6 +52,7 @@ router.post('/', (req, res, next) => {
 
     if (req.body.event.type === "app_mention") {
         if (req.body.event.text === "<@UPKCHH806> tiddies") {
+            getRandomSubredditPost("cats");
             botResponse(req, `( . Y . )`);
         } else {
             botResponse(req, `Hello <@${req.body.event.user}>!!`);
