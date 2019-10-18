@@ -49,7 +49,7 @@ router.post('/get', (req, res, next) => {
             res.status(200).send("Unable to get saved messages at this time :cry:");
         }
         if (result) {
-            res.status(200).send(JSON.stringify(JSON.parse(result), null, 2));
+            res.status(200).send(JSON.stringify(result, null, 2));
         }
         //MongoBot.client.close();
     })
