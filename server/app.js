@@ -12,9 +12,20 @@ const InteractiveController = require('../controllers/interactive');
 const MyIPController = require('../controllers/myip');
 const DBController = require('../controllers/db');
 
+const rawBodyBuffer = (req, res, buf, encoding) => {
+    if (buf && buf.length) {
+        req.rawBody = buf.toString(encoding || 'utf8');
+    }
+};
+
 // set up body parsing and url parsing tools
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({
+    verify: rawBodyBuffer,
+    extended: false
+}));
+app.use(express.json({    
+    verify: rawBodyBuffer, 
+}));
 
 // Set the port for our application
 app.set('port', process.env.PORT);
@@ -22,8 +33,6 @@ app.set('port', process.env.PORT);
 // Harden our apps headers
 app.use(helmet());
 
-// Adds a req.rawBody property on all requests
-app.use(middleware.request.addRawBody);
 // Log all request headers and body to console (better than nothing I guess)
 app.use(middleware.logger.headersAndbody);
 

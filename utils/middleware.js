@@ -26,20 +26,6 @@ const middleware = {
             }
         },
 
-        addRawBody(req, res, next) {
-            req.rawBody = '';
-            req.setEncoding('utf8');
-
-            req.on('data', function (chunk) {
-                req.rawBody += chunk;
-            });
-
-            req.on('end', function () {
-                console.log(req.rawBody);
-                next();
-            });
-        },
-
         allowCors(req, res, next) {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
