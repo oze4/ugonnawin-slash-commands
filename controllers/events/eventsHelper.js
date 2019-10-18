@@ -4,7 +4,9 @@ function getRandomElementFromArray(arr) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
 
-function getRandomPicFromSubreddit(subreddit, callback) {
+exports.getRandomElementFromArray;
+
+exports.getRandomPicFromSubreddit = function(subreddit, callback) {
     getRandomPostsFromSubReddit(subreddit)
         .then(r => {
             r.data.url.endsWith('jpg') ?
@@ -15,9 +17,6 @@ function getRandomPicFromSubreddit(subreddit, callback) {
             throw e
         });
 }
-
-exports.getRandomElementFromArray;
-exports.getRandomPicFromSubreddit;
 
 exports.botResponse = (jsonResponse, channel) => {
     try {
@@ -37,7 +36,7 @@ exports.botResponse = (jsonResponse, channel) => {
     }
 }
 
-const getRandomPostsFromSubReddit = async (subreddit) => {
+async function getRandomPostsFromSubReddit(subreddit) {
     return fetch(`https://www.reddit.com/r/${subreddit}/.json?limit=100`)
         .then(res => res.json())
         .then(json => getRandomElementFromArray(json.data.children))
