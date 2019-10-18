@@ -13,8 +13,6 @@ router.use(middleware.request.verifySlackRequest);
  * @route /db/save
  */
 router.post('/save', (req, res, next) => {
-    res.status(200).end(); // have to send 200 within 3000ms
-
     const constants = {
         TEXT: req.body.text,
         USER_ID: req.body.user_id
@@ -27,10 +25,13 @@ router.post('/save', (req, res, next) => {
     }
 
     MongoBot.db.collection(process.env.MONGO_COLLECTION).insertOne(dataToSave, (err, result) => {
-        if (err) throw err;
+        if (err) {
+            res.status(200).send("Unable to save message :cry: Please try again later.");
+        }
 
-        console.log(result);
-        //MongoBot.client.close();
+        if (result) {
+            res.status(200).send(":tada: Message saved successfully! :tada:")
+        }
     });
 })
 
@@ -38,8 +39,6 @@ router.post('/save', (req, res, next) => {
  * @route /db/get
  */
 router.post('/get', (req, res, next) => {
-    //res.status(200).end(); // have to send 200 within 3000ms
-
     const constants = {
         RESPONSE_URL: req.body.response_url,
     }
@@ -47,12 +46,10 @@ router.post('/get', (req, res, next) => {
     MongoBot.db.collection(process.env.MONGO_COLLECTION).find({}).toArray((err, result) => {
         if (err) {
             console.log(err);
+            res.status(200).send("Unable to get saved messages at this time :cry:");
         }
         if (result) {
-            console.log(result);
-            //let response = JSON.stringify(result, null, 2);
-            //slack.api.post.jsonMessage(constants.RESPONSE_URL, result);
-            res.status(200).send(result);
+            res.status(200).send(JSON.stringify(JSON.parse(result), null, 2));
         }
         //MongoBot.client.close();
     })
