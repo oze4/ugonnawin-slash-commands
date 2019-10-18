@@ -119,6 +119,7 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
  */
 function verifySlackToken(req) {
     let tokenInRequest = req.body.token || JSON.parse(req.body.payload).token;
+    console.log("~TOKEN IN REQUEST~", tokenInRequest);
     return tokenInRequest === process.env.VERIFICATION_TOKEN;
 }
 
