@@ -1,8 +1,6 @@
 'use strict'
-const config = require('./config.js');
 const crypto = require('crypto');
 const qs = require('querystring');
-
 
 const middleware = {
     route: {
@@ -22,18 +20,6 @@ const middleware = {
                     console.log("Slack verification token mismatch!");
                     res.status(200).send("Slack verification token mismatch!");                    
                 }
-                /*let tokenInRequest;
-                try {
-                    tokenInRequest = JSON.parse(req.body.payload).token
-                } catch {
-                    tokenInRequest = req.body.token
-                };
-                if (tokenInRequest === process.env.VERIFICATION_TOKEN) {
-                    next();
-                } else {
-                    console.log("Slack verification token mismatch!");
-                    res.status(200).send("Slack verification token mismatch!");
-                }*/
             } else {
                 console.log("Slack signature does not match hash!");
                 res.status(200).send("Slack signature does not match hash!");

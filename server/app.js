@@ -12,7 +12,6 @@ const InteractiveController = require('../controllers/interactive');
 const MyIPController = require('../controllers/myip');
 const DBController = require('../controllers/db');
 
-
 // set up body parsing and url parsing tools
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
