@@ -35,19 +35,19 @@ function botResponse(jsonResponse, channel) {
     }
 }
 
-async function getRandomSubredditPost(subreddit) {
+async function getRandomPostsFromSubReddit(subreddit) {
     return fetch(`https://www.reddit.com/r/${subreddit}/.json`)
         .then(res => res.json())
-        .then(json => json.data.children[Math.floor(Math.random() * json.data.children.length)])
+        .then(json => getRandomElementFromArray(json.data.children))
         .catch(err => { throw err; });
 }
 
-function getPicFromSubreddit(subreddit, callback) {
-    getRandomSubredditPost(subreddit)
+function getRandomPicFromSubreddit(subreddit, callback) {
+    getRandomPostsFromSubReddit(subreddit)
         .then(r => {
             r.data.url.endsWith('jpg')
                 ? callback(r.data.url)
-                : getPicFromSubreddit(subreddit, callback)
+                : getRandomPicFromSubreddit(subreddit, callback)
         })
         .catch(e => { throw e });
 }
@@ -95,6 +95,11 @@ const types = {
     MESSAGE: "message"
 }
 
+const subreddits = {
+    TITS: 'tits',
+    CATS: 'cats',
+}
+
 
 /**
  * @route /events
@@ -112,11 +117,11 @@ router.post('/', (req, res, next) => {
 
     if (event.TYPE === types.APP_MENTION) {
         if (isTittyEvent(event.TEXT)) {
-            getPicFromSubreddit('tits', titty => {
+            getRandomPicFromSubreddit(subreddits.TITS, titty => {
                 botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
             });
         } else if (isCatEvent(event.TEXT)) {
-            getPicFromSubreddit('cats', cat => {
+            getRandomPicFromSubreddit(subreddits.CATS, cat => {
                 botResponse(makeSlackImageAttachment(cat), event.CHANNEL)
             });
         } else {
