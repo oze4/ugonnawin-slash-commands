@@ -13,7 +13,41 @@ async function getRandomPostsFromSubReddit(subreddit) {
         });
 }
 
+const salutations = [
+    "Hello",
+    "Whats the deal",
+    "What up",
+    "How's it going",
+    "Say",
+    "Whats crack-a-lackin",
+    "Pull my finger",
+    "WAAAAAZZZZUPPPP"
+];
+
+const types = {
+    APP_MENTION: "app_mention",
+    MESSAGE: "message"
+}
+
+const channels = {
+    BOBBIES_BOOBIES: 'CPHDX86DA'
+}
+
+const userIDs = {
+    BOBBY_BOT: 'UPKCHH806'
+}
+
+const subreddits = {
+    TITS: 'tits',
+    CATS: 'cats',
+}
+
 exports.getRandomElementFromArray;
+exports.salutations;
+exports.types;
+exports.channels;
+exports.userIDs;
+exports.subreddits;
 
 exports.getRandomPicFromSubreddit = function(subreddit, callback) {
     getRandomPostsFromSubReddit(subreddit)
@@ -70,33 +104,4 @@ exports.isCatEvent = (text, id = userIDs.BOBBY_BOT) => {
         `${id} cats`,
         `${id} kitten`,
     ].includes(text);
-}
-
-exports.salutations = [
-    "Hello",
-    "Whats the deal",
-    "What up",
-    "How's it going",
-    "Say",
-    "Whats crack-a-lackin",
-    "Pull my finger",
-    "WAAAAAZZZZUPPPP"
-];
-
-exports.types = {
-    APP_MENTION: "app_mention",
-    MESSAGE: "message"
-}
-
-exports.channels = {
-    BOBBIES_BOOBIES: 'CPHDX86DA'
-}
-
-exports.userIDs = {
-    BOBBY_BOT: 'UPKCHH806'
-}
-
-exports.subreddits = {
-    TITS: 'tits',
-    CATS: 'cats',
 }

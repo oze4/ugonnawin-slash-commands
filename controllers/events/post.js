@@ -15,20 +15,18 @@ const {
     subreddits,
 } = require('./eventsHelper');
 
-/**TODO
- * LOOK INTO WHY REQUEST VALIDATION FAILS FOR BOT REQUESTS
- * - Are they only used for Slash Commands?
- * - How can we validate Bot Requests?
- */
 router.use(middleware.request.verifySlackRequest);
 
 
 /**
  * @route /events
+ * 
  * @description Handles bot events for BobbyBot.
- *              IMPORTANT: ** We need the 'challenge' piece enabled - this is because Slack will send a challenge to the URL that **
- *                         ** you want to use for the Events API before they enable it. In order to 'pass' the challenge, you simply **
- *                         ** have to respond with the challenge they send to you. **
+ * 
+ * @IMPORTANT ** We need the 'challenge' piece enabled - this is because Slack will send a challenge to the URL that **
+ *            ** you want to use for the Events API before they enable it. In order to 'pass' the challenge, you simply **
+ *            ** have to respond with the challenge they send to you. **
+ * 
  */
 router.post('/', (req, res, next) => {
     
