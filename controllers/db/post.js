@@ -2,12 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const middleware = require('../../utils/middleware.js');
-const slack = require('../../utils/slack');
 const MongoBot = require('../../utils/mongobot');
 
-// Middleware to verify request is from Slack.
 router.use(middleware.request.verifySlackRequest);
-
 
 /**
  * @route /db/save
@@ -27,10 +24,10 @@ router.post('/save', (req, res, next) => {
     MongoBot.db.collection(process.env.MONGO_COLLECTION).insertOne(dataToSave, (err, result) => {
         if (err) {
             res.status(200).send("Unable to save message :cry: Please try again later.");
-        }
-
-        if (result) {
+        } else if (result) {
             res.status(200).send(":tada: Message saved successfully! :tada:")
+        } else {
+            res.status(200).send("Unable to save :cry:");
         }
     });
 })
@@ -39,17 +36,13 @@ router.post('/save', (req, res, next) => {
  * @route /db/get
  */
 router.post('/get', (req, res, next) => {
-    const constants = {
-        RESPONSE_URL: req.body.response_url,
-    }
-
     MongoBot.db.collection(process.env.MONGO_COLLECTION).find({}).toArray((err, result) => {
         if (err) {
-            console.log(err);
             res.status(200).send("Unable to get saved messages at this time :cry:");
-        }
-        if (result) {
+        } else if (result) {
             res.status(200).send(JSON.stringify(result, null, 2));
+        } else {
+            res.status(200).send("Unable to find that");
         }
     })
 })
