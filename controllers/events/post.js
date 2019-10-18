@@ -36,7 +36,7 @@ function botResponse(jsonResponse, channel) {
 }
 
 async function getRandomPostsFromSubReddit(subreddit) {
-    return fetch(`https://www.reddit.com/r/${subreddit}/.json`)
+    return fetch(`https://www.reddit.com/r/${subreddit}/.json?limit=100`)
         .then(res => res.json())
         .then(json => getRandomElementFromArray(json.data.children))
         .catch(err => { throw err; });
