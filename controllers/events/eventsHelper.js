@@ -1,10 +1,24 @@
 const fetch = require('node-fetch');
 
-function getRandomElementFromArray (arr) {
+function getRandomElementFromArray(arr) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
 
+function getRandomPicFromSubreddit(subreddit, callback) {
+    getRandomPostsFromSubReddit(subreddit)
+        .then(r => {
+            r.data.url.endsWith('jpg') ?
+                callback(r.data.url) :
+                getRandomPicFromSubreddit(subreddit, callback)
+        })
+        .catch(e => {
+            throw e
+        });
+}
+
 exports.getRandomElementFromArray;
+
+exports.getRandomPicFromSubreddit
 
 exports.botResponse = (jsonResponse, channel) => {
     try {
@@ -30,18 +44,6 @@ const getRandomPostsFromSubReddit = async (subreddit) => {
         .then(json => getRandomElementFromArray(json.data.children))
         .catch(err => {
             throw err;
-        });
-}
-
-exports.getRandomPicFromSubreddit = (subreddit, callback) => {
-    getRandomPostsFromSubReddit(subreddit)
-        .then(r => {
-            r.data.url.endsWith('jpg') ?
-                callback(r.data.url) :
-                getRandomPicFromSubreddit(subreddit, callback)
-        })
-        .catch(e => {
-            throw e
         });
 }
 
