@@ -26,6 +26,12 @@ const middleware = {
             }
         },
 
+        rawBodyBuffer(req, res, buf, encoding) {
+            if (buf && buf.length) {
+                req.rawBody = buf.toString(encoding || 'utf8');
+            }
+        },
+
         allowCors(req, res, next) {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -97,18 +103,14 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
         return res.status(200).send('older than five min');
     }
 
+    let requestBody = httpReq.rawBody || httpReq.body.payload || httpReq.body;
 
-    let stagingBody = httpReq.rawBody || httpReq.body.payload || httpReq.body;
-    console.log("httpReq.rawBody", httpReq.rawBody);
-    //const bodyPayload = qs.stringify(stagingBody).replace(/%20/g, '+');
-    //console.log("~bodyPayload~", JSON.stringify(bodyPayload));
-
-    if (!(xSlackRequestTimeStamp && SlackSignature && stagingBody)) {
+    if (!(xSlackRequestTimeStamp && SlackSignature && requestBody)) {
         console.log('Invalid request from Slack');
         return httpRes.status(200).send('Invalid request from Slack');
     }
 
-    const baseString = `${slackVersionNumber}:${xSlackRequestTimeStamp}:${stagingBody}`;
+    const baseString = `${slackVersionNumber}:${xSlackRequestTimeStamp}:${requestBody}`;
     const hash = `${slackVersionNumber}=${crypto.createHmac('sha256', slackAppSigningSecret).update(baseString).digest('hex')}`;
 
     return (SlackSignature === hash);
@@ -122,7 +124,6 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
  */
 function verifySlackToken(req) {
     let tokenInRequest = req.body.token || JSON.parse(req.body.payload).token;
-    console.log("~TOKEN IN REQUEST~", tokenInRequest);
     return tokenInRequest === process.env.VERIFICATION_TOKEN;
 }
 
