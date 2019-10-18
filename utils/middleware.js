@@ -1,8 +1,3 @@
-// Middleware for routes.. Currently (6/16/2019) this module contains methods 
-//     that some may or may consider to be true 'middleware' - these methods 
-//     are commented and should most likely be moved to a 'utility.js' or 
-//     'helper.js' module.
-
 'use strict'
 const config = require('./config.js');
 const crypto = require('crypto');
@@ -137,7 +132,7 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
  * @description Verifies that the Slack Verification Token (which they send on each request to us), matches what we have. 
  */
 function verifySlackToken(req) {
-    let tokenInRequest = JSON.parse(req.body.payload).token || req.body.token;
+    let tokenInRequest = req.body.token || JSON.parse(req.body.payload).token;
     return tokenInRequest === process.env.VERIFICATION_TOKEN;
 }
 
