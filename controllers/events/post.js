@@ -95,6 +95,10 @@ const types = {
     MESSAGE: "message"
 }
 
+const channels = {
+    BOBBIES_BOOBIES: 'CPHDX86DA'
+}
+
 const subreddits = {
     TITS: 'tits',
     CATS: 'cats',
@@ -130,9 +134,17 @@ router.post('/', (req, res, next) => {
         }
     }
 
-    if (event.TYPE === types.MESSAGE && event.TEXT === "BOBBY") {
-        let message = { text: `I don't do anything yet, but I am at your service, <@${event.USER}>!!` }
-        botResponse(message, event.CHANNEL);
+    if (event.TYPE === types.MESSAGE) {
+        if (event.CHANNEL === channels.BOBBIES_BOOBIES) {
+            getRandomPicFromSubreddit(subreddits.TITS, titty => {
+                botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
+            });
+        } else {
+            if (event.TEXT === "BOBBY") {
+                let message = { text: `I don't do anything yet, but I am at your service, <@${event.USER}>!!` }
+                botResponse(message, event.CHANNEL);
+            }
+        }
     }
 
 });
