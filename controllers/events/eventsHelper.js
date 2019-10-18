@@ -42,14 +42,7 @@ const subreddits = {
     CATS: 'cats',
 }
 
-exports.getRandomElementFromArray;
-exports.salutations;
-exports.types;
-exports.channels;
-exports.userIDs;
-exports.subreddits;
-
-exports.getRandomPicFromSubreddit = function(subreddit, callback) {
+function getRandomPicFromSubreddit(subreddit, callback) {
     getRandomPostsFromSubReddit(subreddit)
         .then(r => {
             r.data.url.endsWith('jpg') ?
@@ -61,7 +54,7 @@ exports.getRandomPicFromSubreddit = function(subreddit, callback) {
         });
 }
 
-exports.botResponse = (jsonResponse, channel) => {
+function botResponse(jsonResponse, channel) {
     try {
         fetch("https://slack.com/api/chat.postMessage", {
             method: 'POST',
@@ -79,7 +72,7 @@ exports.botResponse = (jsonResponse, channel) => {
     }
 }
 
-exports.makeSlackImageAttachment = (url, fallback = null) => {
+function makeSlackImageAttachment(url, fallback = null) {
     return {
         "attachments": [{
             "fallback": fallback === null ? url : fallback,
@@ -88,7 +81,7 @@ exports.makeSlackImageAttachment = (url, fallback = null) => {
     }
 }
 
-exports.isTittyEvent = (text, id = userIDs.BOBBY_BOT) => {
+function isTittyEvent(text, id = userIDs.BOBBY_BOT) {
     return [
         `${id} tiddies`,
         `${id} tits`,
@@ -97,11 +90,25 @@ exports.isTittyEvent = (text, id = userIDs.BOBBY_BOT) => {
     ].includes(text);
 }
 
-exports.isCatEvent = (text, id = userIDs.BOBBY_BOT) => {
+function isCatEvent(text, id = userIDs.BOBBY_BOT) {
     return [
         `${id} cat`,
         `${id} kittie`,
         `${id} cats`,
         `${id} kitten`,
     ].includes(text);
+}
+
+
+module.exports = {
+    getRandomElementFromArray,
+    botResponse,
+    getRandomPicFromSubreddit,
+    makeSlackImageAttachment,
+    isTittyEvent,
+    isCatEvent,
+    salutations,
+    types,
+    channels,
+    subreddits,
 }
