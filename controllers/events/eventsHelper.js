@@ -4,6 +4,15 @@ function getRandomElementFromArray(arr) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
 
+async function getRandomPostsFromSubReddit(subreddit) {
+    return fetch(`https://www.reddit.com/r/${subreddit}/.json?limit=100`)
+        .then(res => res.json())
+        .then(json => getRandomElementFromArray(json.data.children))
+        .catch(err => {
+            throw err;
+        });
+}
+
 exports.getRandomElementFromArray;
 
 exports.getRandomPicFromSubreddit = function(subreddit, callback) {
@@ -34,15 +43,6 @@ exports.botResponse = (jsonResponse, channel) => {
     } catch (err) {
         console.log("Something went wrong!", err);
     }
-}
-
-async function getRandomPostsFromSubReddit(subreddit) {
-    return fetch(`https://www.reddit.com/r/${subreddit}/.json?limit=100`)
-        .then(res => res.json())
-        .then(json => getRandomElementFromArray(json.data.children))
-        .catch(err => {
-            throw err;
-        });
 }
 
 exports.makeSlackImageAttachment = (url, fallback = null) => {
