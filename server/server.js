@@ -15,6 +15,6 @@ const server = app.listen(port, async () => {
         const _host   = _addr.address == "::" ? require('os').hostname : _addr.address;
         console.log(`App started on: '${_prefix}${_host}:${_addr.port}'`) 
     } catch (err) {
-        console.error("Unable to start server!! [ERROR]::Unable to connect to MongoDB!")
+        console.error("Unable to start server!! [ERROR]::Unable to connect to MongoDB!", err);
     }
 });
