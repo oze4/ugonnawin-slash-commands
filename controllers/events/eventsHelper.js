@@ -4,7 +4,7 @@ function getRandomElementFromArray (arr) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
 
-exports.getRandomPicFromSubreddit;
+exports.getRandomElementFromArray;
 
 exports.botResponse = (jsonResponse, channel) => {
     try {
