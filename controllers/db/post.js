@@ -13,6 +13,8 @@ router.use(middleware.request.verifySlackRequest);
  * @route /db/save
  */
 router.post('/save', (req, res, next) => {
+    res.status(200).end(); // have to send 200 within 3000ms
+    
     const constants = {
         TEXT: req.body.text,
         USER_ID: req.body.user_id
