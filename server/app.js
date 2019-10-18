@@ -22,6 +22,8 @@ app.set('port', process.env.PORT);
 // Harden our apps headers
 app.use(helmet());
 
+// Adds a req.rawBody property on all requests
+app.use(middleware.request.addRawBody);
 // Log all request headers and body to console (better than nothing I guess)
 app.use(middleware.logger.headersAndbody);
 
