@@ -51,7 +51,6 @@ router.post('/get', (req, res, next) => {
         if (result) {
             res.status(200).send(JSON.stringify(result, null, 2));
         }
-        //MongoBot.client.close();
     })
 })
 
