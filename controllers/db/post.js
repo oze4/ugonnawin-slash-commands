@@ -30,7 +30,7 @@ router.post('/save', (req, res, next) => {
         if (err) throw err;
 
         console.log(result);
-        MongoBot.client.close();
+        //MongoBot.client.close();
     });
 })
 
@@ -53,7 +53,7 @@ router.post('/get', (req, res, next) => {
             //let response = JSON.stringify(result, null, 2);
             slack.api.post.jsonMessage(constants.RESPONSE_URL, result);
         }
-        MongoBot.client.close();
+        //MongoBot.client.close();
     })
 })
 
