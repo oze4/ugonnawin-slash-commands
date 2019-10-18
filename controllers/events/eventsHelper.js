@@ -16,8 +16,8 @@ function getRandomPicFromSubreddit(subreddit, callback) {
         });
 }
 
-module.exports = getRandomElementFromArray;
-module.exports = getRandomPicFromSubreddit;
+exports = getRandomElementFromArray;
+exports = getRandomPicFromSubreddit;
 
 exports.botResponse = (jsonResponse, channel) => {
     try {
