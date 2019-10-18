@@ -22,7 +22,8 @@ router.post('/save', (req, res, next) => {
 
     let dataToSave = {
         user: constants.USER_ID,
-        data: constants.TEXT
+        data: constants.TEXT,
+        timestamp: new Date(),
     }
 
     MongoBot.db.collection(process.env.MONGO_COLLECTION).insertOne(dataToSave, (err, result) => {
@@ -44,8 +45,11 @@ router.post('/get', (req, res, next) => {
     }
 
     MongoBot.db.collection(process.env.MONGO_COLLECTION).find({}).toArray((err, result) => {
-        if (err) throw err;
+        if (err) {
+            console.log(err);
+        }
         if (result) {
+            console.log(result);
             //let response = JSON.stringify(result, null, 2);
             slack.api.post.jsonMessage(constants.RESPONSE_URL, result);
         }
