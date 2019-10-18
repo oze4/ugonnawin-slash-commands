@@ -121,6 +121,7 @@ router.post('/', (req, res, next) => {
         USER: req.body.event.user,
         TEXT: req.body.event.text,
         TYPE: req.body.event.type,
+        BOT_ID: req.body.event.bot_id
     }
 
     if (event.TYPE === types.APP_MENTION) {
@@ -139,7 +140,7 @@ router.post('/', (req, res, next) => {
     }
 
     if (event.TYPE === types.MESSAGE) {
-        if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.USER === userIDs.BOBBY_BOT) {
+        if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.BOT_ID) {
             getRandomPicFromSubreddit(subreddits.TITS, titty => {
                 botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
             });
