@@ -86,28 +86,28 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
 
     if (signingSecretIsInvalid) {
         console.log('Slack signing secret empty or not a string');
-        return httpRes.status(200).send('Slack signing secret empty or not a string');
+        return httpRes.status(500).end()//.send('Slack signing secret empty or not a string');
     }
 
     const SlackSignature = httpReq.get('X-Slack-Signature')
 
     if (!SlackSignature) {
         console.log('No Slack signature found in request');
-        return res.status(200).send('No Slack signature found in request');
+        return res.status(500).end()//.send('No Slack signature found in request');
     }
 
     const xSlackRequestTimeStamp = httpReq.get('X-Slack-Request-Timestamp')
 
     if (!lessThanFiveMinutesOld(xSlackRequestTimeStamp)) {
         console.log('older than five min');
-        return res.status(200).send('older than five min');
+        return res.status(500).end()//.send('older than five min');
     }
 
     let requestBody = httpReq.rawBody || httpReq.body.payload || httpReq.body;
 
     if (!(xSlackRequestTimeStamp && SlackSignature && requestBody)) {
         console.log('Invalid request from Slack');
-        return httpRes.status(200).send('Invalid request from Slack');
+        return httpRes.status(500).end()//.send('Invalid request from Slack');
     }
 
     const baseString = `${slackVersionNumber}:${xSlackRequestTimeStamp}:${requestBody}`;
