@@ -61,7 +61,7 @@ function makeSlackImageAttachment(url, fallback = null) {
     }
 }
 
-function isTittyEvent(text, id = '<@UPKCHH806>') {
+function isTittyEvent(text, id = userIDs.BOBBY_BOT) {
     return [
         `${id} tiddies`,
         `${id} tits`,
@@ -70,7 +70,7 @@ function isTittyEvent(text, id = '<@UPKCHH806>') {
     ].includes(text);
 }
 
-function isCatEvent(text, id = '<@UPKCHH806>') {
+function isCatEvent(text, id = userIDs.BOBBY_BOT) {
     return [
         `${id} cat`,
         `${id} kittie`,
@@ -97,6 +97,10 @@ const types = {
 
 const channels = {
     BOBBIES_BOOBIES: 'CPHDX86DA'
+}
+
+const userIDs = {
+    BOBBY_BOT: 'UPKCHH806'
 }
 
 const subreddits = {
@@ -135,7 +139,7 @@ router.post('/', (req, res, next) => {
     }
 
     if (event.TYPE === types.MESSAGE) {
-        if (event.CHANNEL === channels.BOBBIES_BOOBIES) {
+        if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.USER === userIDs.BOBBY_BOT) {
             getRandomPicFromSubreddit(subreddits.TITS, titty => {
                 botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
             });
