@@ -1,8 +1,10 @@
 const fetch = require('node-fetch');
 
-exports.getRandomElementFromArray = (arr) => {
+function getRandomElementFromArray (arr) {
     return arr[Math.floor(Math.random() * arr.length)]
 }
+
+exports.getRandomPicFromSubreddit;
 
 exports.botResponse = (jsonResponse, channel) => {
     try {
