@@ -98,7 +98,9 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
     }
 
     let stagingBody = httpReq.body.payload || httpReq.body;
+    console.log("~stagingBody~", stagingBody);
     const bodyPayload = qs.stringify(stagingBody).replace(/%20/g, '+');
+    console.log("~bodyPayload~", bodyPayload);
 
     if (!(xSlackRequestTimeStamp && SlackSignature && bodyPayload)) {
         console.log('Invalid request from Slack');
