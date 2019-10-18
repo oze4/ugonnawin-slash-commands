@@ -38,7 +38,7 @@ router.post('/save', (req, res, next) => {
  * @route /db/get
  */
 router.post('/get', (req, res, next) => {
-    res.status(200).end(); // have to send 200 within 3000ms
+    //res.status(200).end(); // have to send 200 within 3000ms
 
     const constants = {
         RESPONSE_URL: req.body.response_url,
@@ -51,7 +51,8 @@ router.post('/get', (req, res, next) => {
         if (result) {
             console.log(result);
             //let response = JSON.stringify(result, null, 2);
-            slack.api.post.jsonMessage(constants.RESPONSE_URL, result);
+            //slack.api.post.jsonMessage(constants.RESPONSE_URL, result);
+            res.status(200).send(result);
         }
         //MongoBot.client.close();
     })
