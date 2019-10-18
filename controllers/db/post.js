@@ -14,7 +14,7 @@ router.use(middleware.request.verifySlackRequest);
  */
 router.post('/save', (req, res, next) => {
     res.status(200).end(); // have to send 200 within 3000ms
-    
+
     const constants = {
         TEXT: req.body.text,
         USER_ID: req.body.user_id
@@ -46,8 +46,8 @@ router.post('/get', (req, res, next) => {
     MongoBot.db.collection(process.env.MONGO_COLLECTION).find({}).toArray((err, result) => {
         if (err) throw err;
         if (result) {
-            let response = JSON.stringify(result, null, 2);
-            slack.api.post.jsonMessage(constants.RESPONSE_URL, response);
+            //let response = JSON.stringify(result, null, 2);
+            slack.api.post.jsonMessage(constants.RESPONSE_URL, result);
         }
         MongoBot.client.close();
     })
