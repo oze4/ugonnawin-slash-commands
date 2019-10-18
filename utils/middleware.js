@@ -97,7 +97,10 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
         return res.status(200).send('older than five min');
     }
 
-    let stagingBody = httpReq.body.payload || httpReq.body;
+    
+    let stagingBody = httpReq.body.payload || httpReq.body.event || httpReq.body;
+    console.log("httpReq.body.payload", httpReq.body.payload);
+    console.log("httpReq.body", httpReq.body);
     console.log("~stagingBody~", JSON.stringify(stagingBody));
     const bodyPayload = qs.stringify(stagingBody).replace(/%20/g, '+');
     console.log("~bodyPayload~", JSON.stringify(bodyPayload));
