@@ -14,16 +14,29 @@ const middleware = {
     request: {
         verifySlackRequest(req, res, next) {
             if (validateRequestIsFromSlack(process.env.SIGNING_SECRET, "v0", req, res)) {
-                if(verifySlackToken(req)) {
+                if (verifySlackToken(req)) {
                     next();
                 } else {
                     console.log("Slack verification token mismatch!");
-                    res.status(200).send("Slack verification token mismatch!");                    
+                    res.status(200).send("Slack verification token mismatch!");
                 }
             } else {
                 console.log("Slack signature does not match hash!");
                 res.status(200).send("Slack signature does not match hash!");
             }
+        },
+
+        addRawBody(req, res, next) {
+            req.rawBody = '';
+            req.setEncoding('utf8');
+
+            req.on('data', function (chunk) {
+                req.rawBody += chunk;
+            });
+
+            req.on('end', function () {
+                next();
+            });
         },
 
         allowCors(req, res, next) {
@@ -64,7 +77,7 @@ function lessThanFiveMinutesOld(reqTimestamp) {
     let FIVE_MIN = 5 * 60 * 1000;
     return ((new Date(Number(reqTimestamp))) - (new Date())) < FIVE_MIN;
 }
-    
+
 /**
  * 
  * @param {String} slackAppSigningSecret 
@@ -97,10 +110,9 @@ function validateRequestIsFromSlack(slackAppSigningSecret, slackVersionNumber, h
         return res.status(200).send('older than five min');
     }
 
-    
-    let stagingBody = httpReq.body.payload || httpReq.body.event || httpReq.body;
-    console.log("httpReq.body.payload", httpReq.body.payload);
-    console.log("httpReq.body", httpReq.body);
+
+    let stagingBody = httpReq.body.payload || httpReq.rawBody || httpReq.body;
+    console.log("httpReq.rawBody", httpReq.rawBody);
     console.log("~stagingBody~", JSON.stringify(stagingBody));
     const bodyPayload = qs.stringify(stagingBody).replace(/%20/g, '+');
     console.log("~bodyPayload~", JSON.stringify(bodyPayload));
