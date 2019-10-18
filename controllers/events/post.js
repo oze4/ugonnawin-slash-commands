@@ -20,8 +20,7 @@ const {
  * - Are they only used for Slash Commands?
  * - How can we validate Bot Requests?
  */
-router.use(middleware.request.addRawBody);
-router.use(middleware.request.verifySlackRequest);
+router.use([middleware.request.addRawBody, middleware.request.verifySlackRequest]);
 
 
 /**
