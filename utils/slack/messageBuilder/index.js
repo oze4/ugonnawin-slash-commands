@@ -10,34 +10,32 @@ const slackMessages = {
      * @param  {String} mainText
      *     Text to display along with the button
      */
-    linkWithButton (request, mainText) {
+    linkWithButton(request, mainText) {
         let stageBodyText = request.body.text;
-        let preBodyText   = stageBodyText.trim();
-        let finalUrl      = preBodyText.startsWith("http") ? preBodyText : "http://" + preBodyText;
-        let finalBtnText  = finalUrl.substring(0, 75) // Can only be 75 chars long
+        let preBodyText = stageBodyText.trim();
+        let finalUrl = preBodyText.startsWith("http") ? preBodyText : "http://" + preBodyText;
+        let finalBtnText = finalUrl.substring(0, 75) // Can only be 75 chars long
         let message = {
             response_type: "in_channel",
-            blocks: [
-                {
-                    type: "section",
+            blocks: [{
+                type: "section",
+                text: {
+                    type: "plain_text",
+                    text: mainText
+                },
+                accessory: {
+                    type: "button",
                     text: {
                         type: "plain_text",
-                        text: mainText
+                        text: finalBtnText,
                     },
-                    accessory: {
-                        type: "button",
-                        text: {
-                            type: "plain_text",
-                            text: finalBtnText,
-                        },
-                        url: finalUrl
-                    }
+                    url: finalUrl
                 }
-            ]
+            }]
         };
-        return JSON.parse(JSON.stringify(message));  
+        return JSON.parse(JSON.stringify(message));
     },
-    
+
     /**
      * @param  {String} text
      * @param  {String} selectPlaceholder
@@ -45,34 +43,32 @@ const slackMessages = {
      * @param  {Array<{text: String, value: String}>} selectOptions
      *     Must be an object that has a text and value property - both properties should be a String
      */
-    textWithSelect (text, selectPlaceholder, selectOptions) {
+    textWithSelect(text, selectPlaceholder, selectOptions) {
         let message = {
             response_type: "in_channel",
-            blocks: [
-                {
-                    type: "section",
-                    text: {
-                        type: "mrkdwn",
-                        text: text //"Please select a location:" 
-                    },
-                    accessory: {
-                        type: "static_select",
-                        placeholder: {
-                            type: "plain_text",
-                            text: selectPlaceholder,
-                            emoji: true
-                        },
-                        options: []
-                    },
+            blocks: [{
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: text //"Please select a location:" 
                 },
-            ]
+                accessory: {
+                    type: "static_select",
+                    placeholder: {
+                        type: "plain_text",
+                        text: selectPlaceholder,
+                        emoji: true
+                    },
+                    options: []
+                },
+            }, ]
         };
         selectOptions.forEach(option => {
             let o = new SlackBlockSelectOption(option.text, option.value);
             message.blocks[0].accessory.options.push(o.toJson());
         });
 
-        return JSON.parse(JSON.stringify(message)); 
+        return JSON.parse(JSON.stringify(message));
     },
 
 
@@ -80,17 +76,16 @@ const slackMessages = {
      * @param  {Express.request} request
      * @param  {String} mainMessage
      */
-    textToLink (request, mainMessage) {
+    textToLink(request, mainMessage) {
         let bodyText = request.body.text.trim();
         let finalBody = bodyText.startsWith("http") ? bodyText : "http://" + bodyText;
         let message = {
             response_type: "in_channel",
-            blocks: [
-                {
+            blocks: [{
                     type: "section",
                     text: {
                         type: "mrkdwn",
-                        text: mainMessage 
+                        text: mainMessage
                     }
                 },
                 {
@@ -100,12 +95,12 @@ const slackMessages = {
                     type: "section",
                     text: {
                         type: "mrkdwn",
-                        text: "<"+ finalBody +" | "+ bodyText +">"
+                        text: "<" + finalBody + " | " + bodyText + ">"
                     }
                 }
             ]
         };
-        return JSON.parse(JSON.stringify(message));        
+        return JSON.parse(JSON.stringify(message));
     },
 
 
@@ -116,43 +111,39 @@ const slackMessages = {
      * @param  {String} iconUrl
      * @param  {String} extraText=null
      */
-    currentWeather (city, temp, description, iconUrl, extraText = null) {
+    currentWeather(city, temp, description, iconUrl, extraText = null) {
         let degreeSymbol = "°";
         let listSymbol = "•";
         let desc = titleCase(String(description));
         let weatherText = "Current weather for *" + city + "*:\n\n  " + listSymbol + " " + temp + degreeSymbol + "F\n  " + listSymbol + " " + desc;
         let message = {
             response_type: "ephemeral",
-            blocks: [
-                {
-                    type: "section",
-                    text: {
-                        type: "mrkdwn",
-                        text: weatherText
-                    },
-                    accessory: {
-                        type: "image",
-                        image_url: iconUrl,
-                        alt_text: desc
-                    }
+            blocks: [{
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: weatherText
+                },
+                accessory: {
+                    type: "image",
+                    image_url: iconUrl,
+                    alt_text: desc
                 }
-            ]
+            }]
         };
         if (extraText !== null) {
             message.blocks.push({
                 type: "context",
-                elements: [
-                    {
-                        type: "mrkdwn",
-                        text: extraText
-                    }
-                ]
+                elements: [{
+                    type: "mrkdwn",
+                    text: extraText
+                }]
             })
         }
-        return JSON.parse(JSON.stringify(message));          
+        return JSON.parse(JSON.stringify(message));
     },
 
-    invalidUrlResponse () {
+    invalidUrlResponse() {
         const invalidResponses = [
             "Hmmm.. that doesn't seem to be a valid URL..",
             "Gimme a URL!",
@@ -163,7 +154,7 @@ const slackMessages = {
             "C'MON gimme something to work with...that is an invalid URL",
             "You call that a URL?"
         ];
-        return invalidResponses[Math.floor(Math.random()*invalidResponses.length)];
+        return invalidResponses[Math.floor(Math.random() * invalidResponses.length)];
     }
 }
 
@@ -171,10 +162,10 @@ const slackMessages = {
 function titleCase(str) {
     var splitStr = str.toLowerCase().split(' ');
     for (var i = 0; i < splitStr.length; i++) {
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
-    return splitStr.join(' '); 
- }
+    return splitStr.join(' ');
+}
 
 
 module.exports = slackMessages;

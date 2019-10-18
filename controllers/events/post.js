@@ -28,7 +28,10 @@ function botResponse(jsonResponse, channel) {
                 'Content-type': "application/json",
                 'Authorization': `Bearer ${config.slack.botOAuthAccessToken}`
             },
-            body: JSON.stringify({ ...jsonResponse, channel }),
+            body: JSON.stringify({
+                ...jsonResponse,
+                channel
+            }),
         });
     } catch (err) {
         console.log("Something went wrong!", err);
@@ -39,17 +42,21 @@ async function getRandomPostsFromSubReddit(subreddit) {
     return fetch(`https://www.reddit.com/r/${subreddit}/.json?limit=100`)
         .then(res => res.json())
         .then(json => getRandomElementFromArray(json.data.children))
-        .catch(err => { throw err; });
+        .catch(err => {
+            throw err;
+        });
 }
 
 function getRandomPicFromSubreddit(subreddit, callback) {
     getRandomPostsFromSubReddit(subreddit)
         .then(r => {
-            r.data.url.endsWith('jpg')
-                ? callback(r.data.url)
-                : getRandomPicFromSubreddit(subreddit, callback)
+            r.data.url.endsWith('jpg') ?
+                callback(r.data.url) :
+                getRandomPicFromSubreddit(subreddit, callback)
         })
-        .catch(e => { throw e });
+        .catch(e => {
+            throw e
+        });
 }
 
 function makeSlackImageAttachment(url, fallback = null) {
@@ -111,47 +118,64 @@ const subreddits = {
 
 /**
  * @route /events
- * @description handles bot events for BobbyBot
+ * @description Handles bot events for BobbyBot.
+ *              IMPORTANT: ** We need the 'challenge' piece enabled - this is because Slack will send a challenge to the URL that **
+ *                         ** you want to use for the Events API before they enable it. In order to 'pass' the challenge, you simply **
+ *                         ** have to respond with the challenge they send to you. **
  */
 router.post('/', (req, res, next) => {
-    res.status(200).end(); // Have to send 200 within 3000ms
+    if (req.body.challenge) {
 
-    const event = {
-        CHANNEL: req.body.event.channel,
-        USER: req.body.event.user,
-        TEXT: req.body.event.text,
-        TYPE: req.body.event.type,
-        BOT_ID: req.body.event.bot_id
-    }
+        console.log("*".repeat(50));
+        console.log("SLACK CHALLENGE RECEIVED");
+        console.log("*".repeat(50));
+        res.status(200).send(req.body.challenge);
 
-    if (event.TYPE === types.APP_MENTION) {
-        if (isTittyEvent(event.TEXT)) {
-            getRandomPicFromSubreddit(subreddits.TITS, titty => {
-                botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
-            });
-        } else if (isCatEvent(event.TEXT)) {
-            getRandomPicFromSubreddit(subreddits.CATS, cat => {
-                botResponse(makeSlackImageAttachment(cat), event.CHANNEL)
-            });
-        } else {
-            let message = { text: `${getRandomElementFromArray(salutations)}, <@${event.USER}>!!` };
-            botResponse(message, event.CHANNEL);
+    } else {
+
+        res.status(200).end(); // Have to send 200 within 3000ms
+
+        const event = {
+            CHANNEL: req.body.event.channel,
+            USER: req.body.event.user,
+            TEXT: req.body.event.text,
+            TYPE: req.body.event.type,
+            BOT_ID: req.body.event.bot_id
         }
-    }
 
-    if (event.TYPE === types.MESSAGE) {
-        if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.BOT_ID) {
-            getRandomPicFromSubreddit(subreddits.TITS, titty => {
-                botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
-            });
-        } else {
-            if (event.TEXT === "BOBBY") {
-                let message = { text: `I don't do anything yet, but I am at your service, <@${event.USER}>!!` }
+        if (event.TYPE === types.APP_MENTION) {
+            if (isTittyEvent(event.TEXT)) {
+                getRandomPicFromSubreddit(subreddits.TITS, titty => {
+                    botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
+                });
+            } else if (isCatEvent(event.TEXT)) {
+                getRandomPicFromSubreddit(subreddits.CATS, cat => {
+                    botResponse(makeSlackImageAttachment(cat), event.CHANNEL)
+                });
+            } else {
+                let message = {
+                    text: `${getRandomElementFromArray(salutations)}, <@${event.USER}>!!`
+                };
                 botResponse(message, event.CHANNEL);
             }
         }
-    }
 
+        if (event.TYPE === types.MESSAGE) {
+            if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.BOT_ID) {
+                getRandomPicFromSubreddit(subreddits.TITS, titty => {
+                    botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
+                });
+            } else {
+                if (event.TEXT === "BOBBY") {
+                    let message = {
+                        text: `I don't do anything yet, but I am at your service, <@${event.USER}>!!`
+                    }
+                    botResponse(message, event.CHANNEL);
+                }
+            }
+        }
+
+    }
 });
 
 module.exports = router;

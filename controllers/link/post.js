@@ -1,21 +1,20 @@
-// Routes for POST /link/__
-
 'use strict'
-const express     = require('express');
-const router      = express.Router();
-const middleware  = require('../../utils/middleware.js');
-const slack       = require('../../utils/slack');
-const validation  = require('../../utils/validation');
-const config      = require('../../utils/config.js');
+const express = require('express');
+const router = express.Router();
+const middleware = require('../../utils/middleware.js');
+const slack = require('../../utils/slack');
+const validation = require('../../utils/validation');
 
-
-// Middleware to verify request is from Slack.
 router.use(middleware.request.verifySlackRequest);
 
 
-//================================
-// ROUTE: /link/text
-//================================
+/**
+ * @route /link/text
+ * @description This was built to prevent links from unfurling (showing a preview of the site when you pasted a link). 
+ *              This will return a plain-text URL representation of the link that is supplied as a parameter.
+ * @example in Slack: /l google.com
+ * @example in Slack: /link google.com
+ */
 router.post('/text', (req, res) => {
     if (validation.isLooselyDefinedUrl(req.body.text)) {
         res.status(200).end(); // Have to send 200 within 3000ms
@@ -36,9 +35,12 @@ router.post('/text', (req, res) => {
 });
 
 
-//================================
-// ROUTE: /link/button
-//================================
+/**
+ * @route /link/button
+ * @description Same thing as /link/text but instead of returning a plain-text based URL (link without the unfurling), we return
+ *                a button that you can click to open the link. This was built to make it more obvious/add a little spice to this idea. 
+ * @example in Slack: /lb google.com
+ */
 router.post('/button', (req, res) => {
     if (validation.isLooselyDefinedUrl(req.body.text)) {
         res.status(200).end(); // Have to send 200 within 3000ms
