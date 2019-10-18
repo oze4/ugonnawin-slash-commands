@@ -35,6 +35,7 @@ const middleware = {
             });
 
             req.on('end', function () {
+                console.log(req.rawBody);
                 next();
             });
         },
