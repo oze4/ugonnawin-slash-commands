@@ -18,7 +18,7 @@ try {
             baseUrl: process.env.OPENWEATHERMAP_BASE_URL
         },  
         slack: {
-            versionNumber: "v0",
+            //versionNumber: "v0",
             appId: process.env.APP_ID,
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,

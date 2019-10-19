@@ -20,3 +20,9 @@
    - Takes a city name or zip code or city plus country code or zip plus Country Code
    - No space allowed between city/zip and Country Code
    - Must be separated by a comma - no spaces allowed between city/zip, comma, and Country Code
+
+ - ### `/save [text]`
+   - Saves a message
+
+ - ### `/getsaved`
+   - Returns all saved messages

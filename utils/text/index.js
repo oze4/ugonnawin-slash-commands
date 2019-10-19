@@ -1,7 +1,4 @@
-// String/Text helper
-
 'use strict'
-
 
 module.exports = {
     replaceMultipleSpacesWithSingleSpace: (str) => {

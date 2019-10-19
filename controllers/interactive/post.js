@@ -1,5 +1,3 @@
-// Routes for POST /interactive/__
-
 'use strict'
 const express     = require('express');
 const router      = express.Router();
@@ -7,14 +5,16 @@ const middleware  = require('../../utils/middleware.js');
 const slack       = require('../../utils/slack');
 const weatherApi  = require('../../utils/weatherapi');
 
-
-// Middleware to verify request is from Slack.
 router.use(middleware.request.verifySlackRequest);
 
 
-//================================
-// ROUTE: /interactive
-//================================
+/**
+ * @route /interactive
+ * 
+ * @description This is used for Block Messages and Interactivity. 
+ *              For example, when you supply a Block Message that has a drop down, or has a voting button, etc.. 
+ *                this is the route that handles what the user has chosen, etc..
+ */
 router.post('/', (req, res) => {  
     if (req.body.command === "/interactivetest") {         
         res.status(200).end();

@@ -1,8 +1,7 @@
-// Main /events route file 
 'use strict'
-const express     = require('express');
-const router      = express.Router();
-const eventsPOST  = require('./post.js');
+const express = require('express');
+const router = express.Router();
+const eventsPOST = require('./post.js');
 
 router.use(eventsPOST);
 

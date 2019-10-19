@@ -1,13 +1,10 @@
-// Express app configuration
-
 'use strict'
 const express = require('express');
 const app = express();
-const config = require('../utils/config.js');
 const helmet = require('helmet');
 const middleware = require('../utils/middleware.js');
 
-// Set up controllers for routes
+// Controllers
 const LinkController = require('../controllers/link');
 const EventsController = require('../controllers/events');
 const WeatherController = require('../controllers/weather');
@@ -17,11 +14,16 @@ const DBController = require('../controllers/db');
 
 
 // set up body parsing and url parsing tools
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({
+    verify: middleware.request.rawBodyBuffer,
+    extended: false
+}));
+app.use(express.json({    
+    verify: middleware.request.rawBodyBuffer, 
+}));
 
 // Set the port for our application
-app.set('port', config.app.port);
+app.set('port', process.env.PORT);
 
 // Harden our apps headers
 app.use(helmet());
@@ -37,8 +39,7 @@ app.use('/interactive', InteractiveController);
 app.use('/myip', MyIPController);
 app.use('/db', DBController);
 
-
-
 // Set up 404 middleware - MUST BE LAST as far as routes are concerned
 app.use(middleware.route.status.fourzerofour);
+
 module.exports = app;

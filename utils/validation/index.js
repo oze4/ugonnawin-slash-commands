@@ -1,7 +1,4 @@
-// Validation module
-
 'use strict'
-
 
 const validation = {
     isLooselyDefinedUrl (url) {
@@ -11,6 +8,5 @@ const validation = {
         return looselyDefinedUrlRegex.test(url);
     }
 }
-
 
 module.exports = validation;
