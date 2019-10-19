@@ -1,5 +1,4 @@
 <h1 align="center">ugonnawin-slash-commands</h1>
-<p align="center"><sup>https://ugonnawin.ostrike.com</sup></p>
 
 ## Commands:
 
