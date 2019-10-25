@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ugonnawin-ingress
+  annotations:  
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-cluster-issuer"
+spec:
+  tls:
+  - hosts:
+    - ugonnawin.ostrike.com
+    secretName: ugonnawincert
+  rules:
+  - host: ugonnawin.ostrike.com
+    http:
+      paths:
+      - backend:
+          serviceName: ugonnawin-service
+          servicePort: 80
