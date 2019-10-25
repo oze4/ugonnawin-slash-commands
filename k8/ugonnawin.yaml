@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ugonnawin-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: ugonnawin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ugonnawin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ugonnawin
+  template:
+    metadata:
+      labels:
+        app: ugonnawin
+    spec:
+      containers:
+      - name: ugonnawin
+        image: oze4/ugonnawin-slash-commands:latest
+        env:
+        - name: PORT
+          value: 
+        - name: APP_ID
+          value: 
+        - name : CLIENT_ID
+          value: 
+        - name: CLIENT_SECRET
+          value: 
+        - name: SIGNING_SECRET
+          value: 
+        - name: VERIFICATION_TOKEN
+          value: 
+        - name: INCOMING_WEB_HOOK_URL
+          value: 
+        - name: OAUTH_ACCESS_TOKEN
+          value: 
+        - name: BOT_OAUTH_ACCESS_TOKEN
+          value: 
+        - name: OPENWEATHERMAP_API_KEY
+          value: 
+        - name: OPENWEATHERMAP_BASE_URL
+          value: 
+        - name: MONGO_CONNECTION_STRING
+          value: 
+        - name: MONGO_DATABASE
+          value:
+        - name: MONGO_COLLECTION
+          value:
+        ports:
+        - containerPort: 80  
+---
