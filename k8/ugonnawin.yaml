@@ -29,33 +29,33 @@ spec:
         image: oze4/ugonnawin-slash-commands:latest
         env:
         - name: PORT
-          value: 
+          value: ${PORT}
         - name: APP_ID
-          value: 
+          value: ${APP_ID}
         - name : CLIENT_ID
-          value: 
+          value: ${CLIENT_ID}
         - name: CLIENT_SECRET
-          value: 
+          value: ${CLIENT_SECRET}
         - name: SIGNING_SECRET
-          value: 
+          value: ${SIGNING_SECRET}
         - name: VERIFICATION_TOKEN
-          value: 
+          value: ${VERIFICATION_TOKEN}
         - name: INCOMING_WEB_HOOK_URL
-          value: 
+          value: ${INCOMING_WEB_HOOK_URL}
         - name: OAUTH_ACCESS_TOKEN
-          value: 
+          value: ${OAUTH_ACCESS_TOKEN}
         - name: BOT_OAUTH_ACCESS_TOKEN
-          value: 
+          value: ${BOT_OAUTH_ACCESS_TOKEN}
         - name: OPENWEATHERMAP_API_KEY
-          value: 
+          value: ${OPENWEATHERMAP_API_KEY}
         - name: OPENWEATHERMAP_BASE_URL
-          value: 
+          value: ${OPENWEATHERMAP_BASE_URL}
         - name: MONGO_CONNECTION_STRING
-          value: 
+          value: ${MONGO_CONNECTION_STRING}
         - name: MONGO_DATABASE
-          value:
+          value:${MONGO_DATABASE}
         - name: MONGO_COLLECTION
-          value:
+          value: ${MONGO_COLLECTION}
         ports:
         - containerPort: 80  
 ---
