@@ -16,6 +16,8 @@ metadata:
   name: ugonnawin
 spec:
   replicas: 2
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: ugonnawin
