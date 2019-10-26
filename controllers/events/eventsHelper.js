@@ -82,20 +82,22 @@ function makeSlackImageAttachment(url, fallback = null) {
 }
 
 function isTittyEvent(text, id = userIDs.BOBBY_BOT) {
+    let _id = `<@${id}>`;
     return [
-        `${id} tiddies`,
-        `${id} tits`,
-        `${id} boobs`,
-        `${id} titties`,
+        `${_id} tiddies`,
+        `${_id} tits`,
+        `${_id} boobs`,
+        `${_id} titties`,
     ].includes(text);
 }
 
 function isCatEvent(text, id = userIDs.BOBBY_BOT) {
+    let _id = `<@${id}>`;
     return [
-        `${id} cat`,
-        `${id} kittie`,
-        `${id} cats`,
-        `${id} kitten`,
+        `${_id} cat`,
+        `${_id} kittie`,
+        `${_id} cats`,
+        `${_id} kitten`,
     ].includes(text);
 }
 
