@@ -82,6 +82,8 @@ function makeSlackImageAttachment(url, fallback = null) {
 }
 
 function isTittyEvent(text, id = userIDs.BOBBY_BOT) {
+    return true;
+    /*
     let _id = `<@${id}>`;
     return [
         `${_id} tiddies`,
@@ -89,6 +91,7 @@ function isTittyEvent(text, id = userIDs.BOBBY_BOT) {
         `${_id} boobs`,
         `${_id} titties`,
     ].includes(text);
+    */
 }
 
 function isCatEvent(text, id = userIDs.BOBBY_BOT) {
