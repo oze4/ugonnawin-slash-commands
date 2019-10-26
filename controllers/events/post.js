@@ -13,6 +13,7 @@ const {
     types,
     channels,
     subreddits,
+    userIDs,
 } = require('./eventsHelper');
 
 router.use(middleware.request.verifySlackRequest);
@@ -50,11 +51,11 @@ router.post('/', (req, res, next) => {
         }
 
         if (event.TYPE === types.APP_MENTION) {
-            if (isTittyEvent(event.TEXT)) {
+            if (isTittyEvent(event.TEXT, userIDs.BOBBY_BOT)) {
                 getRandomPicFromSubreddit(subreddits.TITS, titty => {
                     botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
                 });
-            } else if (isCatEvent(event.TEXT)) {
+            } else if (isCatEvent(event.TEXT, userIDs.BOBBY_BOT)) {
                 getRandomPicFromSubreddit(subreddits.CATS, cat => {
                     botResponse(makeSlackImageAttachment(cat), event.CHANNEL)
                 });
