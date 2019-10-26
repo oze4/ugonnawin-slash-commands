@@ -1,5 +1,3 @@
-// Main Express server - this is where the actual listener lives.
-
 'use strict'
 require('dotenv').config();
 const app  = require('./app.js');
