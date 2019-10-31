@@ -1,11 +1,11 @@
 def app
-def slave_pod = ${SLAVE_POD}
-def slave_pod_container = ${SLAVE_POD_CONTAINER}
-def container_name = ${CONTAINER_NAME}
-def kube_config_id = ${KUBE_CONFIG_ID}
-def manifest = ${MANIFEST}
-def container_registry = ${CONTAINER_REGISTRY}
-def creds_id = ${CREDS_ID}
+def slave_pod = 'jenkins-slave-pod'
+def slave_pod_container = 'docker'
+def container_name = 'oze4/ugonnawin-slash-commands'
+def kube_config_id = 'ost-sf-kube-00-config'
+def manifest = 'k8/ugonnawin.yaml'
+def container_registry = 'https://registry.hub.docker.com'
+def creds_id = 'docker-hub-credentials'
 
 podTemplate(label: slave_pod) {
     node(slave_pod) {
