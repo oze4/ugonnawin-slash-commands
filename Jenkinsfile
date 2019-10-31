@@ -1,8 +1,8 @@
 def app
 
-podTemplate(label: ${SLAVE_POD}) {
-    node(${SLAVE_POD}) {
-        container(${SLAVE_POD_CONTAINER}) {
+podTemplate(label: "${SLAVE_POD}") {
+    node("${SLAVE_POD}") {
+        container("${SLAVE_POD_CONTAINER}") {
             stage('Clone Repository') {
                 checkout scm
             }
