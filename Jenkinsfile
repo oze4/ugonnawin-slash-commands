@@ -15,7 +15,7 @@ podTemplate(label: slave_pod) {
             }
             
             stage ('Build Image') {
-                app = docker.build(container_name)
+                app = docker.build("${container_name}")
             }
             
             stage('Test Image') {
