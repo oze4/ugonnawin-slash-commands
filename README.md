@@ -1,7 +1,7 @@
 <h1 align="center">ugonnawin-slash-commands</h1>
 
 
-## Commands:
+# Commands:
 
 <i>*anything enclosed in square brackets is a variable, ex: [this_is_a_variable]</i>
 
