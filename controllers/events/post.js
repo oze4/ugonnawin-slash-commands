@@ -70,8 +70,8 @@ router.post('/', (req, res, next) => {
         }
 
         if (event.TYPE === slackEventType.MESSAGE) {
-            if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.BOT_ID) {
-                getRandomPicFromSubreddit(subreddits.TITS, titty => {
+            if (event.CHANNEL === channel.BOBBIES_BOOBIES && !event.BOT_ID) {
+                getRandomPicFromSubreddit(subreddit.TITS, titty => {
                     botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
                 });
             } else {
