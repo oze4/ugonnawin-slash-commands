@@ -24,20 +24,20 @@ const salutations = [
     "WAAAAAZZZZUPPPP"
 ];
 
-const types = {
+const slackEventType = {
     APP_MENTION: "app_mention",
     MESSAGE: "message"
 }
 
-const channels = {
+const channel = {
     BOBBIES_BOOBIES: 'CPHDX86DA'
 }
 
-const userIDs = {
+const userID = {
     BOBBY_BOT: 'UPKCHH806'
 }
 
-const subreddits = {
+const subreddit = {
     TITS: 'tits',
     CATS: 'cats',
 }
@@ -81,37 +81,29 @@ function makeSlackImageAttachment(url, fallback = null) {
     }
 }
 
-function isTittyEvent(text, id) {
-    let _id = `<@${id}>`;
-    return [
-        `${_id} tiddies`,
-        `${_id} tits`,
-        `${_id} boobs`,
-        `${_id} titties`,
-    ].includes(text);
+function isMessageFromSpecificIdAndIncludesSpecificWord(id, words, message) {
+    let _id = `<@${id}>`,
+        result = false;
+    if (message.startsWith(_id)) {
+        for (let i = 0; i < words.length; i++) {
+            if (message.includes(words[i])) {
+                result = true;
+                break;
+            }
+        }
+    }
+    return result;
 }
-
-function isCatEvent(text, id) {
-    let _id = `<@${id}>`;
-    return [
-        `${_id} cat`,
-        `${_id} kittie`,
-        `${_id} cats`,
-        `${_id} kitten`,
-    ].includes(text);
-}
-
 
 module.exports = {
     getRandomElementFromArray,
     botResponse,
     getRandomPicFromSubreddit,
     makeSlackImageAttachment,
-    isTittyEvent,
-    isCatEvent,
+    isMessageFromSpecificIdAndIncludesSpecificWord,
     salutations,
-    types,
-    channels,
-    subreddits,
-    userIDs,
+    slackEventType,
+    channel,
+    subreddit,
+    userID,
 }

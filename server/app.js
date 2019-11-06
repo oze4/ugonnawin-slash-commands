@@ -10,7 +10,7 @@ const EventsController = require('../controllers/events');
 const WeatherController = require('../controllers/weather');
 const InteractiveController = require('../controllers/interactive');
 const MyIPController = require('../controllers/myip');
-const DBController = require('../controllers/db');
+//const DBController = require('../controllers/db');
 
 
 // set up body parsing and url parsing tools
@@ -37,7 +37,7 @@ app.use('/events', EventsController);
 app.use('/weather', WeatherController);
 app.use('/interactive', InteractiveController);
 app.use('/myip', MyIPController);
-app.use('/db', DBController);
+//app.use('/db', DBController);
 
 // Set up 404 middleware - MUST BE LAST as far as routes are concerned
 app.use(middleware.route.status.fourzerofour);

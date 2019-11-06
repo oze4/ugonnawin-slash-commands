@@ -7,13 +7,12 @@ const {
     botResponse,
     getRandomPicFromSubreddit,
     makeSlackImageAttachment,
-    isTittyEvent,
-    isCatEvent,
+    isMessageFromSpecificIdAndIncludesSpecificWord,
     salutations,
-    types,
-    channels,
-    subreddits,
-    userIDs,
+    slackEventType,
+    channel,
+    subreddit,
+    userID,
 } = require('./eventsHelper');
 
 router.use(middleware.request.verifySlackRequest);
@@ -50,13 +49,16 @@ router.post('/', (req, res, next) => {
             BOT_ID: req.body.event.bot_id
         }
 
-        if (event.TYPE === types.APP_MENTION) {
-            if (isTittyEvent(event.TEXT, userIDs.BOBBY_BOT)) {
-                getRandomPicFromSubreddit(subreddits.TITS, titty => {
+        if (event.TYPE === slackEventType.APP_MENTION) {
+            const boobieWords = [`tiddies`, `tits`, `boobs`, `titties`];
+            const catWords = ["cat", "kittie", "cats", "kitten"];
+
+            if (isMessageFromSpecificIdAndIncludesSpecificWord(userID.BOBBY_BOT, boobieWords, event.TEXT)) {
+                getRandomPicFromSubreddit(subreddit.TITS, titty => {
                     botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
                 });
-            } else if (isCatEvent(event.TEXT, userIDs.BOBBY_BOT)) {
-                getRandomPicFromSubreddit(subreddits.CATS, cat => {
+            } else if (isMessageFromSpecificIdAndIncludesSpecificWord(userID.BOBBY_BOT, catWords, event.TEXT)) {
+                getRandomPicFromSubreddit(subreddit.CATS, cat => {
                     botResponse(makeSlackImageAttachment(cat), event.CHANNEL)
                 });
             } else {
@@ -67,7 +69,7 @@ router.post('/', (req, res, next) => {
             }
         }
 
-        if (event.TYPE === types.MESSAGE) {
+        if (event.TYPE === slackEventType.MESSAGE) {
             if (event.CHANNEL === channels.BOBBIES_BOOBIES && !event.BOT_ID) {
                 getRandomPicFromSubreddit(subreddits.TITS, titty => {
                     botResponse(makeSlackImageAttachment(titty), event.CHANNEL)
