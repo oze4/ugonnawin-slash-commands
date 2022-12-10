@@ -23,7 +23,7 @@
   "homepage": "https://github.com/oze4/ugonnawin-slash-commands#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "helmet": "^3.21.1",
     "mongodb": "^3.3.3",
     "node-fetch": "^2.6.0",
